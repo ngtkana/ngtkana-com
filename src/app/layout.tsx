@@ -37,12 +37,12 @@ export default function RootLayout({
               <ul className="flex space-x-8">
                 <li>
                   <Link href="/" className="nav-link">
-                    プロフィール
+                    Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/discography" className="nav-link">
-                    ディスコグラフィー
+                  <Link href="/profile" className="nav-link">
+                    Profile
                   </Link>
                 </li>
               </ul>
