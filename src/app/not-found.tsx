@@ -49,16 +49,9 @@ export default function NotFound() {
           申し訳ありませんが、お探しのページは存在しないか、移動した可能性があります。
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex justify-center">
           <LinkButton href="/" icon={<Icon name="home" />}>
             ホームに戻る
-          </LinkButton>
-          <LinkButton
-            href="/profile"
-            variant="outline"
-            icon={<Icon name="profile" />}
-          >
-            プロフィールを見る
           </LinkButton>
         </div>
       </div>

@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
 import "./globals.css";
 
 // Components
-import MobileNav from "@/app/components/MobileNav";
-import Navigation from "@/app/components/Navigation";
 import { Container } from "@/app/components/Container";
 import { siteConfig } from "@/app/components/SEO";
 
@@ -72,7 +69,7 @@ interface RootLayoutProps {
  */
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
-    <html lang="ja" className="scroll-smooth">
+    <html lang="ja" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Add theme color meta tags directly */}
         <meta
@@ -88,6 +85,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        suppressHydrationWarning
       >
         <a
           href="#main-content"
@@ -95,26 +93,6 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         >
           コンテンツにスキップ
         </a>
-        <header className="border-b border-border py-4">
-          <Container>
-            <div className="flex justify-between items-center">
-              <Link
-                href="/"
-                className="text-2xl font-bold"
-                aria-label="ながたかな ホームページ"
-              >
-                ながたかな
-              </Link>
-              {/* Desktop Navigation - Hidden on mobile */}
-              <Navigation />
-
-              {/* Mobile Navigation */}
-              <div className="md:hidden">
-                <MobileNav />
-              </div>
-            </div>
-          </Container>
-        </header>
         <main id="main-content" className="flex-grow">
           {children}
         </main>
