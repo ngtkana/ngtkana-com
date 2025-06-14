@@ -217,7 +217,7 @@ export default function HomePage() {
       </Container>
 
       {/* Circular accent at the bottom-right of the page */}
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[0]"></div>
+      <div className="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[0]"></div>
     </div>
   );
 }

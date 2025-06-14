@@ -91,7 +91,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         <main id="main-content" className="flex-grow">
           {children}
         </main>
-        <footer className="py-12 bg-gray-100 dark:bg-gray-800 mt-0">
+        <footer className="py-12 bg-gray-100 dark:bg-gray-800 mt-0 relative z-[10]">
           <Container size="lg">
             <div className="text-center">
               <p className="text-base text-gray-600 dark:text-gray-400">
