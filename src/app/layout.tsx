@@ -22,6 +22,11 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 // SEO and metadata configuration
 export const metadata: Metadata = {
   title: {
@@ -53,8 +58,6 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} | 歌い手`,
     description: siteConfig.description,
   },
-  // Simplified viewport configuration
-  viewport: "width=device-width, initial-scale=1",
 };
 
 // Type definition for layout props
