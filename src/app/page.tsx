@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Container } from "@/app/components/Container";
 import Icon from "@/app/components/Icon";
 import { generateMetadata, siteConfig } from "@/app/components/SEO";
+import PageNavigation from "@/app/components/PageNavigation";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
@@ -20,8 +21,11 @@ export const metadata: Metadata = generateMetadata({
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
-      {/* Hero section with reduced height */}
-      <div className="w-full h-[60vh] md:h-[50vh] relative flex items-center justify-center">
+      {/* Page navigation */}
+      <PageNavigation />
+
+      {/* Hero section with full viewport height */}
+      <div className="w-full h-screen relative flex items-center justify-center">
         <Image
           src="/profile.png"
           alt="ながたかな"
@@ -31,7 +35,7 @@ export default function HomePage() {
           sizes="100vw"
           quality={100}
         />
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
+        <div className="absolute inset-0 bg-black/10 z-10"></div>
 
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-20 bg-gradient-to-t from-black/80 to-transparent">
           <Container size="lg">
@@ -48,7 +52,7 @@ export default function HomePage() {
       {/* Main content */}
       <Container size="lg" className="py-16 md:py-24">
         {/* About section */}
-        <section className="mb-24">
+        <section id="about" className="mb-24">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-8">About</h2>
             <div className="prose prose-lg max-w-none dark:prose-invert">
@@ -63,7 +67,7 @@ export default function HomePage() {
         </section>
 
         {/* YouTube section */}
-        <section className="mb-24">
+        <section id="videos" className="mb-24">
           <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Latest Videos</h2>
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl">
             <iframe
@@ -79,7 +83,7 @@ export default function HomePage() {
         </section>
 
         {/* SNS section */}
-        <section className="mb-24">
+        <section id="connect" className="mb-24">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Connect</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <a
@@ -127,7 +131,7 @@ export default function HomePage() {
         </section>
 
         {/* Timeline section */}
-        <section>
+        <section id="history">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">History</h2>
           <div className="max-w-2xl mx-auto">
             <div className="relative pl-8 pb-12 border-l-2 border-primary">
