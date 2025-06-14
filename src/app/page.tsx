@@ -7,7 +7,6 @@ import Hero from "@/app/components/Hero";
 import Section from "@/app/components/Section";
 import SocialLinkCard, { SocialLinkData } from "@/app/components/SocialLinkCard";
 import TimelineEntry, { TimelineEntryData } from "@/app/components/TimelineEntry";
-import YouTubeEmbed from "@/app/components/YouTubeEmbed";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
@@ -162,11 +161,17 @@ export default function HomePage() {
 
         {/* YouTube section */}
         <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
-          <YouTubeEmbed
-            id="PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
-            isPlaylist
-            title="YouTube プレイリスト"
-          />
+          <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&amp;list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
+              title="YouTube プレイリスト"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              loading="lazy"
+            ></iframe>
+          </div>
         </Section>
 
         {/* SNS section */}
