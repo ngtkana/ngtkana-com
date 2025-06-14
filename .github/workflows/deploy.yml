@@ -3,8 +3,34 @@ name: Deploy to Google Cloud Run
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - '**.json'
+      - '**.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'next.config.ts'
+      - '.github/workflows/deploy.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - '**.json'
+      - '**.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'next.config.ts'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 # Ensure this workflow runs only after tests have passed

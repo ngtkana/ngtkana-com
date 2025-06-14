@@ -3,8 +3,30 @@ name: CI
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - '**.json'
+      - '**.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - '**.js'
+      - '**.ts'
+      - '**.tsx'
+      - '**.json'
+      - '**.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yml'
   workflow_dispatch:
 
 jobs:
