@@ -123,24 +123,27 @@ export default function HomePage() {
   const sectionHeadingClass = "text-2xl md:text-3xl font-bold mb-6 text-center";
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900 relative">
       {/* Page navigation */}
       <PageNavigation />
 
       {/* Hero section with full viewport height */}
-      <div className="w-full h-screen relative flex items-center justify-center">
+      <div className="w-full h-screen relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fffaf5] to-[#ffd6aa] dark:from-[#1a1410] dark:to-[#3d2e24]">
+        {/* Circular accent element */}
+        <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[1]"></div>
+
         <Image
           src="/profile.png"
           alt="ながたかな"
           fill
-          className="object-cover object-top md:object-contain md:object-center"
+          className="object-cover object-top md:object-contain md:object-center z-[2]"
           priority
           sizes="100vw"
           quality={100}
         />
-        <div className="absolute inset-0 bg-black/10 z-10"></div>
+        <div className="absolute inset-0 bg-black/5 z-[3]"></div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-20 bg-gradient-to-t from-black/80 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-[4] bg-gradient-to-t from-black/80 to-transparent">
           <Container size="lg">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-3">
               {siteConfig.name}
@@ -212,6 +215,9 @@ export default function HomePage() {
           </div>
         </section>
       </Container>
+
+      {/* Circular accent at the bottom-right of the page */}
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[0]"></div>
     </div>
   );
 }
