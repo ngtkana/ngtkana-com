@@ -1,15 +1,92 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Container } from "@/app/components/Container";
-import Icon from "@/app/components/Icon";
 import { generateMetadata, siteConfig } from "@/app/components/SEO";
 import PageNavigation from "@/app/components/PageNavigation";
+import SocialLinkCard, { SocialLinkData } from "@/app/components/SocialLinkCard";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
   description:
     "ながたかなの公式ウェブサイトへようこそ。歌い手として活動しています。",
 });
+
+// Social media links data
+
+const socialLinks: SocialLinkData[] = [
+  {
+    name: "YouTube",
+    username: "@ngtkana",
+    url: "https://www.youtube.com/@ngtkana",
+    iconName: "youtube",
+    iconColor: "text-red-500",
+    description: "ボカロ曲を中心に、歌ってみた動画を投稿しております。",
+    ariaLabel: "YouTube チャンネル @ngtkana",
+  },
+  {
+    name: "X (Twitter)",
+    username: "@ngtkana",
+    url: "https://x.com/ngtkana",
+    iconName: "twitter",
+    iconColor: "text-blue-500",
+    description: "新作のダジャレを投稿しております。",
+    ariaLabel: "X (Twitter) アカウント @ngtkana",
+  },
+  {
+    name: "Twitch",
+    username: "ngtkana",
+    url: "https://www.twitch.tv/ngtkana",
+    iconName: "twitch",
+    iconColor: "text-purple-500",
+    description: "不定期でゲーム配信が行われているともっぱらの噂です。",
+    ariaLabel: "Twitch チャンネル ngtkana",
+  },
+  {
+    name: "ニコニコ動画",
+    username: "user/97990641",
+    url: "https://www.nicovideo.jp/user/97990641",
+    iconName: "niconico",
+    iconColor: "text-teal-500",
+    description: "なんとこちらにも歌ってみた動画が投稿されております。お得ですね。",
+    ariaLabel: "ニコニコ動画 ユーザー",
+  },
+  {
+    name: "はてなブログ",
+    username: "ngtkana",
+    url: "https://ngtkana.hatenablog.com/",
+    iconName: "blog",
+    iconColor: "text-green-500",
+    description: "実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。",
+    ariaLabel: "はてなブログ",
+  },
+  {
+    name: "AtCoder",
+    username: "ngtkana",
+    url: "https://atcoder.jp/users/ngtkana",
+    iconName: "atcoder",
+    iconColor: "text-yellow-500",
+    description: "昔はワシも競プロをしておったのじゃ。",
+    ariaLabel: "AtCoder プロフィール",
+  },
+  {
+    name: "GitHub",
+    username: "ngtkana",
+    url: "https://github.com/ngtkana",
+    iconName: "github",
+    iconColor: "text-gray-700 dark:text-gray-300",
+    description: "ac-adapter-rs という Rust 競プロライブラリがウリです。",
+    ariaLabel: "GitHub プロフィール",
+  },
+  {
+    name: "kyoprusteseans",
+    username: "Discord",
+    url: "https://discord.com/invite/RmRCzPnFPc",
+    iconName: "discord",
+    iconColor: "text-indigo-500",
+    description: "競プロにおける Rust に興味がある人のための Discord サーバーです。",
+    ariaLabel: "Discord サーバー",
+  },
+];
 
 
 /**
@@ -19,6 +96,9 @@ export const metadata: Metadata = generateMetadata({
  * and social media links.
  */
 export default function HomePage() {
+  // Common section heading style
+  const sectionHeadingClass = "text-2xl md:text-3xl font-bold mb-6 text-center";
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Page navigation */}
@@ -57,7 +137,7 @@ export default function HomePage() {
         {/* About section */}
         <section id="about" className="mb-16">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">About</h2>
+            <h2 className={sectionHeadingClass}>About</h2>
             <div className="prose max-w-none dark:prose-invert">
               <p className="mb-4 text-base">
                 2021年12月に、YouTubeにて活動を開始。
@@ -71,7 +151,7 @@ export default function HomePage() {
 
         {/* YouTube section */}
         <section id="videos" className="mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Latest Videos</h2>
+          <h2 className={sectionHeadingClass}>Latest Videos</h2>
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl">
             <iframe
               className="absolute top-0 left-0 w-full h-full"
@@ -87,186 +167,22 @@ export default function HomePage() {
 
         {/* SNS section */}
         <section id="connect" className="mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">Connect</h2>
+          <h2 className={sectionHeadingClass + " mb-8"}>Connect</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a
-              href="https://www.youtube.com/@ngtkana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="YouTube チャンネル @ngtkana"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-red-500 text-3xl">
-                  <Icon name="youtube" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-red-500 transition-colors">YouTube</h3>
-                  <p className="text-gray-600 dark:text-gray-400">@ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                ボカロ曲を中心に、歌ってみた動画を投稿しております。
-              </p>
-            </a>
-
-            <a
-              href="https://x.com/ngtkana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="X (Twitter) アカウント @ngtkana"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-blue-500 text-3xl">
-                  <Icon name="twitter" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-blue-500 transition-colors">X (Twitter)</h3>
-                  <p className="text-gray-600 dark:text-gray-400">@ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                新作のダジャレを投稿しております。
-              </p>
-            </a>
-
-            <a
-              href="https://www.twitch.tv/ngtkana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="Twitch チャンネル ngtkana"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-purple-500 text-3xl">
-                  <Icon name="twitch" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-purple-500 transition-colors">Twitch</h3>
-                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                不定期でゲーム配信が行われているともっぱらの噂です。
-              </p>
-            </a>
-
-            <a
-              href="https://www.nicovideo.jp/user/97990641"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="ニコニコ動画 ユーザー"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-teal-500 text-3xl">
-                  <Icon name="niconico" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-teal-500 transition-colors">ニコニコ動画</h3>
-                  <p className="text-gray-600 dark:text-gray-400">user/97990641</p>
-                </div>
-              </div>
-              <p className="text-base">
-                なんとこちらにも歌ってみた動画が投稿されております。お得ですね。
-              </p>
-            </a>
-
-            <a
-              href="https://ngtkana.hatenablog.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="はてなブログ"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-green-500 text-3xl">
-                  <Icon name="blog" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-green-500 transition-colors">はてなブログ</h3>
-                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。
-              </p>
-            </a>
-
-            <a
-              href="https://atcoder.jp/users/ngtkana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="AtCoder プロフィール"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-yellow-500 text-3xl">
-                  <Icon name="atcoder" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-yellow-500 transition-colors">AtCoder</h3>
-                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                昔はワシも競プロをしておったのじゃ。
-              </p>
-            </a>
-
-            <a
-              href="https://github.com/ngtkana"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="GitHub プロフィール"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-gray-700 dark:text-gray-300 text-3xl">
-                  <Icon name="github" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">GitHub</h3>
-                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
-                </div>
-              </div>
-              <p className="text-base">
-                ac-adapter-rs という Rust 競プロライブラリがウリです。
-              </p>
-            </a>
-
-            <a
-              href="https://discord.com/invite/RmRCzPnFPc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
-              aria-label="Discord サーバー"
-            >
-              <div className="flex items-center mb-3">
-                <div className="mr-3 text-indigo-500 text-3xl">
-                  <Icon name="discord" size="lg" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-xl group-hover:text-indigo-500 transition-colors">kyoprusteseans</h3>
-                  <p className="text-gray-600 dark:text-gray-400">Discord</p>
-                </div>
-              </div>
-              <p className="text-base">
-                Rust で競プロをされる方、通称 kyoprustecean のみなさまの会です。このサーバーは public です。
-              </p>
-            </a>
+            {socialLinks.map((link, index) => (
+              <SocialLinkCard key={index} link={link} />
+            ))}
           </div>
         </section>
 
         {/* Timeline section */}
         <section id="history">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">History</h2>
+          <h2 className={sectionHeadingClass + " mb-8"}>History</h2>
           <div className="max-w-2xl mx-auto">
             <div className="relative pl-8 pb-12 border-l-2 border-primary">
               <div className="absolute top-0 left-0 w-4 h-4 bg-primary rounded-full -translate-x-1/2"></div>
               <time className="text-sm text-gray-500 dark:text-gray-400 mb-2 block">
-                2021年12月
+                2021年12月4日
               </time>
               <h3 className="text-lg font-bold mb-2">YouTubeチャンネル開設</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
