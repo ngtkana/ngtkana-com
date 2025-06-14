@@ -7,7 +7,7 @@ interface YouTubeEmbedProps {
     /** YouTube video or playlist ID */
     id: string;
     /** Whether this is a playlist or a single video */
-    isPlaylist?: boolean;
+    isPlaylist: boolean;
     /** Title for accessibility */
     title: string;
     /** Additional CSS classes */
@@ -35,9 +35,9 @@ export default function YouTubeEmbed({
         : `https://www.youtube.com/embed/${id}`;
 
     // Generate the thumbnail URL
-    // For playlists, we use a local placeholder image
+    // For playlists, we use the first video's thumbnail or a fallback color
     const thumbnailUrl = isPlaylist
-        ? `/youtube-playlist.jpg` // Local placeholder image for playlists
+        ? `https://i.ytimg.com/vi_webp/${id.split('?')[0] ?? ""}/maxresdefault.webp`
         : `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
     const loadVideo = () => {
