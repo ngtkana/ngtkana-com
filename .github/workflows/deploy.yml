@@ -7,16 +7,35 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Ensure this workflow runs only after tests have passed
+concurrency:
+  group: "deploy"
+  cancel-in-progress: false
+
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: ngtkana-com
   REGION: asia-northeast1
 
 jobs:
+  # Check if tests have passed
+  test-status:
+    name: Check Test Status
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.3.1
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'Run Tests (20.x)'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+
+  # Build and deploy only if tests pass
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
-
+    needs: test-status
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
