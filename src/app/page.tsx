@@ -4,6 +4,7 @@ import { Container } from "@/app/components/Container";
 import { generateMetadata, siteConfig } from "@/app/components/SEO";
 import PageNavigation from "@/app/components/PageNavigation";
 import SocialLinkCard, { SocialLinkData } from "@/app/components/SocialLinkCard";
+import TimelineEntry, { TimelineEntryData } from "@/app/components/TimelineEntry";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
@@ -12,7 +13,6 @@ export const metadata: Metadata = generateMetadata({
 });
 
 // Social media links data
-
 const socialLinks: SocialLinkData[] = [
   {
     name: "YouTube",
@@ -88,6 +88,29 @@ const socialLinks: SocialLinkData[] = [
   },
 ];
 
+// Timeline entries data
+const timelineEntries: TimelineEntryData[] = [
+  {
+    date: "2024年8月1日",
+    title: "カービィ使いになりました",
+    description: "スマブラSPはこの子と一緒に戦っていきます。",
+  },
+  {
+    date: "2023年9月28日",
+    title: "3Dデビューしました",
+    description: "実は初配信はツイキャス。",
+  },
+  {
+    date: "2023年7月27日",
+    title: "Twitch でゲーム配信を初めました",
+    description: "当初は様々なゲームをしておりました。",
+  },
+  {
+    date: "2021年12月4日",
+    title: "YouTubeチャンネル開設",
+    description: "ボカロ曲を中心に、歌ってみた動画の投稿を開始しました。",
+  },
+];
 
 /**
  * HomePage component
@@ -136,14 +159,14 @@ export default function HomePage() {
       <Container size="lg" className="py-12 md:py-16">
         {/* About section */}
         <section id="about" className="mb-16">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto">
             <h2 className={sectionHeadingClass}>About</h2>
             <div className="prose max-w-none dark:prose-invert">
               <p className="mb-4 text-base">
-                2021年12月に、YouTubeにて活動を開始。
-                ボカロ曲を中心に、歌ってみた動画を投稿しております。
-                みんなの心に届くような歌声を目指して、これからも活動を続けていきたいです。
-                よかったら遊びにきてね！
+                2021年12月 YouTubeにて活動を開始。
+                ボカロ曲を中心に歌ってみた動画の投稿を続けております。
+                みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
+                よかったら遊びにきてくださいね！
               </p>
             </div>
           </div>
@@ -179,16 +202,13 @@ export default function HomePage() {
         <section id="history">
           <h2 className={sectionHeadingClass + " mb-8"}>History</h2>
           <div className="max-w-2xl mx-auto">
-            <div className="relative pl-8 pb-12 border-l-2 border-primary">
-              <div className="absolute top-0 left-0 w-4 h-4 bg-primary rounded-full -translate-x-1/2"></div>
-              <time className="text-sm text-gray-500 dark:text-gray-400 mb-2 block">
-                2021年12月4日
-              </time>
-              <h3 className="text-lg font-bold mb-2">YouTubeチャンネル開設</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                ボカロ曲を中心に、歌ってみた動画の投稿を開始しました。
-              </p>
-            </div>
+            {timelineEntries.map((entry, index) => (
+              <TimelineEntry
+                key={index}
+                entry={entry}
+                isLast={index === timelineEntries.length - 1}
+              />
+            ))}
           </div>
         </section>
       </Container>
