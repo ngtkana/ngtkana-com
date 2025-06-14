@@ -31,7 +31,7 @@ const hoverColorMap: Record<string, string> = {
  * 
  * Renders a social media link card with appropriate styling and hover effects
  */
-export const SocialLinkCard: React.FC<{ link: SocialLinkData }> = ({ link }) => {
+export const SocialLinkCard: React.FC<{ link: SocialLinkData, className?: string }> = ({ link, className = "" }) => {
     // Get the appropriate hover color class for this platform
     const hoverColorClass = hoverColorMap[link.name] ?? "";
 
@@ -40,7 +40,7 @@ export const SocialLinkCard: React.FC<{ link: SocialLinkData }> = ({ link }) => 
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300"
+            className={`group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300 ${className}`}
             aria-label={link.ariaLabel}
         >
             <div className="flex items-center mb-3">
@@ -49,10 +49,10 @@ export const SocialLinkCard: React.FC<{ link: SocialLinkData }> = ({ link }) => 
                 </div>
                 <div>
                     <h3 className={`font-bold text-xl ${hoverColorClass} transition-colors`}>{link.name}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{link.username}</p>
+                    <p className="text-gray-700 dark:text-gray-300">{link.username}</p>
                 </div>
             </div>
-            <p className="text-base">
+            <p className="text-base text-gray-800 dark:text-gray-200">
                 {link.description}
             </p>
         </a>

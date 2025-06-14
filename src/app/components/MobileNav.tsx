@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Icon from "@/app/components/Icon";
 import { useBreakpoint } from "@/app/hooks/useMediaQuery";
 
@@ -16,7 +14,6 @@ export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const pathname = usePathname();
   const isMediumScreen = useBreakpoint("md");
 
   // Close menu when screen size changes to medium or larger
@@ -63,38 +60,30 @@ export default function MobileNav() {
     };
   }, [isOpen]);
 
-  // Close menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   return (
     <div className="relative">
       {/* Hamburger Button */}
       <button
         ref={buttonRef}
         onClick={toggleMenu}
-        className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
+        className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 focus:outline-none focus:ring-2 focus:ring-primary rounded-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:shadow-xl"
         aria-label="Toggle menu"
         aria-expanded={isOpen}
         aria-controls="mobile-menu"
       >
         <span
-          className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ease-in-out ${
-            isOpen ? "rotate-45 translate-y-2" : ""
-          }`}
+          className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ease-in-out ${isOpen ? "rotate-45 translate-y-2" : ""
+            }`}
           aria-hidden="true"
         ></span>
         <span
-          className={`block w-6 h-0.5 bg-foreground transition-opacity duration-300 ease-in-out ${
-            isOpen ? "opacity-0" : "opacity-100"
-          }`}
+          className={`block w-6 h-0.5 bg-foreground transition-opacity duration-300 ease-in-out ${isOpen ? "opacity-0" : "opacity-100"
+            }`}
           aria-hidden="true"
         ></span>
         <span
-          className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ease-in-out ${
-            isOpen ? "-rotate-45 -translate-y-2" : ""
-          }`}
+          className={`block w-6 h-0.5 bg-foreground transition-transform duration-300 ease-in-out ${isOpen ? "-rotate-45 -translate-y-2" : ""
+            }`}
           aria-hidden="true"
         ></span>
       </button>
@@ -111,11 +100,10 @@ export default function MobileNav() {
       <div
         id="mobile-menu"
         ref={menuRef}
-        className={`absolute top-12 right-0 w-64 z-50 bg-background rounded-lg shadow-lg border border-border overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen
-            ? "opacity-100 scale-100"
-            : "opacity-0 scale-95 pointer-events-none"
-        }`}
+        className={`absolute top-12 right-0 w-64 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-300 ease-in-out ${isOpen
+          ? "opacity-100 scale-100"
+          : "opacity-0 scale-95 pointer-events-none"
+          }`}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="mobile-menu-button"
@@ -123,34 +111,48 @@ export default function MobileNav() {
         <nav className="p-4">
           <ul className="flex flex-col space-y-4">
             <li role="none">
-              <Link
-                href="/"
-                className={`flex items-center py-2 transition-colors ${
-                  pathname === "/"
-                    ? "text-primary font-medium"
-                    : "hover:text-primary"
-                }`}
-                onClick={() => { setIsOpen(false); }}
-                role="menuitem"
-              >
-                <Icon name="home" className="mr-2" />
-                Home
-              </Link>
-            </li>
-            <li role="none">
-              <Link
-                href="/profile"
-                className={`flex items-center py-2 transition-colors ${
-                  pathname === "/profile"
-                    ? "text-primary font-medium"
-                    : "hover:text-primary"
-                }`}
+              <a
+                href="#about"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
                 onClick={() => { setIsOpen(false); }}
                 role="menuitem"
               >
                 <Icon name="profile" className="mr-2" />
-                Profile
-              </Link>
+                About
+              </a>
+            </li>
+            <li role="none">
+              <a
+                href="#videos"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="youtube" className="mr-2" />
+                Videos
+              </a>
+            </li>
+            <li role="none">
+              <a
+                href="#connect"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="external-link" className="mr-2" />
+                Connect
+              </a>
+            </li>
+            <li role="none">
+              <a
+                href="#history"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="blog" className="mr-2" />
+                History
+              </a>
             </li>
           </ul>
         </nav>

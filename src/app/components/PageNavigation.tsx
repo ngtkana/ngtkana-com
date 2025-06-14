@@ -52,16 +52,17 @@ export default function PageNavigation() {
     }, []);
 
     return (
-        <nav className="fixed top-4 right-4 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg shadow-lg p-2">
-            <ul className="flex space-x-2">
+        <nav className="fixed top-4 right-4 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-full shadow-lg p-2 border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:shadow-xl">
+            <ul className="flex space-x-1">
                 {sections.map(({ id, label }) => (
                     <li key={id}>
                         <a
                             href={`#${id}`}
-                            className={`block px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeSection === id
-                                ? "bg-primary text-white"
-                                : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                            className={`block px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${activeSection === id
+                                ? "bg-primary text-white shadow-md"
+                                : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200"
                                 }`}
+                            aria-current={activeSection === id ? "page" : undefined}
                         >
                             {label}
                         </a>
