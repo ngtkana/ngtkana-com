@@ -136,7 +136,11 @@ export default function HomePage() {
       </div>
 
       {/* Hero section with 90vh height instead of full viewport */}
-      <div className="w-full h-[90vh] relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fffaf5] to-[#ffd6aa] dark:from-[#1a1410] dark:to-[#3d2e24]">
+      <div
+        className="w-full h-[90vh] relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fffaf5] to-[#ffd6aa] dark:from-[#1a1410] dark:to-[#3d2e24]"
+        role="banner"
+        aria-labelledby="hero-title"
+      >
         {/* Circular accent element */}
         <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[1]"></div>
 
@@ -153,7 +157,7 @@ export default function HomePage() {
 
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-[4] bg-gradient-to-t from-black/80 to-transparent">
           <Container size="lg">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-3">
+            <h1 id="hero-title" className="text-4xl md:text-6xl font-bold text-white mb-3">
               {siteConfig.name}
             </h1>
             <h2 className="text-xl md:text-2xl text-white/90 mb-4">
@@ -189,9 +193,9 @@ export default function HomePage() {
       {/* Main content */}
       <Container size="lg" className="py-12 md:py-16">
         {/* About section */}
-        <section id="about" className="mb-16 opacity-0 animate-fade-in">
+        <section id="about" className="mb-16 opacity-0 animate-fade-in" aria-labelledby="about-heading">
           <div className="max-w-3xl mx-auto">
-            <h2 className={sectionHeadingClass}>About</h2>
+            <h2 id="about-heading" className={sectionHeadingClass}>About</h2>
             <div className="prose max-w-none dark:prose-invert">
               <p className="mb-4 text-base">
                 2021年12月 YouTubeにて活動を開始。
@@ -204,8 +208,8 @@ export default function HomePage() {
         </section>
 
         {/* YouTube section */}
-        <section id="videos" className="mb-16 opacity-0 animate-slide-up animate-delay-100">
-          <h2 className={sectionHeadingClass}>Latest Videos</h2>
+        <section id="videos" className="mb-16 opacity-0 animate-slide-up animate-delay-100" aria-labelledby="videos-heading">
+          <h2 id="videos-heading" className={sectionHeadingClass}>Latest Videos</h2>
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl">
             <iframe
               className="absolute top-0 left-0 w-full h-full"
@@ -220,8 +224,8 @@ export default function HomePage() {
         </section>
 
         {/* SNS section */}
-        <section id="connect" className="mb-16 opacity-0 animate-slide-up animate-delay-200">
-          <h2 className={sectionHeadingClass + " mb-8"}>Connect</h2>
+        <section id="connect" className="mb-16 opacity-0 animate-slide-up animate-delay-200" aria-labelledby="connect-heading">
+          <h2 id="connect-heading" className={sectionHeadingClass + " mb-8"}>Connect</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {socialLinks.map((link, index) => (
               <SocialLinkCard
@@ -234,8 +238,8 @@ export default function HomePage() {
         </section>
 
         {/* Timeline section */}
-        <section id="history" className="opacity-0 animate-slide-up animate-delay-300">
-          <h2 className={sectionHeadingClass + " mb-8"}>History</h2>
+        <section id="history" className="opacity-0 animate-slide-up animate-delay-300" aria-labelledby="history-heading">
+          <h2 id="history-heading" className={sectionHeadingClass + " mb-8"}>History</h2>
           <div className="max-w-2xl mx-auto">
             {timelineEntries.map((entry, index) => (
               <TimelineEntry

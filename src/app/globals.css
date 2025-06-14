@@ -233,6 +233,46 @@ a {
 
 /* Focus styles for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(255, 170, 85, 0.3);
+  transition: outline-offset 0.2s ease;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Improved button focus states */
+button:focus-visible,
+a[role="button"]:focus-visible {
+  transform: translateY(-1px);
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  :root {
+    --primary: SelectedItem;
+  }
+
+  .nav-link::after {
+    background-color: SelectedItem;
+  }
+
+  button,
+  a[role="button"] {
+    border: 1px solid currentColor;
+  }
 }

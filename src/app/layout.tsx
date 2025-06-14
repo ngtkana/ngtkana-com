@@ -94,7 +94,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
       >
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-background focus:text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          className="skip-link"
         >
           コンテンツにスキップ
         </a>
