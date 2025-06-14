@@ -1,7 +1,5 @@
 # ながたかな 公式ウェブサイト
 
-![ながたかな公式サイト](public/og-image.jpg)
-
 ## 🌐 サイトURL
 
 https://ngtkana.com
