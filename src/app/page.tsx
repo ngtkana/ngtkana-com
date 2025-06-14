@@ -42,7 +42,10 @@ export default function HomePage() {
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
               {siteConfig.name}
             </h1>
-            <p className="text-xl md:text-2xl text-white/80 max-w-2xl">
+            <h2 className="text-2xl md:text-3xl text-white/90 mb-6">
+              歌い手 | Vocalist
+            </h2>
+            <p className="text-lg md:text-l text-white/50 max-w-2xl">
               {siteConfig.description}
             </p>
           </Container>
@@ -60,8 +63,8 @@ export default function HomePage() {
                 2021年12月に、YouTubeにて活動を開始。
                 ボカロ曲を中心に、歌ってみた動画を投稿しております。
                 みんなの心に届くような歌声を目指して、これからも活動を続けていきたいです。
+                よかったら遊びにきてね！
               </p>
-              <p className="text-xl">よかったら遊びにきてね！</p>
             </div>
           </div>
         </section>
