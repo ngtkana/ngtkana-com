@@ -133,7 +133,7 @@ a {
   height: 3px;
   bottom: -4px;
   left: 0;
-  background-color: var(--primary);
+  background-color: var(--accent);
   border-radius: 3px;
   transition: width 0.3s ease;
 }
