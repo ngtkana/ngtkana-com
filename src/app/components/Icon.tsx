@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { FaHome, FaUser, FaYoutube, FaTwitter } from "react-icons/fa";
+import { FaHome, FaUser, FaYoutube, FaTwitter, FaTwitch, FaGithub, FaDiscord, FaBlog, FaCode } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
+import { SiNiconico } from "react-icons/si";
 
 /**
  * Icon size options
@@ -12,7 +13,7 @@ type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 /**
  * Icon name type
  */
-export type IconName = "home" | "profile" | "youtube" | "twitter" | "external-link";
+export type IconName = "home" | "profile" | "youtube" | "twitter" | "external-link" | "twitch" | "niconico" | "blog" | "atcoder" | "github" | "discord";
 
 /**
  * Icon props interface
@@ -48,6 +49,12 @@ const iconComponents: Record<IconName, React.ElementType> = {
   youtube: FaYoutube,
   twitter: FaTwitter,
   "external-link": FiExternalLink,
+  twitch: FaTwitch,
+  niconico: SiNiconico,
+  blog: FaBlog,
+  atcoder: FaCode,
+  github: FaGithub,
+  discord: FaDiscord,
 };
 
 /**

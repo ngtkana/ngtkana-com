@@ -88,7 +88,7 @@ export default function HomePage() {
         {/* SNS section */}
         <section id="connect" className="mb-24">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Connect</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <a
               href="https://www.youtube.com/@ngtkana"
               target="_blank"
@@ -128,6 +128,132 @@ export default function HomePage() {
               </div>
               <p className="text-lg">
                 新作のダジャレを投稿しております。
+              </p>
+            </a>
+
+            <a
+              href="https://www.twitch.tv/ngtkana"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="Twitch チャンネル ngtkana"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-purple-500 text-4xl">
+                  <Icon name="twitch" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-purple-500 transition-colors">Twitch</h3>
+                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                不定期でゲーム配信が行われているともっぱらの噂です。
+              </p>
+            </a>
+
+            <a
+              href="https://www.nicovideo.jp/user/97990641"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="ニコニコ動画 ユーザー"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-teal-500 text-4xl">
+                  <Icon name="niconico" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-teal-500 transition-colors">ニコニコ動画</h3>
+                  <p className="text-gray-600 dark:text-gray-400">user/97990641</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                なんとこちらにも歌ってみた動画が投稿されております。お得ですね。
+              </p>
+            </a>
+
+            <a
+              href="https://ngtkana.hatenablog.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="はてなブログ"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-green-500 text-4xl">
+                  <Icon name="blog" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-green-500 transition-colors">はてなブログ</h3>
+                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。
+              </p>
+            </a>
+
+            <a
+              href="https://atcoder.jp/users/ngtkana"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="AtCoder プロフィール"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-yellow-500 text-4xl">
+                  <Icon name="atcoder" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-yellow-500 transition-colors">AtCoder</h3>
+                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                昔はワシも競プロをしておったのじゃ。
+              </p>
+            </a>
+
+            <a
+              href="https://github.com/ngtkana"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="GitHub プロフィール"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-gray-700 dark:text-gray-300 text-4xl">
+                  <Icon name="github" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">GitHub</h3>
+                  <p className="text-gray-600 dark:text-gray-400">ngtkana</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                ac-adapter-rs という Rust 競プロライブラリがウリです。
+              </p>
+            </a>
+
+            <a
+              href="https://discord.com/invite/RmRCzPnFPc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              aria-label="Discord サーバー"
+            >
+              <div className="flex items-center mb-6">
+                <div className="mr-4 text-indigo-500 text-4xl">
+                  <Icon name="discord" size="xl" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-indigo-500 transition-colors">kyoprusteseans</h3>
+                  <p className="text-gray-600 dark:text-gray-400">Discord</p>
+                </div>
+              </div>
+              <p className="text-lg">
+                Rust で競プロをされる方、通称 kyoprustecean のみなさまの会です。このサーバーは public です。
               </p>
             </a>
           </div>
