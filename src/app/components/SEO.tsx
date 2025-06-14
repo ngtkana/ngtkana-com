@@ -1,12 +1,14 @@
 import { Metadata } from "next";
 
+const siteUrl = new URL("https://ngtkana.com");
+
 /**
  * Base metadata for the entire site
  */
 export const siteConfig = {
   name: "ながたかな",
   description: "広がるお歌の世界を、私の声で繋いでいきたいです。",
-  url: "https://ngtkana.com",
+  url: siteUrl,
   ogImage: "/og-image.jpg",
   links: {
     youtube: "https://www.youtube.com/@ngtkana",

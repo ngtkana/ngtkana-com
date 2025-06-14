@@ -29,6 +29,7 @@ export const viewport = {
 
 // SEO and metadata configuration
 export const metadata: Metadata = {
+  metadataBase: siteConfig.url,
   title: {
     template: `%s | ${siteConfig.name}`,
     default: `${siteConfig.name} | 歌い手`,
