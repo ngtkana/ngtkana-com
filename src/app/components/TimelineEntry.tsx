@@ -62,6 +62,7 @@ export const TimelineEntry: React.FC<{
                     clearInterval(timer);
                 };
             }
+            return undefined
         }, [useDynamicDate]);
 
         // Determine which date to display
