@@ -52,7 +52,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   /**
    * Log error information
    */
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Log the error to an error reporting service
     console.error("Error caught by ErrorBoundary:", error, errorInfo);
   }
@@ -67,7 +67,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     });
   };
 
-  render(): ReactNode {
+  override render(): ReactNode {
     if (this.state.hasError) {
       // Render custom fallback UI if provided
       if (this.props.fallback) {
