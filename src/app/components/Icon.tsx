@@ -8,11 +8,16 @@ import React from "react";
 type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 /**
+ * Icon name type
+ */
+export type IconName = "home" | "profile" | "youtube" | "twitter" | "external-link";
+
+/**
  * Icon props interface
  */
 interface IconProps {
   /** Icon name (corresponds to the SVG path) */
-  name: "youtube" | "twitter" | "home" | "profile" | "external-link";
+  name: IconName;
   /** Icon size */
   size?: IconSize;
   /** Additional CSS classes */
@@ -72,7 +77,7 @@ export const Icon: React.FC<IconProps> = ({
   }
 
   const pixelSize = sizeMap[size];
-  const viewBox = iconData.viewBox || "0 0 24 24";
+  const viewBox = iconData.viewBox ?? "0 0 24 24";
 
   return (
     <svg

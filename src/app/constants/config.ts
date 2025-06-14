@@ -1,3 +1,5 @@
+import { IconName } from "../components/Icon";
+
 /**
  * Site configuration constants
  *
@@ -8,7 +10,7 @@
 /**
  * Navigation links
  */
-export const navLinks = [
+export const navLinks: { name: string; path: string; icon: IconName }[] = [
   {
     name: "Home",
     path: "/",

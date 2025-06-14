@@ -57,7 +57,7 @@ interface LinkButtonProps extends Omit<ButtonProps, "type" | "onClick"> {
 const getButtonClasses = (
   variant: ButtonVariant = "primary",
   size: ButtonSize = "md",
-  fullWidth: boolean = false,
+  fullWidth: boolean =  false,
   className: string = ""
 ): string => {
   // Base classes

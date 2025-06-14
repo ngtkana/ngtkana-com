@@ -130,7 +130,7 @@ export default function MobileNav() {
                     ? "text-primary font-medium"
                     : "hover:text-primary"
                 }`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); }}
                 role="menuitem"
               >
                 <Icon name="home" className="mr-2" />
@@ -145,7 +145,7 @@ export default function MobileNav() {
                     ? "text-primary font-medium"
                     : "hover:text-primary"
                 }`}
-                onClick={() => setIsOpen(false)}
+                onClick={() => { setIsOpen(false); }}
                 role="menuitem"
               >
                 <Icon name="profile" className="mr-2" />

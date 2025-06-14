@@ -24,7 +24,7 @@ export default function Navigation() {
                 pathname === link.path ? "active-nav-link" : ""
               }`}
             >
-              <Icon name={link.icon as any} className="mr-2" size="sm" />
+              <Icon name={link.icon} className="mr-2" size="sm" />
               {link.name}
             </Link>
           </li>

@@ -60,7 +60,7 @@ export const Container = <T extends ElementType = "div">({
   id,
   ...rest
 }: ContainerProps<T>) => {
-  const Component = as || "div";
+  const Component = as ?? "div";
 
   const containerClasses = [
     "w-full",
