@@ -7,7 +7,6 @@ import Hero from "@/app/components/Hero";
 import Section from "@/app/components/Section";
 import SocialLinkCard, { SocialLinkData } from "@/app/components/SocialLinkCard";
 import TimelineEntry, { TimelineEntryData } from "@/app/components/TimelineEntry";
-import DynamicTimelineEntry from "@/app/components/DynamicTimelineEntry";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
@@ -191,9 +190,10 @@ export default function HomePage() {
         {/* Timeline section */}
         <Section id="history" title="History" animationDelay="animate-delay-300">
           <div className="max-w-2xl mx-auto">
-            <DynamicTimelineEntry
+            <TimelineEntry
               title="今日"
               description="みなさまが私と出会えた記念すべき日である可能性が高いわけですね。"
+              useDynamicDate
               className="opacity-0 animate-slide-in animate-delay-100"
             />
             {timelineEntries.map((entry, index) => (
