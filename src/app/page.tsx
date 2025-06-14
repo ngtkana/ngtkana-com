@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Container } from "@/app/components/Container";
 import Icon from "@/app/components/Icon";
 import { generateMetadata, siteConfig } from "@/app/components/SEO";
@@ -10,10 +10,6 @@ export const metadata: Metadata = generateMetadata({
     "ながたかなの公式ウェブサイトへようこそ。歌い手として活動しています。",
 });
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
 
 /**
  * HomePage component
@@ -30,7 +26,7 @@ export default function HomePage() {
           src="/profile.png"
           alt="ながたかな"
           fill
-          className="object-cover object-top"
+          className="object-cover object-top md:object-contain md:object-center"
           priority
           sizes="100vw"
           quality={100}
