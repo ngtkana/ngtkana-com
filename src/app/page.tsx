@@ -27,8 +27,7 @@ export default function HomePage() {
         {/* YouTube embed */}
         <div className="relative w-full max-w-3xl mx-auto aspect-video mb-12 rounded-lg overflow-hidden shadow-2xl">
           <iframe
-            width="560"
-            height="315"
+            className="absolute top-0 left-0 w-full h-full"
             src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&amp;list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -37,7 +36,7 @@ export default function HomePage() {
           ></iframe>
         </div>
         {/* Navigation buttons */}
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4 px-2">
           <Link
             href="https://www.youtube.com/@ngtkana"
             target="_blank"

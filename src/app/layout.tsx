@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
+import MobileNav from "@/app/components/MobileNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,15 +26,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="border-b border-border py-4">
-          <div className="container mx-auto flex justify-between items-center">
+          <div className="container mx-auto flex justify-between items-center px-4">
             <Link href="/" className="text-2xl font-bold">
               ながたかな
             </Link>
-            <nav>
+            {/* Desktop Navigation - Hidden on mobile */}
+            <nav className="hidden md:block">
               <ul className="flex space-x-8">
                 <li>
                   <Link href="/" className="nav-link">
@@ -47,11 +52,16 @@ export default function RootLayout({
                 </li>
               </ul>
             </nav>
+
+            {/* Mobile Navigation */}
+            <div className="md:hidden">
+              <MobileNav />
+            </div>
           </div>
         </header>
         <main>{children}</main>
-        <footer className="border-t border-border py-6 mt-12">
-          <div className="container mx-auto text-center">
+        <footer className="border-t border-border py-6 mt-8 md:mt-12">
+          <div className="container mx-auto text-center px-4">
             <p className="text-sm text-gray-500">
               © 2025 ながたかな All Rights Reserved.
             </p>

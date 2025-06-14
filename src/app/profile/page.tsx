@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function ProfilePage() {
   return (
-    <div className="container mx-auto py-12">
+    <div className="container mx-auto py-8 md:py-12 px-4 md:px-6">
       <h1 className="text-3xl md:text-4xl font-bold mb-8 pb-4 border-b border-border">
         Profile
       </h1>
 
-      <div className="flex flex-col md:flex-row gap-12">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12">
         <div className="w-full md:w-1/3">
           <div className="relative w-full aspect-9/16 rounded-lg overflow-hidden bg-muted mb-6">
             <Image
@@ -40,9 +40,9 @@ export default function ProfilePage() {
                 href="https://www.youtube.com/@ngtkana"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-4 bg-muted rounded-lg hover:bg-opacity-80 transition-all"
+                className="flex flex-wrap sm:flex-nowrap items-start sm:items-center p-4 bg-muted rounded-lg hover:bg-opacity-80 transition-all"
               >
-                <div className="mr-4 text-red-500">
+                <div className="mr-4 text-red-500 mb-2 sm:mb-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -67,9 +67,9 @@ export default function ProfilePage() {
                 href="https://x.com/ngtkana"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center p-4 bg-muted rounded-lg hover:bg-opacity-80 transition-all"
+                className="flex flex-wrap sm:flex-nowrap items-start sm:items-center p-4 bg-muted rounded-lg hover:bg-opacity-80 transition-all"
               >
-                <div className="mr-4 text-blue-500">
+                <div className="mr-4 text-blue-500 mb-2 sm:mb-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
