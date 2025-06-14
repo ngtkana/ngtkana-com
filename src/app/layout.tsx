@@ -19,11 +19,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
-
 // SEO and metadata configuration
 export const metadata: Metadata = {
   metadataBase: siteConfig.url,
@@ -96,10 +91,10 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         <main id="main-content" className="flex-grow">
           {children}
         </main>
-        <footer className="border-t border-border py-6 mt-8 md:mt-12">
-          <Container>
+        <footer className="py-12 bg-gray-100 dark:bg-gray-800 mt-0">
+          <Container size="lg">
             <div className="text-center">
-              <p className="text-sm text-gray-500">
+              <p className="text-base text-gray-600 dark:text-gray-400">
                 © {new Date().getFullYear()} {siteConfig.name} All Rights
                 Reserved.
               </p>
