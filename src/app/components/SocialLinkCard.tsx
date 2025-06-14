@@ -33,7 +33,7 @@ const hoverColorMap: Record<string, string> = {
  */
 export const SocialLinkCard: React.FC<{ link: SocialLinkData }> = ({ link }) => {
     // Get the appropriate hover color class for this platform
-    const hoverColorClass = hoverColorMap[link.name] || "";
+    const hoverColorClass = hoverColorMap[link.name] ?? "";
 
     return (
         <a

@@ -1,27 +1,9 @@
-import { IconName } from "../components/Icon";
-
 /**
  * Site configuration constants
  *
  * This file contains global configuration values used throughout the application.
  * Centralizing these values makes it easier to maintain and update the site.
  */
-
-/**
- * Navigation links
- */
-export const navLinks: { name: string; path: string; icon: IconName }[] = [
-  {
-    name: "Home",
-    path: "/",
-    icon: "home",
-  },
-  {
-    name: "Profile",
-    path: "/profile",
-    icon: "profile",
-  },
-];
 
 /**
  * Social media links

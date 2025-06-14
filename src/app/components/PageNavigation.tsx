@@ -2,6 +2,16 @@
 
 import { useEffect, useState } from "react";
 
+
+// Define the sections to link to
+const sections = [
+    { id: "about", label: "About" },
+    { id: "videos", label: "Videos" },
+    { id: "connect", label: "Connect" },
+    { id: "history", label: "History" },
+];
+
+
 /**
  * PageNavigation component
  *
@@ -10,14 +20,6 @@ import { useEffect, useState } from "react";
  */
 export default function PageNavigation() {
     const [activeSection, setActiveSection] = useState<string>("");
-
-    // Define the sections to link to
-    const sections = [
-        { id: "about", label: "About" },
-        { id: "videos", label: "Videos" },
-        { id: "connect", label: "Connect" },
-        { id: "history", label: "History" },
-    ];
 
     // Handle intersection observer to highlight active section
     useEffect(() => {
@@ -45,7 +47,7 @@ export default function PageNavigation() {
 
         // Cleanup observers on unmount
         return () => {
-            observers.forEach((observer) => observer.disconnect());
+            observers.forEach((observer) => { observer.disconnect(); });
         };
     }, []);
 

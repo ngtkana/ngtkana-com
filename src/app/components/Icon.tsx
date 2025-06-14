@@ -70,11 +70,6 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   const IconComponent = iconComponents[name];
 
-  if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
-    return null;
-  }
-
   const pixelSize = sizeMap[size];
 
   return (

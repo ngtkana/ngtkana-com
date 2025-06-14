@@ -51,6 +51,11 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} | 歌い手`,
     description: siteConfig.description,
   },
+  icons: {
+    icon: '/profile.png',
+    shortcut: '/profile.png',
+    apple: '/profile.png',
+  },
 };
 
 // Type definition for layout props
@@ -77,6 +82,11 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           content="#1a1410"
           media="(prefers-color-scheme: dark)"
         />
+        <link rel="canonical" href={siteConfig.url.toString()} />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content={siteConfig.name} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
