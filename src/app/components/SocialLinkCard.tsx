@@ -2,6 +2,7 @@
 
 import React from "react";
 import Icon, { IconName } from "@/app/components/Icon";
+import { trackLinkClick, trackVideoLinkClick } from "@/app/utils/analytics";
 
 // Social media link data type
 export type SocialLinkData = {
@@ -42,6 +43,15 @@ export const SocialLinkCard: React.FC<{ link: SocialLinkData, className?: string
             rel="noopener noreferrer"
             className={`group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300 ${className}`}
             aria-label={link.ariaLabel}
+            onClick={() => {
+                // Track all social links
+                trackLinkClick('social', link.name, link.url);
+
+                // Additionally track video platform links
+                if (link.name === 'YouTube' || link.name === 'Twitch' || link.name === 'ニコニコ動画') {
+                    trackVideoLinkClick(link.name, link.username, link.url);
+                }
+            }}
         >
             <div className="flex items-center mb-3">
                 <div className={`mr-3 ${link.iconColor} text-3xl`}>
