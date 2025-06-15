@@ -45,6 +45,7 @@ export default function ResponsiveImage({
                 clearTimeout(timer);
             };
         }
+        return undefined;
     }, [priority, isLoaded]);
 
     // Generate the appropriate image source
