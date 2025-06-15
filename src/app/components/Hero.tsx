@@ -15,8 +15,6 @@ interface HeroProps {
     imageSrc: string;
     /** Image alt text */
     imageAlt: string;
-    /** Optional placeholder image for LQIP */
-    placeholderSrc?: string;
 }
 
 /**
@@ -31,11 +29,7 @@ export default function Hero({
     description,
     imageSrc,
     imageAlt,
-    placeholderSrc,
 }: HeroProps) {
-    // State to track if the image has loaded
-    const [isLoaded, setIsLoaded] = useState(false);
-
     // Prepare image paths for the ResponsiveImage component
     const getImageBasePath = () => {
         if (imageSrc === "/profile.png") {
@@ -43,10 +37,6 @@ export default function Hero({
         }
         return imageSrc.replace(/\.[^/.]+$/, ""); // Remove extension if any
     };
-
-    // Determine placeholder
-    const optimizedPlaceholderSrc = placeholderSrc ||
-        (imageSrc === "/profile.png" ? "/images/profile-placeholder.webp" : undefined);
     return (
         <div
             className="w-full h-[90vh] relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fffaf5] to-[#ffd6aa] dark:from-[#1a1410] dark:to-[#3d2e24]"
@@ -62,7 +52,6 @@ export default function Hero({
                 fill
                 className="object-cover object-top md:object-contain md:object-center z-[2]"
                 priority
-                placeholderSrc={optimizedPlaceholderSrc}
                 mobileWidth={480}
                 desktopWidth={720}
                 quality={85}

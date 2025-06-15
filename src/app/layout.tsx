@@ -100,13 +100,6 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           type="image/webp"
           fetchPriority="high"
         />
-        <link
-          rel="preload"
-          href="/images/profile-placeholder.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="low"
-        />
 
         {/* Google Analytics */}
         <GoogleAnalytics />

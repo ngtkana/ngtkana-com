@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { ImageProps } from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface ResponsiveImageProps extends Omit<ImageProps, 'src'> {
     /** Base image source path without extension */
@@ -14,8 +14,6 @@ interface ResponsiveImageProps extends Omit<ImageProps, 'src'> {
     desktopWidth?: number;
     /** Image alt text */
     alt: string;
-    /** Optional placeholder image for LQIP */
-    placeholderSrc?: string;
 }
 
 /**
@@ -30,12 +28,22 @@ export default function ResponsiveImage({
     mobileWidth = 480,
     desktopWidth = 720,
     alt,
-    placeholderSrc,
     priority = false,
     quality = 85,
     ...props
 }: ResponsiveImageProps) {
     const [isLoaded, setIsLoaded] = useState(false);
+
+    // Simple effect to ensure image is shown even if onLoad doesn't fire
+    useEffect(() => {
+        if (priority && !isLoaded) {
+            const timer = setTimeout(() => {
+                setIsLoaded(true);
+            }, 1000); // Force loaded state after 1 second for priority images
+
+            return () => clearTimeout(timer);
+        }
+    }, [priority, isLoaded]);
 
     // Determine the appropriate image source based on the path
     const getOptimizedSrc = () => {
@@ -76,28 +84,14 @@ export default function ResponsiveImage({
             <Image
                 src={src}
                 alt={alt}
-                className={`transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${props.className || ''}`}
+                className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${props.className || ''}`}
                 priority={priority}
                 fetchPriority={priority ? "high" : "auto"}
                 sizes={`(max-width: ${mobileWidth}px) ${mobileWidth}px, ${desktopWidth}px`}
                 quality={quality}
                 onLoad={() => setIsLoaded(true)}
-                blurDataURL={placeholderSrc}
-                placeholder={placeholderSrc ? "blur" : undefined}
                 {...props}
             />
-
-            {/* Low quality placeholder image for immediate display */}
-            {placeholderSrc && !isLoaded && (
-                <div
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-sm"
-                    style={{
-                        backgroundImage: `url(${placeholderSrc})`,
-                        opacity: 0.7,
-                        zIndex: (props.style?.zIndex as number || 0) - 1
-                    }}
-                />
-            )}
         </>
     );
 }
