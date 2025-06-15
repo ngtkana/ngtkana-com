@@ -37,6 +37,15 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "X (Twitter) アカウント @ngtkana",
   },
   {
+    name: "ファンコミュニティ",
+    username: "Discord",
+    url: "https://discord.gg/wsMFhNCVEr",
+    iconName: "discord",
+    iconColor: "text-indigo-500",
+    description: "みなさまとの交流の場です。",
+    ariaLabel: "ながたかな ファンコミュニティ Discord サーバー",
+  },
+  {
     name: "Twitch",
     username: "ngtkana",
     url: "https://www.twitch.tv/ngtkana",
