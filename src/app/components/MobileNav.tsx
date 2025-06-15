@@ -123,6 +123,17 @@ export default function MobileNav() {
             </li>
             <li role="none">
               <a
+                href="#profile"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="profile" className="mr-2" />
+                Profile
+              </a>
+            </li>
+            <li role="none">
+              <a
                 href="#videos"
                 className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
                 onClick={() => { setIsOpen(false); }}

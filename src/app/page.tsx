@@ -8,6 +8,7 @@ import Section from "@/app/components/Section";
 import SocialLinkCard, { SocialLinkData } from "@/app/components/SocialLinkCard";
 import TimelineEntry, { TimelineEntryData } from "@/app/components/TimelineEntry";
 import YouTubeEmbed from "@/app/components/YouTubeEmbed";
+import ProfileItem from "@/app/components/ProfileItem";
 
 // Define page-specific metadata
 export const metadata: Metadata = generateMetadata({
@@ -156,6 +157,22 @@ export default function HomePage() {
                 みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
                 よかったら遊びにきてくださいね！
               </p>
+            </div>
+          </div>
+        </Section>
+
+        {/* Profile section */}
+        <Section id="profile" title="Profile" animationDelay="animate-delay-50">
+          <div className="max-w-3xl mx-auto">
+            <div className="prose max-w-none dark:prose-invert">
+              <dl className="space-y-2">
+                <ProfileItem label="身長">ながいです。</ProfileItem>
+                <ProfileItem label="体重">浮力に負けます。</ProfileItem>
+                <ProfileItem label="年齢">私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく150億年以上です。</ProfileItem>
+                <ProfileItem label="お誕生日">4/11です。プレゼントお待ちしております。</ProfileItem>
+                <ProfileItem label="得意なこと">お歌と数学です。</ProfileItem>
+                <ProfileItem label="星座">ピザ</ProfileItem>
+              </dl>
             </div>
           </div>
         </Section>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 // Define the sections to link to
 const sections = [
     { id: "about", label: "About" },
+    { id: "profile", label: "Profile" },
     { id: "videos", label: "Videos" },
     { id: "connect", label: "Connect" },
     { id: "history", label: "History" },
@@ -59,8 +60,8 @@ export default function PageNavigation() {
                         <a
                             href={`#${id}`}
                             className={`nav-link block px-4 py-2 text-sm font-medium transition-all duration-300 ${activeSection === id
-                                    ? "active-nav-link text-accent font-semibold"
-                                    : "text-gray-800 dark:text-gray-200"
+                                ? "active-nav-link text-accent font-semibold"
+                                : "text-gray-800 dark:text-gray-200"
                                 }`}
                             aria-current={activeSection === id ? "page" : undefined}
                         >
