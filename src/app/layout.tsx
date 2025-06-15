@@ -92,6 +92,22 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content={siteConfig.name} />
 
+        {/* Preload critical assets */}
+        <link
+          rel="preload"
+          href="/images/profile.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          href="/images/profile-placeholder.webp"
+          as="image"
+          type="image/webp"
+          fetchPriority="low"
+        />
+
         {/* Google Analytics */}
         <GoogleAnalytics />
       </head>

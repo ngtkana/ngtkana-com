@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { Container } from "@/app/components/Container";
+import { useState } from "react";
+import ResponsiveImage from "@/app/components/ResponsiveImage";
 
 interface HeroProps {
     /** Title text for the hero section */
@@ -14,6 +15,8 @@ interface HeroProps {
     imageSrc: string;
     /** Image alt text */
     imageAlt: string;
+    /** Optional placeholder image for LQIP */
+    placeholderSrc?: string;
 }
 
 /**
@@ -28,7 +31,22 @@ export default function Hero({
     description,
     imageSrc,
     imageAlt,
+    placeholderSrc,
 }: HeroProps) {
+    // State to track if the image has loaded
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // Prepare image paths for the ResponsiveImage component
+    const getImageBasePath = () => {
+        if (imageSrc === "/profile.png") {
+            return "/images/profile";
+        }
+        return imageSrc.replace(/\.[^/.]+$/, ""); // Remove extension if any
+    };
+
+    // Determine placeholder
+    const optimizedPlaceholderSrc = placeholderSrc ||
+        (imageSrc === "/profile.png" ? "/images/profile-placeholder.webp" : undefined);
     return (
         <div
             className="w-full h-[90vh] relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#fffaf5] to-[#ffd6aa] dark:from-[#1a1410] dark:to-[#3d2e24]"
@@ -38,14 +56,17 @@ export default function Hero({
             {/* Circular accent element */}
             <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] rounded-full bg-[rgba(255,170,85,0.3)] dark:bg-[rgba(255,138,60,0.2)] z-[1]"></div>
 
-            <Image
-                src={imageSrc}
+            <ResponsiveImage
+                baseSrc={getImageBasePath()}
                 alt={imageAlt}
                 fill
                 className="object-cover object-top md:object-contain md:object-center z-[2]"
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                quality={90}
+                placeholderSrc={optimizedPlaceholderSrc}
+                mobileWidth={480}
+                desktopWidth={720}
+                quality={85}
+                style={{ zIndex: 2 }}
             />
             <div className="absolute inset-0 bg-black/5 z-[3]"></div>
 
