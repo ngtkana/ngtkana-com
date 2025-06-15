@@ -41,13 +41,26 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
             }
 
             try {
-                // Try to parse the message data
-                const data = typeof event.data === "string"
-                    ? JSON.parse(event.data)
-                    : event.data;
+                // Try to parse the message data safely
+                let data;
+                if (typeof event.data === "string") {
+                    try {
+                        data = JSON.parse(event.data);
+                    } catch (e) {
+                        // Invalid JSON, ignore this message
+                        return;
+                    }
+                } else {
+                    data = event.data;
+                }
+
+                // Validate the data structure before using it
+                if (!data || typeof data !== 'object') {
+                    return;
+                }
 
                 // Check if this is a YouTube player event
-                if (data.event === "onStateChange") {
+                if (data.event === "onStateChange" && typeof data.info === 'number') {
                     // Track different player states
                     switch (data.info) {
                         case 0: // ended

@@ -3,6 +3,7 @@
 import React from "react";
 import Icon, { IconName } from "@/app/components/Icon";
 import { trackLinkClick, trackLinkIfVideo } from "@/app/utils/analytics";
+import { sanitizeUrl } from "@/app/utils/urlUtils";
 
 // Social media link data type
 export type SocialLinkData = {
@@ -36,19 +37,28 @@ export const SocialLinkCard: React.FC<{ link: SocialLinkData, className?: string
     // Get the appropriate hover color class for this platform
     const hoverColorClass = hoverColorMap[link.name] ?? "";
 
+    // Sanitize the URL
+    const safeUrl = sanitizeUrl(link.url);
+
+    // If the URL is invalid, don't render the link
+    if (!safeUrl) {
+        console.warn(`Invalid URL detected for ${link.name}: ${link.url}`);
+        return null;
+    }
+
     return (
         <a
-            href={link.url}
+            href={safeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={`group block p-4 bg-white dark:bg-gray-800 rounded-lg shadow hover:shadow-md transition-all duration-300 ${className}`}
             aria-label={link.ariaLabel}
             onClick={() => {
                 // Track all social links
-                trackLinkClick('social', link.name, link.url);
+                trackLinkClick('social', link.name, safeUrl);
 
                 // Additionally track video platform links if applicable
-                trackLinkIfVideo(link.name, link.username, link.url);
+                trackLinkIfVideo(link.name, link.username, safeUrl);
             }}
         >
             <div className="flex items-center mb-3">

@@ -3,12 +3,20 @@
 import { GA_EVENTS, GA_MEASUREMENT_ID, isVideoPlatform } from '@/app/constants/analytics';
 
 /**
+ * Type for GA4 event parameters
+ * This helps ensure type safety and prevents injection of malicious data
+ */
+export type GA4EventParams = {
+    [key: string]: string | number | boolean | null | undefined;
+};
+
+/**
  * Track an event with Google Analytics 4
  * 
  * @param eventName The name of the event to track
  * @param eventParams Additional parameters for the event
  */
-export const trackEvent = (eventName: string, eventParams: Record<string, any> = {}) => {
+export const trackEvent = (eventName: string, eventParams: GA4EventParams = {}) => {
     // Check if gtag is available (only in browser and after GA has loaded)
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
         window.gtag('event', eventName, eventParams);
@@ -26,6 +34,12 @@ export const trackEvent = (eventName: string, eventParams: Record<string, any> =
  * @param linkUrl The URL of the link
  */
 export const trackLinkClick = (linkType: string, linkName: string, linkUrl: string) => {
+    // Validate inputs before tracking
+    if (!linkType || !linkName || !linkUrl) {
+        console.warn('[GA] Invalid link click parameters', { linkType, linkName, linkUrl });
+        return;
+    }
+
     trackEvent(GA_EVENTS.LINK_CLICK, {
         link_type: linkType,
         link_name: linkName,
@@ -41,6 +55,12 @@ export const trackLinkClick = (linkType: string, linkName: string, linkUrl: stri
  * @param linkUrl The URL of the link
  */
 export const trackVideoLinkClick = (platform: string, linkName: string, linkUrl: string) => {
+    // Validate inputs before tracking
+    if (!platform || !linkName || !linkUrl) {
+        console.warn('[GA] Invalid video link click parameters', { platform, linkName, linkUrl });
+        return;
+    }
+
     trackEvent(GA_EVENTS.VIDEO_LINK_CLICK, {
         platform,
         link_name: linkName,
@@ -64,10 +84,12 @@ export const trackLinkIfVideo = (linkName: string, username: string, url: string
     return false;
 };
 
-// Add TypeScript declaration for gtag
+// Add TypeScript declaration for gtag with improved type safety
 declare global {
     interface Window {
-        gtag: (command: string, action: string, params?: any) => void;
-        dataLayer: any[];
+        gtag: (command: string, action: string, params?: GA4EventParams) => void;
+        dataLayer: Array<{
+            [key: string]: any;
+        }>;
     }
 }
