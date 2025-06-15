@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Script from 'next/script';
 import { GA_MEASUREMENT_ID } from '@/app/constants/analytics';
 
 /**
@@ -31,20 +32,21 @@ const GoogleAnalytics = () => {
 
     return (
         <>
-            <script
-                async
+            {/* Load the GA script using Next.js Script component */}
+            <Script
                 src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+                strategy="afterInteractive"
             />
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', '${GA_MEASUREMENT_ID}');
-                    `,
-                }}
-            />
+
+            {/* Initialize GA using Next.js Script component with inline script */}
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${GA_MEASUREMENT_ID}');
+                `}
+            </Script>
         </>
     );
 };
