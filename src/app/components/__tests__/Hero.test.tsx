@@ -62,7 +62,7 @@ describe('Hero Component', () => {
         // Check if image is rendered with correct alt text
         const image = screen.getByAltText('Test Image');
         expect(image).toBeInTheDocument();
-        expect(image).toHaveAttribute('src', '/test-image.jpg');
+        expect(image).toHaveAttribute('src', '/test-image.webp');
     });
 
     it('renders without subtitle and description', () => {
