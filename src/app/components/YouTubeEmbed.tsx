@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { trackEvent } from "@/app/utils/analytics";
+import { GA_EVENTS, VIDEO_PLATFORMS } from "@/app/constants/analytics";
 
 interface YouTubeEmbedProps {
     src: string;
@@ -23,8 +24,8 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
 
     useEffect(() => {
         // Track when the component is mounted (video is shown)
-        trackEvent("video_impression", {
-            platform: "YouTube",
+        trackEvent(GA_EVENTS.VIDEO_IMPRESSION, {
+            platform: VIDEO_PLATFORMS.YOUTUBE,
             video_url: src,
             video_title: title,
         });
@@ -50,22 +51,22 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
                     // Track different player states
                     switch (data.info) {
                         case 0: // ended
-                            trackEvent("video_complete", {
-                                platform: "YouTube",
+                            trackEvent(GA_EVENTS.VIDEO_COMPLETE, {
+                                platform: VIDEO_PLATFORMS.YOUTUBE,
                                 video_url: src,
                                 video_title: title,
                             });
                             break;
                         case 1: // playing
-                            trackEvent("video_play", {
-                                platform: "YouTube",
+                            trackEvent(GA_EVENTS.VIDEO_PLAY, {
+                                platform: VIDEO_PLATFORMS.YOUTUBE,
                                 video_url: src,
                                 video_title: title,
                             });
                             break;
                         case 2: // paused
-                            trackEvent("video_pause", {
-                                platform: "YouTube",
+                            trackEvent(GA_EVENTS.VIDEO_PAUSE, {
+                                platform: VIDEO_PLATFORMS.YOUTUBE,
                                 video_url: src,
                                 video_title: title,
                             });

@@ -1,5 +1,7 @@
 'use client';
 
+import { GA_EVENTS, GA_MEASUREMENT_ID, isVideoPlatform } from '@/app/constants/analytics';
+
 /**
  * Track an event with Google Analytics 4
  * 
@@ -24,7 +26,7 @@ export const trackEvent = (eventName: string, eventParams: Record<string, any> =
  * @param linkUrl The URL of the link
  */
 export const trackLinkClick = (linkType: string, linkName: string, linkUrl: string) => {
-    trackEvent('link_click', {
+    trackEvent(GA_EVENTS.LINK_CLICK, {
         link_type: linkType,
         link_name: linkName,
         link_url: linkUrl
@@ -39,11 +41,27 @@ export const trackLinkClick = (linkType: string, linkName: string, linkUrl: stri
  * @param linkUrl The URL of the link
  */
 export const trackVideoLinkClick = (platform: string, linkName: string, linkUrl: string) => {
-    trackEvent('video_link_click', {
+    trackEvent(GA_EVENTS.VIDEO_LINK_CLICK, {
         platform,
         link_name: linkName,
         link_url: linkUrl
     });
+};
+
+/**
+ * Check if a link is for a video platform and track it appropriately
+ * 
+ * @param linkName The name of the link (platform)
+ * @param username The username or identifier
+ * @param url The URL of the link
+ * @returns true if the link was tracked as a video link
+ */
+export const trackLinkIfVideo = (linkName: string, username: string, url: string): boolean => {
+    if (isVideoPlatform(linkName)) {
+        trackVideoLinkClick(linkName, username, url);
+        return true;
+    }
+    return false;
 };
 
 // Add TypeScript declaration for gtag

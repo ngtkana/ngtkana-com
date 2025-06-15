@@ -5,6 +5,7 @@ import "./globals.css";
 // Components
 import { Container } from "@/app/components/Container";
 import { siteConfig } from "@/app/components/SEO";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 // Font configuration
 const geistSans = Geist({
@@ -92,20 +93,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         <meta name="apple-mobile-web-app-title" content={siteConfig.name} />
 
         {/* Google Analytics */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-WHPBCWQ4HE`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-WHPBCWQ4HE');
-            `,
-          }}
-        />
+        <GoogleAnalytics />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
