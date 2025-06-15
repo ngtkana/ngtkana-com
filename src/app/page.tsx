@@ -220,6 +220,17 @@ export default function HomePage() {
             ))}
           </div>
         </Section>
+
+        {/* Contact section */}
+        <Section id="contact" title="Contact" animationDelay="animate-delay-400">
+          <div className="max-w-3xl mx-auto">
+            <div className="prose max-w-none dark:prose-invert">
+              <p className="mb-4 text-base text-center">
+                コラボのお誘いは、X の DM までぜひです。
+              </p>
+            </div>
+          </div>
+        </Section>
       </Container>
     </div>
   );

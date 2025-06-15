@@ -10,6 +10,7 @@ const sections = [
     { id: "videos", label: "Videos" },
     { id: "connect", label: "Connect" },
     { id: "history", label: "History" },
+    { id: "contact", label: "Contact" },
 ];
 
 

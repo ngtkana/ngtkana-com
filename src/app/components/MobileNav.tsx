@@ -165,6 +165,17 @@ export default function MobileNav() {
                 History
               </a>
             </li>
+            <li role="none">
+              <a
+                href="#contact"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="twitter" className="mr-2" />
+                Contact
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
