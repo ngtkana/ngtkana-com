@@ -37,7 +37,7 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "X (Twitter) アカウント @ngtkana",
   },
   {
-    name: "ファンコミュニティ",
+    name: "ながたかな❤ファンコミュティ",
     username: "Discord",
     url: "https://discord.gg/wsMFhNCVEr",
     iconName: "discord",
