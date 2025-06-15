@@ -8,7 +8,7 @@
  * This should be in the format G-XXXXXXXX
  * Stored in .env.local as NEXT_PUBLIC_GA_MEASUREMENT_ID
  */
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-WHPBCWQ4HE';
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? 'G-WHPBCWQ4HE';
 
 /**
  * Event names used for tracking

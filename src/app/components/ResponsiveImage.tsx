@@ -41,55 +41,38 @@ export default function ResponsiveImage({
                 setIsLoaded(true);
             }, 1000); // Force loaded state after 1 second for priority images
 
-            return () => clearTimeout(timer);
+            return () => {
+                clearTimeout(timer);
+            };
         }
     }, [priority, isLoaded]);
 
-    // Determine the appropriate image source based on the path
-    const getOptimizedSrc = () => {
+    // Generate the appropriate image source
+    const getImageSrc = () => {
         // If it's already a full path with extension, use it as is
         if (baseSrc.includes('.')) {
             return baseSrc;
         }
 
-        // Otherwise, construct the path with the desktop width
+        // Otherwise, construct the path with the extension
         return `${baseSrc}.${ext}`;
     };
 
-    // Generate the appropriate image URLs for different sizes
-    const getImageUrls = () => {
-        // If it's already a full path with extension, we can't generate responsive images
-        if (baseSrc.includes('.')) {
-            return {
-                src: baseSrc,
-                mobileImageUrl: baseSrc,
-                desktopImageUrl: baseSrc
-            };
-        }
-
-        const desktopImageUrl = `${baseSrc}.${ext}`;
-        const mobileImageUrl = `${baseSrc}-${mobileWidth}.${ext}`;
-
-        return {
-            src: desktopImageUrl,
-            mobileImageUrl,
-            desktopImageUrl
-        };
-    };
-
-    const { src, mobileImageUrl, desktopImageUrl } = getImageUrls();
+    const src = getImageSrc();
 
     return (
         <>
             <Image
                 src={src}
                 alt={alt}
-                className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${props.className || ''}`}
+                className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'} ${props.className ?? ''}`}
                 priority={priority}
                 fetchPriority={priority ? "high" : "auto"}
-                sizes={`(max-width: ${mobileWidth}px) ${mobileWidth}px, ${desktopWidth}px`}
+                sizes={`(max-width: ${String(mobileWidth)}px) ${String(mobileWidth)}px, ${String(desktopWidth)}px`}
                 quality={quality}
-                onLoad={() => setIsLoaded(true)}
+                onLoad={() => {
+                    setIsLoaded(true);
+                }}
                 {...props}
             />
         </>

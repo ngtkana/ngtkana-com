@@ -1,14 +1,12 @@
 'use client';
 
-import { GA_EVENTS, GA_MEASUREMENT_ID, isVideoPlatform } from '@/app/constants/analytics';
+import { GA_EVENTS, isVideoPlatform } from '@/app/constants/analytics';
 
 /**
  * Type for GA4 event parameters
  * This helps ensure type safety and prevents injection of malicious data
  */
-export type GA4EventParams = {
-    [key: string]: string | number | boolean | null | undefined;
-};
+export type GA4EventParams = Record<string, string | number | boolean | null | undefined>;
 
 /**
  * Track an event with Google Analytics 4
@@ -88,8 +86,6 @@ export const trackLinkIfVideo = (linkName: string, username: string, url: string
 declare global {
     interface Window {
         gtag: (command: string, action: string, params?: GA4EventParams) => void;
-        dataLayer: Array<{
-            [key: string]: any;
-        }>;
+        dataLayer: Record<string, unknown>[];
     }
 }

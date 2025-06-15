@@ -15,7 +15,7 @@ export const isValidUrl = (url: string): boolean => {
 
         // Check if the protocol is http or https
         return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
-    } catch (e) {
+    } catch {
         // If URL constructor throws, it's not a valid URL
         return false;
     }
@@ -43,7 +43,7 @@ export const sanitizeUrl = (url: string): string | null => {
 
         // Return the sanitized URL
         return urlObj.toString();
-    } catch (e) {
+    } catch {
         return null;
     }
 };

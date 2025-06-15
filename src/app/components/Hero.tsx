@@ -1,7 +1,6 @@
 "use client";
 
 import { Container } from "@/app/components/Container";
-import { useState } from "react";
 import ResponsiveImage from "@/app/components/ResponsiveImage";
 
 interface HeroProps {
