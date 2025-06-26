@@ -186,6 +186,19 @@ export default function HomePage() {
           </div>
         </Section>
 
+        {/* Friend Codes section */}
+        <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-75">
+          <div className="max-w-3xl mx-auto">
+            <div className="prose max-w-none dark:prose-invert">
+              <dl className="space-y-2">
+                <ProfileItem label="Nintendo Switch">SW-7763-1448-3304</ProfileItem>
+                <ProfileItem label="Steam">1176233303</ProfileItem>
+                <ProfileItem label="Discord">536811801569132544</ProfileItem>
+              </dl>
+            </div>
+          </div>
+        </Section>
+
         {/* YouTube section */}
         <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
           <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-xl">

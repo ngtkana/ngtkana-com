@@ -134,6 +134,17 @@ export default function MobileNav() {
             </li>
             <li role="none">
               <a
+                href="#friend-codes"
+                className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
+                onClick={() => { setIsOpen(false); }}
+                role="menuitem"
+              >
+                <Icon name="external-link" className="mr-2" />
+                Friend Codes
+              </a>
+            </li>
+            <li role="none">
+              <a
                 href="#videos"
                 className="flex items-center py-2 px-3 my-1 rounded-full transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-primary"
                 onClick={() => { setIsOpen(false); }}
