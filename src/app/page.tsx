@@ -24,7 +24,7 @@ const socialLinks: SocialLinkData[] = [
     url: "https://www.youtube.com/@ngtkana",
     iconName: "youtube",
     iconColor: "text-red-500",
-    description: "ボカロ曲を中心に、歌ってみた動画を投稿しております。",
+    description: "ボカロ曲を中心に、歌ってみた動画を投稿しております。まずは聴いていきましょう！",
     ariaLabel: "YouTube チャンネル @ngtkana",
   },
   {
@@ -37,12 +37,12 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "X (Twitter) アカウント @ngtkana",
   },
   {
-    name: "ながたかな❤ファンコミュティ",
+    name: "ながたかな❤ファンコミュティ（招待リンク）",
     username: "Discord",
     url: "https://discord.gg/wsMFhNCVEr",
     iconName: "discord",
     iconColor: "text-indigo-500",
-    description: "みなさまとの交流の場です。",
+    description: "未公開なお歌進捗や、私の近況などです。ひとりごとはさびしいですから、ぜひ遊びに来てください。",
     ariaLabel: "ながたかな ファンコミュニティ Discord サーバー",
   },
   {
@@ -51,7 +51,7 @@ const socialLinks: SocialLinkData[] = [
     url: "https://www.twitch.tv/ngtkana",
     iconName: "twitch",
     iconColor: "text-purple-500",
-    description: "不定期でゲーム配信が行われているともっぱらの噂です。",
+    description: "不定期でゲームや競プロ、漫談が行われているともっぱらの噂です。",
     ariaLabel: "Twitch チャンネル ngtkana",
   },
   {
@@ -69,7 +69,7 @@ const socialLinks: SocialLinkData[] = [
     url: "https://ngtkana.hatenablog.com/",
     iconName: "blog",
     iconColor: "text-green-500",
-    description: "実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。",
+    description: "纏まった文章を気軽に投稿しています。実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。",
     ariaLabel: "はてなブログ",
   },
   {
@@ -91,7 +91,7 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "GitHub プロフィール",
   },
   {
-    name: "kyoprusteseans",
+    name: "kyoprusteseans（招待リンク）",
     username: "Discord",
     url: "https://discord.com/invite/RmRCzPnFPc",
     iconName: "discord",
@@ -161,7 +161,7 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto">
             <div className="prose max-w-none dark:prose-invert">
               <p className="mb-4 text-base">
-                2021年12月 YouTubeにて活動を開始。
+                2021 年 12 月 YouTube にて活動を開始。
                 ボカロ曲を中心に歌ってみた動画の投稿を続けております。
                 みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
                 よかったら遊びにきてくださいね！
@@ -177,8 +177,8 @@ export default function HomePage() {
               <dl className="space-y-2">
                 <ProfileItem label="身長">ながいです。</ProfileItem>
                 <ProfileItem label="体重">浮力に負けます。</ProfileItem>
-                <ProfileItem label="年齢">私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく150億年以上です。</ProfileItem>
-                <ProfileItem label="お誕生日">4/11です。プレゼントお待ちしております。</ProfileItem>
+                <ProfileItem label="年齢">私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく 150 億年以上です。</ProfileItem>
+                <ProfileItem label="お誕生日">4/11 です。プレゼントお待ちしております。</ProfileItem>
                 <ProfileItem label="得意なこと">お歌と数学です。</ProfileItem>
                 <ProfileItem label="星座">ピザ</ProfileItem>
               </dl>
@@ -186,16 +186,16 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* Friend Codes section */}
-        <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-75">
-          <div className="max-w-3xl mx-auto">
-            <div className="prose max-w-none dark:prose-invert">
-              <dl className="space-y-2">
-                <ProfileItem label="Nintendo Switch">SW-7763-1448-3304</ProfileItem>
-                <ProfileItem label="Steam">1176233303</ProfileItem>
-                <ProfileItem label="Discord">536811801569132544</ProfileItem>
-              </dl>
-            </div>
+        {/* SNS section */}
+        <Section id="connect" title="Social Links" animationDelay="animate-delay-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {socialLinks.map((link, index) => (
+              <SocialLinkCard
+                key={index}
+                link={link}
+                className={`opacity-0 animate-fade-in animate-delay-${String((index % 5) + 1)}00`}
+              />
+            ))}
           </div>
         </Section>
 
@@ -210,16 +210,16 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* SNS section */}
-        <Section id="connect" title="Connect" animationDelay="animate-delay-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {socialLinks.map((link, index) => (
-              <SocialLinkCard
-                key={index}
-                link={link}
-                className={`opacity-0 animate-fade-in animate-delay-${String((index % 5) + 1)}00`}
-              />
-            ))}
+        {/* Friend Codes section */}
+        <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-75">
+          <div className="max-w-3xl mx-auto">
+            <div className="prose max-w-none dark:prose-invert">
+              <dl className="space-y-2">
+                <ProfileItem label="Nintendo Switch">SW-7763-1448-3304</ProfileItem>
+                <ProfileItem label="Steam">1176233303</ProfileItem>
+                <ProfileItem label="Discord">536811801569132544</ProfileItem>
+              </dl>
+            </div>
           </div>
         </Section>
 
@@ -247,8 +247,15 @@ export default function HomePage() {
         <Section id="contact" title="Contact" animationDelay="animate-delay-400">
           <div className="max-w-3xl mx-auto">
             <div className="prose max-w-none dark:prose-invert">
-              <p className="mb-4 text-base text-center">
-                コラボのお誘いは、X の DM までぜひです。
+              <p className="mb-4 text-base text-left">
+                お誘いは、X の DM までぜひです。
+              </p>
+              <p className="mb-4 text-base text-left">
+                私がフォローしていない方からの DM、気づきづらくて申し訳ないです。
+              </p>
+              <p className="mb-4 text-base text-left">
+                歌い手さんへ。コラボしましょう！
+                作曲者さんへ。私の声いりませんか？
               </p>
             </div>
           </div>
