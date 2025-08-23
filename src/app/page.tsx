@@ -37,7 +37,7 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "X (Twitter) アカウント @ngtkana",
   },
   {
-    name: "ながたかな❤ファンコミュティ（招待リンク）",
+    name: "ながたかなのお部屋",
     username: "Discord",
     url: "https://discord.gg/wsMFhNCVEr",
     iconName: "discord",
@@ -91,7 +91,7 @@ const socialLinks: SocialLinkData[] = [
     ariaLabel: "GitHub プロフィール",
   },
   {
-    name: "kyoprusteseans（招待リンク）",
+    name: "kyoprusteseans",
     username: "Discord",
     url: "https://discord.com/invite/RmRCzPnFPc",
     iconName: "discord",
