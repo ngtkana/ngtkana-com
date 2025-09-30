@@ -4,41 +4,35 @@ import { useState, useCallback } from 'react';
 import { isBlackKey } from '../utils/audioUtils';
 
 interface KeyProps {
-    note: string;
-    onPlay: (note: string) => void;
-    onStop: (note: string) => void;
-    keyboardKey?: string;
+  note: string;
+  onPlay: (note: string) => void;
+  onStop: (note: string) => void;
 }
 
-export default function Key({ note, onPlay, onStop, keyboardKey }: KeyProps) {
-    const [isPressed, setIsPressed] = useState(false);
-    const isBlack = isBlackKey(note);
+export default function Key({
+  note,
+  onPlay,
+  onStop,
+}: KeyProps) {
+  const [isPressed, setIsPressed] = useState(false);
+  const isBlack = isBlackKey(note);
 
-    const handleMouseDown = useCallback(() => {
-        if (isPressed) return;
-        setIsPressed(true);
-        onPlay(note);
-    }, [isPressed, note, onPlay]);
+  const handleMouseDown = useCallback(() => {
+    setIsPressed(true);
+    onPlay(note);
+  }, [setIsPressed, note, onPlay]);
 
-    const handleMouseUp = useCallback(() => {
-        if (!isPressed) return;
-        setIsPressed(false);
-        onStop(note);
-    }, [isPressed, note, onStop]);
+  const handleMouseUp = useCallback(() => {
+    setIsPressed(false);
+    onStop(note)
+  }, [setIsPressed, note, onStop]);
 
-    const handleMouseLeave = useCallback(() => {
-        if (isPressed) {
-            setIsPressed(false);
-            onStop(note);
-        }
-    }, [isPressed, note, onStop]);
+  // Prevent context menu on right click
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
 
-    // Prevent context menu on right click
-    const handleContextMenu = useCallback((e: React.MouseEvent) => {
-        e.preventDefault();
-    }, []);
-
-    const baseClasses = `
+  const baseClasses = `
         select-none cursor-pointer transition-all duration-75 ease-out
         border border-gray-300 dark:border-gray-600
         flex items-end justify-center pb-4
@@ -46,7 +40,7 @@ export default function Key({ note, onPlay, onStop, keyboardKey }: KeyProps) {
         active:scale-95
     `;
 
-    const whiteKeyClasses = `
+  const whiteKeyClasses = `
         ${baseClasses}
         bg-white dark:bg-gray-100 text-gray-700 dark:text-gray-800
         hover:bg-gray-50 dark:hover:bg-gray-200
@@ -55,7 +49,7 @@ export default function Key({ note, onPlay, onStop, keyboardKey }: KeyProps) {
         w-12 h-32 rounded-b-lg
     `;
 
-    const blackKeyClasses = `
+  const blackKeyClasses = `
         ${baseClasses}
         bg-gray-900 dark:bg-black text-white
         hover:bg-gray-800 dark:hover:bg-gray-900
@@ -65,26 +59,19 @@ export default function Key({ note, onPlay, onStop, keyboardKey }: KeyProps) {
         absolute z-10 transform -translate-x-1/2
     `;
 
-    return (
-        <button
-            className={isBlack ? blackKeyClasses : whiteKeyClasses}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
-            onContextMenu={handleContextMenu}
-            aria-label={`Piano key ${note}${keyboardKey ? ` (${keyboardKey.toUpperCase()})` : ''}`}
-            style={isBlack ? { left: '50%' } : undefined}
-        >
-            <div className="flex flex-col items-center gap-1">
-                <span className={`text-xs ${isBlack ? 'text-gray-300' : 'text-gray-500'}`}>
-                    {note}
-                </span>
-                {keyboardKey && (
-                    <span className={`text-xs font-bold ${isBlack ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {keyboardKey.toUpperCase()}
-                    </span>
-                )}
-            </div>
-        </button>
-    );
+  return (
+    <button
+      className={isBlack ? blackKeyClasses : whiteKeyClasses}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onContextMenu={handleContextMenu}
+      style={isBlack ? { left: '50%' } : undefined}
+    >
+      <div className="flex flex-col items-center gap-1">
+        <span className={`text-xs ${isBlack ? 'text-gray-300' : 'text-gray-500'}`}>
+          {note}
+        </span>
+      </div>
+    </button>
+  );
 }
