@@ -6,15 +6,15 @@ interface KeyProps {
   key: string; // key for react
   isBlackKey: boolean;
   label?: string;
-  onPlay: () => void;
-  onStop: () => void;
+  onPlayAction: () => void;
+  onStopAction: () => void;
 }
 
 export default function Key({
   isBlackKey,
   label,
-  onPlay,
-  onStop,
+  onPlayAction,
+  onStopAction,
 }: KeyProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -25,17 +25,17 @@ export default function Key({
     setIsMouseDown(true);
     if (isHovering) {
       setIsPressed(true);
-      onPlay();
+      onPlayAction();
     }
-  }, [isHovering, onPlay]);
+  }, [isHovering, onPlayAction]);
 
   const handleMouseUp = useCallback(() => {
     setIsMouseDown(false);
     if (isPressed) {
       setIsPressed(false);
-      onStop();
+      onStopAction();
     }
-  }, [isPressed, onStop]);
+  }, [isPressed, onStopAction]);
 
   // グローバルなマウス状態を監視（キーの外からドラッグインする場合に対応）
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Key({
       setIsMouseDown(false);
       if (isPressed) {
         setIsPressed(false);
-        onStop();
+        onStopAction();
       }
     };
 
@@ -59,24 +59,24 @@ export default function Key({
       document.removeEventListener('mousedown', handleGlobalMouseDown);
       document.removeEventListener('mouseup', handleGlobalMouseUp);
     };
-  }, [isPressed, onStop]);
+  }, [isPressed, onStopAction]);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovering(true);
     // キーの外からドラッグインした場合も音を鳴らす
     if ((isMouseDown || isGlobalMouseDown) && !isPressed) {
       setIsPressed(true);
-      onPlay();
+      onPlayAction();
     }
-  }, [isMouseDown, isGlobalMouseDown, isPressed, onPlay]);
+  }, [isMouseDown, isGlobalMouseDown, isPressed, onPlayAction]);
 
   const handleMouseLeave = useCallback(() => {
     setIsHovering(false);
     if (isPressed) {
       setIsPressed(false);
-      onStop();
+      onStopAction();
     }
-  }, [isPressed, onStop]);
+  }, [isPressed, onStopAction]);
 
   // Prevent context menu on right click
   const handleContextMenu = useCallback((e: React.MouseEvent) => {

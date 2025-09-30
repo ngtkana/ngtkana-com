@@ -67,11 +67,11 @@ export default function Piano() {
           {/* White keys */}
           {whiteKeys.map((note) => (
             <Key
-              key={Key}
+              key={note}
               isBlackKey={false}
               label={note}
-              onPlay={() => playNote(note)}
-              onStop={() => { stopNote(note) }}
+              onPlayAction={() => playNote(note)}
+              onStopAction={() => { stopNote(note) }}
             />
           ))}
 
@@ -88,11 +88,11 @@ export default function Piano() {
                 }}
               >
                 <Key
-                  key={Key}
+                  key={note}
                   isBlackKey
                   label={note}
-                  onPlay={() => playNote(note)}
-                  onStop={() => { stopNote(note); }}
+                  onPlayAction={() => playNote(note)}
+                  onStopAction={() => { stopNote(note); }}
                 />
               </div>
             );
