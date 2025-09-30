@@ -1,76 +1,79 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
-import { isBlackKey } from '../utils/audioUtils';
 
 interface KeyProps {
-  note: string;
-  onPlay: (note: string) => void;
-  onStop: (note: string) => void;
+  isBlackKey: bool;
+  onPlay: () => void;
+  onStop: () => void;
 }
 
 export default function Key({
-  note,
+  isBlackKey,
   onPlay,
   onStop,
 }: KeyProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const isBlack = isBlackKey(note);
+  const [isGlobalMouseDown, setIsGlobalMouseDown] = useState(false);
 
   const handleMouseDown = useCallback(() => {
     setIsMouseDown(true);
     if (isHovering) {
       setIsPressed(true);
-      onPlay(note);
+      onPlay();
     }
-  }, [isHovering, note, onPlay]);
+  }, [isHovering, onPlay]);
 
   const handleMouseUp = useCallback(() => {
     setIsMouseDown(false);
     if (isPressed) {
       setIsPressed(false);
-      onStop(note);
+      onStop();
     }
-  }, [isPressed, note, onStop]);
+  }, [isPressed, onStop]);
 
-  // グローバルなマウスアップイベントを監視して、マウスが鍵盤の外でリリースされた場合も処理
+  // グローバルなマウス状態を監視（キーの外からドラッグインする場合に対応）
   useEffect(() => {
+    const handleGlobalMouseDown = () => {
+      setIsGlobalMouseDown(true);
+    };
+
     const handleGlobalMouseUp = () => {
-      if (isMouseDown) {
-        setIsMouseDown(false);
-        if (isPressed) {
-          setIsPressed(false);
-          onStop(note);
-        }
+      setIsGlobalMouseDown(false);
+      setIsMouseDown(false);
+      if (isPressed) {
+        setIsPressed(false);
+        onStop();
       }
     };
 
-    if (isMouseDown) {
-      document.addEventListener('mouseup', handleGlobalMouseUp);
-      return () => {
-        document.removeEventListener('mouseup', handleGlobalMouseUp);
-      };
-    }
-    return undefined;
-  }, [isMouseDown, isPressed, note, onStop]);
+    document.addEventListener('mousedown', handleGlobalMouseDown);
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+
+    return () => {
+      document.removeEventListener('mousedown', handleGlobalMouseDown);
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [isPressed, onStop]);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovering(true);
-    if (isMouseDown && !isPressed) {
+    // キーの外からドラッグインした場合も音を鳴らす
+    if ((isMouseDown || isGlobalMouseDown) && !isPressed) {
       setIsPressed(true);
-      onPlay(note);
+      onPlay();
     }
-  }, [isMouseDown, isPressed, note, onPlay]);
+  }, [isMouseDown, isGlobalMouseDown, isPressed, onPlay]);
 
   const handleMouseLeave = useCallback(() => {
     setIsHovering(false);
     if (isPressed) {
       setIsPressed(false);
-      onStop(note);
+      onStop();
     }
-  }, [isPressed, note, onStop]);
+  }, [isPressed, onStop]);
 
   // Prevent context menu on right click
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
@@ -106,17 +109,17 @@ export default function Key({
 
   return (
     <button
-      className={isBlack ? blackKeyClasses : whiteKeyClasses}
+      className={isBlackKey ? blackKeyClasses : whiteKeyClasses}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleContextMenu}
-      style={isBlack ? { left: '50%' } : undefined}
+      style={isBlackKey ? { left: '50%' } : undefined}
     >
       <div className="flex flex-col items-center gap-1">
-        <span className={`text-xs ${isBlack ? 'text-gray-300' : 'text-gray-500'}`}>
-          {note}
+        <span className={`text-xs ${isBlackKey ? 'text-gray-300' : 'text-gray-500'}`}>
+          !
         </span>
       </div>
     </button>

@@ -155,6 +155,3 @@ export const getAllNotes = (): string[] => {
   return Object.keys(NOTE_FREQUENCIES);
 };
 
-export const isBlackKey = (note: string): boolean => {
-  return note.includes('#');
-};
