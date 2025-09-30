@@ -67,8 +67,9 @@ export default function Piano() {
           {/* White keys */}
           {whiteKeys.map((note) => (
             <Key
-              key={note}
+              key={Key}
               isBlackKey={false}
+              label={note}
               onPlay={() => playNote(note)}
               onStop={() => { stopNote(note) }}
             />
@@ -87,7 +88,9 @@ export default function Piano() {
                 }}
               >
                 <Key
+                  key={Key}
                   isBlackKey
+                  label={note}
                   onPlay={() => playNote(note)}
                   onStop={() => { stopNote(note); }}
                 />

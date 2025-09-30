@@ -3,13 +3,16 @@
 import { useState, useCallback, useEffect } from 'react';
 
 interface KeyProps {
-  isBlackKey: bool;
+  key: string; // key for react
+  isBlackKey: boolean;
+  label?: string;
   onPlay: () => void;
   onStop: () => void;
 }
 
 export default function Key({
   isBlackKey,
+  label,
   onPlay,
   onStop,
 }: KeyProps) {
@@ -94,7 +97,7 @@ export default function Key({
         hover:bg-gray-50 dark:hover:bg-gray-200
         shadow-md hover:shadow-lg
         ${isPressed ? 'bg-gray-200 dark:bg-gray-300 shadow-inner' : ''}
-        w-12 h-32 rounded-b-lg
+        w-12 h-42 rounded-b-lg
     `;
 
   const blackKeyClasses = `
@@ -103,7 +106,7 @@ export default function Key({
         hover:bg-gray-800 dark:hover:bg-gray-900
         shadow-lg hover:shadow-xl
         ${isPressed ? 'bg-gray-700 dark:bg-gray-800 shadow-inner' : ''}
-        w-8 h-20 rounded-b-md
+        w-8 h-30 rounded-b-md
         absolute z-10 transform -translate-x-1/2
     `;
 
@@ -119,7 +122,7 @@ export default function Key({
     >
       <div className="flex flex-col items-center gap-1">
         <span className={`text-xs ${isBlackKey ? 'text-gray-300' : 'text-gray-500'}`}>
-          !
+          {label}
         </span>
       </div>
     </button>
