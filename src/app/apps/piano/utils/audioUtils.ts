@@ -44,14 +44,24 @@ export class AudioEngine {
     this.initializeAudio();
   }
 
-  private async initializeAudio(): Promise<void> {
+  private initializeAudio(): void {
     try {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      // Use AudioContext (modern browsers support this)
+      this.audioContext = new AudioContext();
       this.masterGain = this.audioContext.createGain();
       this.masterGain.gain.setValueAtTime(0.3, this.audioContext.currentTime);
       this.masterGain.connect(this.audioContext.destination);
     } catch (error) {
-      console.error('Failed to initialize audio context:', error);
+      // Fallback for older browsers
+      try {
+        const webkitAudioContext = (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        this.audioContext = new webkitAudioContext();
+        this.masterGain = this.audioContext.createGain();
+        this.masterGain.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+        this.masterGain.connect(this.audioContext.destination);
+      } catch (fallbackError) {
+        console.error('Failed to initialize audio context:', error, fallbackError);
+      }
     }
   }
 
@@ -141,17 +151,16 @@ export class AudioEngine {
   destroy(): void {
     this.stopAllNotes();
     if (this.audioContext) {
-      this.audioContext.close();
+      void this.audioContext.close();
       this.audioContext = null;
     }
   }
 }
 
 export const getNoteFrequency = (note: string): number => {
-  return NOTE_FREQUENCIES[note] || 0;
+  return NOTE_FREQUENCIES[note] ?? 0;
 };
 
 export const getAllNotes = (): string[] => {
   return Object.keys(NOTE_FREQUENCIES);
 };
-
