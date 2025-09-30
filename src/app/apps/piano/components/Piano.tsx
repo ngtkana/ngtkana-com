@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { AudioEngine, getAllNotes } from '../utils/audioUtils';
 import Key from './Key';
 
 export default function Piano() {
   const audioEngineRef = useRef<AudioEngine | null>(null);
   const isInitializedRef = useRef(false);
+  const [sustainPedal, setSustainPedal] = useState(false);
 
   // Initialize audio engine
   useEffect(() => {
@@ -21,6 +22,37 @@ export default function Piano() {
         audioEngineRef.current = null;
         isInitializedRef.current = false;
       }
+    };
+  }, []);
+
+  // Handle sustain pedal (Space key)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'Space' && !event.repeat) {
+        event.preventDefault();
+        setSustainPedal(true);
+        if (audioEngineRef.current) {
+          audioEngineRef.current.setSustainPedal(true);
+        }
+      }
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.code === 'Space') {
+        event.preventDefault();
+        setSustainPedal(false);
+        if (audioEngineRef.current) {
+          audioEngineRef.current.setSustainPedal(false);
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
@@ -59,6 +91,15 @@ export default function Piano() {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           ピアノ
         </h1>
+        <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span>Sustainペダル (Space):</span>
+          <div className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${sustainPedal
+            ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+            : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+            }`}>
+            {sustainPedal ? 'ON' : 'OFF'}
+          </div>
+        </div>
       </div>
 
       <div className="relative bg-gradient-to-b from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 p-6 rounded-xl shadow-2xl">
