@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { isBlackKey } from '../utils/audioUtils';
 
 interface KeyProps {
@@ -15,17 +15,62 @@ export default function Key({
   onStop,
 }: KeyProps) {
   const [isPressed, setIsPressed] = useState(false);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const isBlack = isBlackKey(note);
 
   const handleMouseDown = useCallback(() => {
-    setIsPressed(true);
-    onPlay(note);
-  }, [setIsPressed, note, onPlay]);
+    setIsMouseDown(true);
+    if (isHovering) {
+      setIsPressed(true);
+      onPlay(note);
+    }
+  }, [isHovering, note, onPlay]);
 
   const handleMouseUp = useCallback(() => {
-    setIsPressed(false);
-    onStop(note)
-  }, [setIsPressed, note, onStop]);
+    setIsMouseDown(false);
+    if (isPressed) {
+      setIsPressed(false);
+      onStop(note);
+    }
+  }, [isPressed, note, onStop]);
+
+  // グローバルなマウスアップイベントを監視して、マウスが鍵盤の外でリリースされた場合も処理
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isMouseDown) {
+        setIsMouseDown(false);
+        if (isPressed) {
+          setIsPressed(false);
+          onStop(note);
+        }
+      }
+    };
+
+    if (isMouseDown) {
+      document.addEventListener('mouseup', handleGlobalMouseUp);
+      return () => {
+        document.removeEventListener('mouseup', handleGlobalMouseUp);
+      };
+    }
+    return undefined;
+  }, [isMouseDown, isPressed, note, onStop]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true);
+    if (isMouseDown && !isPressed) {
+      setIsPressed(true);
+      onPlay(note);
+    }
+  }, [isMouseDown, isPressed, note, onPlay]);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false);
+    if (isPressed) {
+      setIsPressed(false);
+      onStop(note);
+    }
+  }, [isPressed, note, onStop]);
 
   // Prevent context menu on right click
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
@@ -64,6 +109,8 @@ export default function Key({
       className={isBlack ? blackKeyClasses : whiteKeyClasses}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onContextMenu={handleContextMenu}
       style={isBlack ? { left: '50%' } : undefined}
     >
