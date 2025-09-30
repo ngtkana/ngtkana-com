@@ -2,22 +2,77 @@
  * Audio utilities for piano application
  */
 
-// Piano note frequencies (12-tone equal temperament)
-// A4 = 440Hz as reference
-const NOTE_FREQUENCIES: Record<string, number> = {
-  'C4': 261.63,
-  'C#4': 277.18,
-  'D4': 293.66,
-  'D#4': 311.13,
-  'E4': 329.63,
-  'F4': 349.23,
-  'F#4': 369.99,
-  'G4': 392.00,
-  'G#4': 415.30,
-  'A4': 440.00,
-  'A#4': 466.16,
-  'B4': 493.88,
+// 12平均律の音名とセミトーン数のマッピング
+const NOTE_SEMITONES: Record<string, number> = {
+  'C': 0,
+  'C#': 1,
+  'D': 2,
+  'D#': 3,
+  'E': 4,
+  'F': 5,
+  'F#': 6,
+  'G': 7,
+  'G#': 8,
+  'A': 9,
+  'A#': 10,
+  'B': 11,
 };
+
+// A4 = 440Hz を基準とした周波数計算
+const A4_FREQUENCY = 440;
+const A4_OCTAVE = 4;
+const A4_SEMITONE = 9;
+
+/**
+ * 音名とオクターブから周波数を計算
+ */
+const calculateFrequency = (noteName: string, octave: number): number => {
+  const semitone = NOTE_SEMITONES[noteName];
+  if (semitone === undefined) {
+    throw new Error(`Unknown note: ${noteName}`);
+  }
+
+  // A4からの半音数を計算
+  const semitonesFromA4 = (octave - A4_OCTAVE) * 12 + (semitone - A4_SEMITONE);
+
+  // 12平均律による周波数計算: f = 440 * 2^(n/12)
+  return A4_FREQUENCY * Math.pow(2, semitonesFromA4 / 12);
+};
+
+/**
+ * 指定された範囲のノートを生成
+ */
+const generateNotes = (startOctave: number, endOctave: number): string[] => {
+  const notes: string[] = [];
+  const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
+  for (let octave = startOctave; octave <= endOctave; octave++) {
+    for (const noteName of noteNames) {
+      // C6まで（C6は含む）
+      if (octave === endOctave && noteName !== 'C') {
+        break;
+      }
+      notes.push(`${noteName}${octave.toString()}`);
+    }
+  }
+
+  return notes;
+};
+
+// C3からC6までの3オクターブ + C6
+const ALL_NOTES = generateNotes(3, 6);
+
+// 動的に周波数マップを生成
+const NOTE_FREQUENCIES: Record<string, number> = {};
+ALL_NOTES.forEach(note => {
+  const match = /^([A-G]#?)(\d+)$/.exec(note);
+  if (match?.[1] && match[2]) {
+    const noteName = match[1];
+    const octaveStr = match[2];
+    const octave = parseInt(octaveStr, 10);
+    NOTE_FREQUENCIES[note] = calculateFrequency(noteName, octave);
+  }
+});
 
 
 export class AudioEngine {

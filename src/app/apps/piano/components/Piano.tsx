@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useCallback, useState } from 'react';
-import { AudioEngine, getAllNotes } from '../utils/audioUtils';
+import { AudioEngine } from '../utils/audioUtils';
 import Key from './Key';
 
 export default function Piano() {
@@ -69,21 +69,63 @@ export default function Piano() {
     }
   }, []);
 
-  const notes = getAllNotes();
-  const whiteKeys = notes.filter(note => !note.includes('#'));
-  const blackKeys = notes.filter(note => note.includes('#'));
+  // 各鍵盤の位置情報を定義
+  interface KeyPosition {
+    note: string;
+    position: number; // 絶対座標（px）
+    width: number; // 幅（px）
+    height: number; // 高さ（px）
+    isBlack: boolean;
+  }
 
-  // Calculate black key positions
-  const getBlackKeyPosition = (note: string): number => {
-    const blackKeyPositions: Record<string, number> = {
-      'C#4': 1,
-      'D#4': 2,
-      'F#4': 4,
-      'G#4': 5,
-      'A#4': 6,
-    };
-    return blackKeyPositions[note] ?? 0;
+  // 鍵盤のサイズ定数
+  const WHITE_KEY_WIDTH = 48;
+  const WHITE_KEY_HEIGHT = 168; // h-42 = 168px
+  const BLACK_KEY_WIDTH = 32;
+  const BLACK_KEY_HEIGHT = 120; // h-30 = 120px
+
+  // 3オクターブ分の鍵盤位置を生成
+  const generateKeyPositions = (): KeyPosition[] => {
+    const positions: KeyPosition[] = [];
+    let whiteKeyIndex = 0;
+
+    for (let octave = 3; octave <= 6; octave++) {
+      const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+      for (const noteName of noteNames) {
+        // C6で終了
+        if (octave === 6 && noteName !== 'C') {
+          break;
+        }
+
+        const note = `${noteName}${String(octave)}`;
+        const isBlack = noteName.includes('#');
+
+        if (isBlack) {
+          positions.push({
+            note,
+            position: (whiteKeyIndex - 0.5) * WHITE_KEY_WIDTH + (WHITE_KEY_WIDTH - BLACK_KEY_WIDTH) / 2,
+            width: BLACK_KEY_WIDTH,
+            height: BLACK_KEY_HEIGHT,
+            isBlack: true,
+          });
+        } else {
+          positions.push({
+            note,
+            position: whiteKeyIndex * WHITE_KEY_WIDTH,
+            width: WHITE_KEY_WIDTH,
+            height: WHITE_KEY_HEIGHT,
+            isBlack: false,
+          });
+          whiteKeyIndex++;
+        }
+      }
+    }
+    console.log(positions);
+
+    return positions;
   };
+
+  const keyPositions = generateKeyPositions();
 
   return (
     <div className="flex flex-col items-center gap-8 p-8">
@@ -104,40 +146,27 @@ export default function Piano() {
 
       <div className="relative bg-gradient-to-b from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 p-6 rounded-xl shadow-2xl">
         {/* Piano container */}
-        <div className="relative flex" data-piano-container>
-          {/* White keys */}
-          {whiteKeys.map((note) => (
+        <div
+          className="relative"
+          data-piano-container
+          style={{
+            width: `${String(keyPositions.filter(k => !k.isBlack).length * WHITE_KEY_WIDTH)}px`,
+            height: `${String(WHITE_KEY_HEIGHT)}px`,
+          }}
+        >
+          {/* All keys - positioned absolutely */}
+          {keyPositions.map((keyPos) => (
             <Key
-              key={note}
-              isBlackKey={false}
-              label={note}
-              onPlayAction={() => playNote(note)}
-              onStopAction={() => { stopNote(note) }}
+              key={keyPos.note}
+              isBlackKey={keyPos.isBlack}
+              label={keyPos.note}
+              position={keyPos.position}
+              width={keyPos.width}
+              height={keyPos.height}
+              onPlayAction={() => playNote(keyPos.note)}
+              onStopAction={() => { stopNote(keyPos.note) }}
             />
           ))}
-
-          {/* Black keys - positioned absolutely */}
-          {blackKeys.map((note) => {
-            const position = getBlackKeyPosition(note);
-            return (
-              <div
-                key={note}
-                className="absolute"
-                style={{
-                  left: `${String(position * 48)}px`,
-                  top: 0,
-                }}
-              >
-                <Key
-                  key={note}
-                  isBlackKey
-                  label={note}
-                  onPlayAction={() => playNote(note)}
-                  onStopAction={() => { stopNote(note); }}
-                />
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

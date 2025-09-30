@@ -6,6 +6,9 @@ interface KeyProps {
   key: string; // key for react
   isBlackKey: boolean;
   label?: string;
+  position: number; // 絶対座標（px）
+  width: number; // 幅（px）
+  height: number; // 高さ（px）
   onPlayAction: () => void;
   onStopAction: () => void;
 }
@@ -13,6 +16,9 @@ interface KeyProps {
 export default function Key({
   isBlackKey,
   label,
+  position,
+  width,
+  height,
   onPlayAction,
   onStopAction,
 }: KeyProps) {
@@ -89,6 +95,7 @@ export default function Key({
         flex items-end justify-center pb-4
         font-mono text-sm font-medium
         active:scale-95
+        absolute rounded-b-lg
     `;
 
   const whiteKeyClasses = `
@@ -97,7 +104,6 @@ export default function Key({
         hover:bg-gray-50 dark:hover:bg-gray-200
         shadow-md hover:shadow-lg
         ${isPressed ? 'bg-gray-200 dark:bg-gray-300 shadow-inner' : ''}
-        w-12 h-42 rounded-b-lg
     `;
 
   const blackKeyClasses = `
@@ -106,9 +112,15 @@ export default function Key({
         hover:bg-gray-800 dark:hover:bg-gray-900
         shadow-lg hover:shadow-xl
         ${isPressed ? 'bg-gray-700 dark:bg-gray-800 shadow-inner' : ''}
-        w-8 h-30 rounded-b-md
-        absolute z-10 transform -translate-x-1/2
+        z-10
     `;
+
+  const keyStyle = {
+    left: `${String(position)}px`,
+    width: `${String(width)}px`,
+    height: `${String(height)}px`,
+    top: 0,
+  };
 
   return (
     <button
@@ -118,7 +130,7 @@ export default function Key({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onContextMenu={handleContextMenu}
-      style={isBlackKey ? { left: '50%' } : undefined}
+      style={keyStyle}
     >
       <div className="flex flex-col items-center gap-1">
         <span className={`text-xs ${isBlackKey ? 'text-gray-300' : 'text-gray-500'}`}>
