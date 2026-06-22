@@ -6,6 +6,7 @@ import "./globals.css";
 import { Container } from "@/app/components/Container";
 import { siteConfig } from "@/app/components/SEO";
 import GoogleAnalytics from "@/app/components/GoogleAnalytics";
+import GoogleAdSense from "@/app/components/GoogleAdSense";
 
 // Font configuration
 const geistSans = Geist({
@@ -103,6 +104,9 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
 
         {/* Google Analytics */}
         <GoogleAnalytics />
+
+        {/* Google AdSense */}
+        <GoogleAdSense />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}

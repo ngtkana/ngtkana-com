@@ -4,11 +4,19 @@
 
 /**
  * GA4 Measurement ID
- * 
+ *
  * This should be in the format G-XXXXXXXX
  * Stored in .env.local as NEXT_PUBLIC_GA_MEASUREMENT_ID
  */
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? 'G-WHPBCWQ4HE';
+
+/**
+ * Google AdSense Publisher ID
+ *
+ * This should be in the format ca-pub-XXXXXXXXXXXXXXXX
+ * Stored in .env.local as NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
+ */
+export const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? 'ca-pub-1006790879288401';
 
 /**
  * Event names used for tracking
