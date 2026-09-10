@@ -23,6 +23,10 @@ Node.js 22 系を前提とする（CI・Dockerfile と揃える）。
 - [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) — 配色・タイポグラフィ・a11yの規約
 - [docs/CODE_TOUR.md](docs/CODE_TOUR.md) — `src/` の歩き方、よくある変更箇所
 
+AIコーディングエージェント向けの運用ルールは [CLAUDE.md](CLAUDE.md) にある（人間はここを読む必要はない）。
+
+設計・規約・ディレクトリ構成に影響する変更をしたら、該当するドキュメントを同じPRで更新すること。
+
 ## ライセンス
 
 All rights reserved © ながたかな
