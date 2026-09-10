@@ -1,9 +1,9 @@
-name: Deploy to Google Cloud Run
+name: CI/CD
 
 on:
   push:
     branches: [main]
-    paths:
+    paths: &paths
       - 'src/**'
       - 'public/**'
       - '**.js'
@@ -17,12 +17,14 @@ on:
       - 'package-lock.json'
       - 'Dockerfile'
       - 'astro.config.mjs'
-      - '.github/workflows/deploy.yml'
+      - '.github/workflows/pipeline.yml'
+  pull_request:
+    branches: [main]
+    paths: *paths
   workflow_dispatch:
 
-# Ensure this workflow runs only after tests have passed
 concurrency:
-  group: "deploy"
+  group: deploy
   cancel-in-progress: false
 
 env:
@@ -31,9 +33,32 @@ env:
   REGION: asia-northeast1
 
 jobs:
-  # Build and deploy to production
-  build-and-deploy:
+  test:
+    name: Run Tests and Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+  deploy:
     name: Build and Deploy
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

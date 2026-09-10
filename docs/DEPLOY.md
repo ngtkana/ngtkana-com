@@ -2,21 +2,21 @@
 
 ## 仕組み
 
-`main` への push で `.github/workflows/` の2つのワークフローが**それぞれ独立に**トリガーされる。
+`main` への push で `.github/workflows/pipeline.yml` がトリガーされ、2つのジョブが順に走る。
 
-- **CI**（`ci.yml`）: `npm run lint` / `npm test`
-- **Deploy to Google Cloud Run**（`deploy.yml`）: `npm run build` → Dockerイメージをビルドして Artifact Registry に push → Cloud Run にデプロイ
+1. **test**: `npm run lint` / `npm test`
+2. **deploy**: `test` が成功した場合のみ（`needs: test`）実行。`npm run build` → Dockerイメージをビルドして Artifact Registry に push → Cloud Run にデプロイ
 
-CIの成功をDeployが待つ設定にはなっていない。CIが落ちていてもデプロイは進む点に注意（`deploy.yml` のコメントは紛らわしいが、`needs` 等の依存関係は実際には無い）。
+`deploy` は `main` への push イベントのときだけ実行され、Pull Requestでは `test` のみ走る。
 
-対象パスは `src/**` `public/**` `*.astro` `*.css` `package.json` など。`Dockerfile` と `astro.config.mjs` は `deploy.yml` の対象パスにのみ含まれ、`ci.yml` には含まれない（正確な一覧は各YAML先頭の `paths` を参照）。ドキュメントのみの変更ではどちらも起動しない。
+対象パスは `src/**` `public/**` `*.astro` `*.css` `package.json` `Dockerfile` `astro.config.mjs` など（正確な一覧はYAML先頭の `paths` を参照）。ドキュメントのみの変更では起動しない。
 
 ## 手動での再実行
 
 pushイベントが何らかの理由で拾われなかった場合や、コード変更なしに再デプロイしたい場合:
 
 ```sh
-gh workflow run "Deploy to Google Cloud Run" --ref main
+gh workflow run "CI/CD" --ref main
 ```
 
 ## Cloud Run

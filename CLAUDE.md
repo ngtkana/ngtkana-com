@@ -6,7 +6,7 @@
 
 - 1つの論理的な変更 = 1PR。大きな変更（基盤の入れ替え、デザイン刷新など）は意味のある単位で複数PRに分割する
 - マージは通常のマージコミット（squash・rebaseは使わない）
-- `main` へのpushでCIとデプロイが独立に走り、デプロイはCIの成功を待たない（[docs/DEPLOY.md](docs/DEPLOY.md)参照）。マージ前に自分で `npm run lint` / `npm test` を通しておくこと
+- `main` へのpushで lint/test → デプロイの順に走る（デプロイはtest成功時のみ、[docs/DEPLOY.md](docs/DEPLOY.md)参照）。マージ前に自分で `npm run lint` / `npm test` を通しておくこと
 
 ## 見た目・挙動の変更確認
 
