@@ -2,8 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/Hero.astro";
 import Section from "@/components/Section.astro";
-import Container from "@/components/Container.astro";
-import PageNavigation from "@/components/PageNavigation.astro";
+import Sidebar from "@/components/Sidebar.astro";
 import MobileNav from "@/components/MobileNav.astro";
 import SocialLinkCard, { type SocialLinkData } from "@/components/SocialLinkCard.astro";
 import SocialLinkChip, { type SocialLinkChipData } from "@/components/SocialLinkChip.astro";
@@ -124,18 +123,21 @@ const timelineEntries: TimelineEntryData[] = [
 ---
 
 <Layout description="ながたかなの公式ウェブサイトへようこそ。歌い手として活動しています。">
-  <div id="page-nav-wrapper" class="page-nav-wrapper">
-    <div class="page-nav-desktop">
-      <PageNavigation />
-    </div>
-    <div class="page-nav-mobile">
-      <MobileNav />
-    </div>
+  <div id="mobile-nav-wrapper" class="mobile-nav-wrapper">
+    <MobileNav />
   </div>
 
-  <Hero title={siteConfig.name} subtitle="歌い手 | Vocalist" description={siteConfig.description} />
+  <div class="page-shell">
+    <Sidebar
+      title={siteConfig.name}
+      subtitle="歌い手 | Vocalist"
+      description={siteConfig.description}
+      primaryLinks={primarySocialLinks}
+    />
 
-  <Container size="lg" class="main-content">
+    <main class="main-column">
+    <Hero />
+
     <Section id="about" title="About">
       <div class="prose-block">
         <p>
@@ -233,11 +235,14 @@ const timelineEntries: TimelineEntryData[] = [
         <p>歌い手さんへ。コラボしましょう！ 作曲者さんへ。私の声いりませんか？</p>
       </div>
     </Section>
-  </Container>
+    </main>
+  </div>
 </Layout>
 
 <style>
-  .page-nav-wrapper {
+  /* Mobile/tablet quick-jump nav. The desktop sidebar has its own nav list
+     instead, so this is hidden at that breakpoint entirely. */
+  .mobile-nav-wrapper {
     position: fixed;
     top: 1rem;
     right: 1rem;
@@ -250,45 +255,51 @@ const timelineEntries: TimelineEntryData[] = [
       transform 0.25s ease;
   }
 
-  /* The banner image runs full-bleed with text baked in edge-to-edge, so
-     the nav would otherwise sit on top of it at every width; only reveal
-     the nav once the user has scrolled past the Hero. */
-  .page-nav-wrapper.is-visible {
+  /* Reveal only once scrolled past the identity panel, since it sits at
+     the very top of the page and a fixed button there would otherwise
+     overlap its heading text. */
+  .mobile-nav-wrapper.is-visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .page-nav-wrapper {
+    .mobile-nav-wrapper {
       transition: none;
     }
   }
 
-  .page-nav-mobile {
-    display: block;
+  @media (min-width: 1024px) {
+    .mobile-nav-wrapper {
+      display: none;
+    }
   }
 
-  .page-nav-desktop {
-    display: none;
+  .page-shell {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
   }
 
   @media (min-width: 1024px) {
-    .page-nav-mobile {
-      display: none;
-    }
-    .page-nav-desktop {
-      display: block;
+    .page-shell {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+      padding-inline: 2rem;
+      align-items: start;
     }
   }
 
-  .main-content {
-    padding-block: 3rem;
+  .main-column {
+    display: block;
+    padding-block: 1.5rem 3rem;
   }
 
-  @media (min-width: 768px) {
-    .main-content {
-      padding-block: 4rem;
+  @media (min-width: 1024px) {
+    .main-column {
+      padding-block: 2rem 4rem;
     }
   }
 
@@ -365,14 +376,13 @@ const timelineEntries: TimelineEntryData[] = [
 </style>
 
 <script>
-  // The Hero banner is full-bleed with baked-in text spanning nearly its
-  // whole width/height, so a fixed nav overlaid on it collides with that
-  // text at every viewport width. Reveal the nav only once the Hero has
-  // scrolled out of view instead.
-  const navWrapper = document.getElementById("page-nav-wrapper");
-  const hero = document.querySelector<HTMLElement>(".hero");
+  // The identity panel (name/tagline/description) sits at the very top of
+  // the page on mobile/tablet, so a fixed nav button there would overlap
+  // its heading text. Reveal the button only once scrolled past it.
+  const navWrapper = document.getElementById("mobile-nav-wrapper");
+  const identityPanel = document.getElementById("identity-panel");
 
-  if (navWrapper && hero) {
+  if (navWrapper && identityPanel) {
     const setVisible = (visible: boolean) => {
       navWrapper.classList.toggle("is-visible", visible);
       navWrapper.inert = !visible;
@@ -381,6 +391,6 @@ const timelineEntries: TimelineEntryData[] = [
     const observer = new IntersectionObserver(([entry]) => {
       setVisible(!entry.isIntersecting);
     });
-    observer.observe(hero);
+    observer.observe(identityPanel);
   }
 </script>

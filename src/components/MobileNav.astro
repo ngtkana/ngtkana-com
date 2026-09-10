@@ -1,15 +1,6 @@
 ---
 import Icon from "@/components/Icon.astro";
-
-const links = [
-  { id: "about", label: "About", icon: "info" as const },
-  { id: "connect", label: "Connect", icon: "external-link" as const },
-  { id: "videos", label: "Videos", icon: "youtube" as const },
-  { id: "profile", label: "Profile", icon: "profile" as const },
-  { id: "friend-codes", label: "Friend Codes", icon: "hash" as const },
-  { id: "history", label: "History", icon: "clock" as const },
-  { id: "contact", label: "Contact", icon: "mail" as const },
-];
+import { navSections } from "@/lib/navigation";
 ---
 
 <div class="mobile-nav">
@@ -38,7 +29,7 @@ const links = [
     <nav>
       <ul class="mobile-menu-list">
         {
-          links.map(({ id, label, icon }) => (
+          navSections.map(({ id, label, icon }) => (
             <li role="none">
               <a href={`#${id}`} class="mobile-menu-link" role="menuitem">
                 <Icon name={icon} class="mobile-menu-icon" />
