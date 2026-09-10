@@ -1,0 +1,189 @@
+---
+import Container from "@/components/Container.astro";
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  description?: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { title, subtitle, description, imageSrc, imageAlt } = Astro.props;
+---
+
+<div class="hero" role="banner" aria-labelledby="hero-title">
+  <div class="hero-blob" aria-hidden="true"></div>
+
+  <img
+    class="hero-image"
+    srcset={`${imageSrc}-480.webp 480w, ${imageSrc}.webp 720w`}
+    sizes="(max-width: 480px) 480px, 720px"
+    src={`${imageSrc}.webp`}
+    alt={imageAlt}
+    fetchpriority="high"
+    loading="eager"
+  />
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="hero-copy">
+    <Container size="lg">
+      <h1 id="hero-title" class="hero-title">{title}</h1>
+      {subtitle && <h2 class="hero-subtitle">{subtitle}</h2>}
+      {description && <p class="hero-description">{description}</p>}
+    </Container>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+    </svg>
+  </div>
+</div>
+
+<style>
+  .hero {
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #fffaf5, #ffd6aa);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .hero {
+      background: linear-gradient(to bottom right, #1a1410, #3d2e24);
+    }
+  }
+
+  .hero-blob {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 9999px;
+    background: rgba(255, 170, 85, 0.3);
+    z-index: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .hero-blob {
+      background: rgba(255, 138, 60, 0.2);
+    }
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-image {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .hero-copy {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  }
+
+  @media (min-width: 768px) {
+    .hero-copy {
+      padding: 4rem;
+    }
+  }
+
+  .hero-title {
+    margin: 0 0 0.75rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 3.75rem;
+    }
+  }
+
+  .hero-subtitle {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  @media (min-width: 768px) {
+    .hero-subtitle {
+      font-size: 1.5rem;
+    }
+  }
+
+  .hero-description {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    color: white;
+    animation: bounce 1.4s infinite;
+  }
+
+  .hero-scroll-indicator svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-25%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll-indicator {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = "" } = Astro.props;
+---
+
+<div class:list={["profile-item", className]}>
+  <dt class="profile-item-label">{label}</dt>
+  <dd class="profile-item-value"><slot /></dd>
+</div>
+
+<style>
+  .profile-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-item-label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    min-width: 6rem;
+  }
+
+  .profile-item-value {
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .profile-item {
+      flex-direction: row;
+    }
+  }
+</style>

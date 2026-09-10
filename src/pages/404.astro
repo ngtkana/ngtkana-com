@@ -1,0 +1,80 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/Container.astro";
+import Icon from "@/components/Icon.astro";
+---
+
+<Layout title="ページが見つかりません" description="お探しのページは見つかりませんでした。">
+  <Container class="not-found">
+    <div class="not-found-badge" aria-hidden="true">
+      <span class="not-found-number">404</span>
+      <Icon name="home" size="xl" class="not-found-icon" />
+    </div>
+
+    <h1 class="not-found-title">ページが見つかりません</h1>
+    <p class="not-found-description">
+      申し訳ありませんが、お探しのページは存在しないか、移動した可能性があります。
+    </p>
+
+    <a href="/" class="not-found-home-link">
+      <Icon name="home" size="sm" />
+      ホームに戻る
+    </a>
+  </Container>
+</Layout>
+
+<style>
+  .not-found {
+    padding-block: 4rem;
+    max-width: 42rem;
+    text-align: center;
+  }
+
+  .not-found-badge {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .not-found-number {
+    font-size: 6rem;
+    font-weight: 700;
+    opacity: 0.1;
+  }
+
+  .not-found-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary);
+  }
+
+  .not-found-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+  }
+
+  .not-found-description {
+    font-size: 1.125rem;
+    margin: 0 0 2rem;
+  }
+
+  .not-found-home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+  }
+
+  .not-found-home-link:hover {
+    opacity: 0.9;
+  }
+</style>

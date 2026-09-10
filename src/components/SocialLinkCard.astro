@@ -1,0 +1,124 @@
+---
+import Icon, { type IconName } from "@/components/Icon.astro";
+import { sanitizeUrl } from "@/lib/urlUtils";
+
+export interface SocialLinkData {
+  name: string;
+  username: string;
+  url: string;
+  iconName: IconName;
+  iconColor: string;
+  /** Name-on-hover accent color; omit to keep the default heading color */
+  hoverColor?: string;
+  description: string;
+  ariaLabel: string;
+}
+
+interface Props {
+  link: SocialLinkData;
+  class?: string;
+}
+
+const { link, class: className = "" } = Astro.props;
+const safeUrl = sanitizeUrl(link.url);
+
+if (!safeUrl) {
+  console.warn(`Invalid URL detected for ${link.name}: ${link.url}`);
+}
+---
+
+{
+  safeUrl && (
+    <a
+      href={safeUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class:list={["social-link-card", className]}
+      aria-label={link.ariaLabel}
+      data-social-link
+      data-name={link.name}
+      data-username={link.username}
+      data-url={safeUrl}
+      style={`--icon-color:${link.iconColor};--hover-color:${link.hoverColor ?? "inherit"}`}
+    >
+      <div class="social-link-head">
+        <div class="social-link-icon">
+          <Icon name={link.iconName} size="lg" />
+        </div>
+        <div>
+          <h3 class="social-link-name">{link.name}</h3>
+          <p class="social-link-username">{link.username}</p>
+        </div>
+      </div>
+      <p class="social-link-description">{link.description}</p>
+    </a>
+  )
+}
+
+<style>
+  .social-link-card {
+    display: block;
+    padding: 1rem;
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .social-link-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .social-link-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .social-link-icon {
+    margin-right: 0.75rem;
+    color: var(--icon-color);
+    font-size: 1.875rem;
+    line-height: 1;
+  }
+
+  .social-link-name {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .social-link-card:hover .social-link-name {
+    color: var(--hover-color);
+  }
+
+  .social-link-username {
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .social-link-description {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  import { trackLinkClick, trackLinkIfVideo } from "@/lib/analytics";
+
+  document.querySelectorAll<HTMLAnchorElement>("a[data-social-link]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const name = link.dataset.name ?? "";
+      const username = link.dataset.username ?? "";
+      const url = link.dataset.url ?? "";
+
+      trackLinkClick("social", name, url);
+      trackLinkIfVideo(name, username, url);
+    });
+  });
+</script>
