@@ -47,7 +47,9 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install -g npm@11
+          npm ci
 
       - name: Lint
         run: npm run lint
@@ -71,7 +73,9 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install -g npm@11
+          npm ci
 
       - name: Build
         run: npm run build
