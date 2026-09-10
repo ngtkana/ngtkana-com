@@ -7,7 +7,7 @@ npm install
 npm run dev       # http://localhost:4321
 ```
 
-Node.js 22 系を使う。`npm ci` ではなく `npm install` を使うこと（後述）。
+Node.js 22系・npm 11以上を使う（`package.json` の `engines` で強制される。古いnpmだとインストール自体が失敗する）。
 
 ## 主なコマンド
 
@@ -19,9 +19,7 @@ Node.js 22 系を使う。`npm ci` ではなく `npm install` を使うこと（
 | `npm run lint` | ESLint + `astro check`（型チェック） |
 | `npm test` | Vitest |
 
-## `npm ci` を使わない理由
-
-`sharp`（画像処理）のプラットフォーム別 optional dependency が、生成環境によって `package-lock.json` に一貫して記録されない。そのため `npm ci` が「ロックファイルと不一致」と誤検知して失敗することがある（CI・Dockerビルドいずれでも発生済み）。`npm install` は同じロックファイルから素直にインストールし、この誤検知を起こさない。
+依存関係を追加・削除したら `npm ci` が通ることを確認してからcommitする（`package.json` と `package-lock.json` の不整合をローカルで検知するため）。
 
 ## PRの運用
 
