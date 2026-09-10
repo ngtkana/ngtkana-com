@@ -1,0 +1,270 @@
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+
+/**
+ * Color scheme and theme variables
+ *
+ * Light mode (default) and dark mode color schemes
+ */
+
+:root {
+  /* Base colors */
+  --background: #fffaf5;
+  --foreground: #4a3f35;
+
+  /* Brand colors */
+  --primary: #ffaa55;
+  --secondary: #ffd6aa;
+  --accent: #ff8a3c;
+
+  /* UI colors */
+  --muted: #fff0e6;
+  --border: #ffe6d1;
+
+  /* Status colors */
+  --success: #4ade80;
+  --warning: #facc15;
+  --error: #f87171;
+  --info: #60a5fa;
+
+  --font-sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic", "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1a1410;
+    --foreground: #fff0e6;
+
+    --primary: #ffaa55;
+    --secondary: #cc8844;
+    --accent: #ff8a3c;
+
+    --muted: #2d241e;
+    --border: #3d2e24;
+
+    --success: #22c55e;
+    --warning: #eab308;
+    --error: #ef4444;
+    --info: #3b82f6;
+  }
+}
+
+/**
+ * Base styles
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/**
+ * Layout utilities
+ */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/**
+ * Navigation styles
+ */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+.active-nav-link::after {
+  width: 100%;
+}
+
+/**
+ * Animation utilities
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.animate-delay-50 {
+  animation-delay: 50ms;
+}
+
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/**
+ * Accessibility utilities
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(255, 170, 85, 0.3);
+  transition: outline-offset 0.2s ease;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* High contrast mode improvements */
+@media (forced-colors: active) {
+  :root {
+    --primary: SelectedItem;
+  }
+
+  .nav-link::after {
+    background-color: SelectedItem;
+  }
+
+  button,
+  a[role="button"] {
+    border: 1px solid currentColor;
+  }
+}

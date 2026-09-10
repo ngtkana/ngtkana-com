@@ -1,0 +1,103 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  class?: string;
+}
+
+const { src, title, class: className = "" } = Astro.props;
+const iframeSrc = `${src}${src.includes("?") ? "&" : "?"}enablejsapi=1`;
+---
+
+<iframe
+  class={className}
+  src={iframeSrc}
+  title={title}
+  data-youtube-embed
+  data-video-src={src}
+  data-video-title={title}
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  loading="lazy"></iframe>
+
+<script>
+  import { trackEvent } from "@/lib/analytics";
+  import { GA_EVENTS, VIDEO_PLATFORMS } from "@/lib/analyticsConfig";
+
+  interface YouTubePlayerStateEvent {
+    event: "onStateChange";
+    info: number;
+  }
+
+  function isYouTubePlayerStateEvent(obj: unknown): obj is YouTubePlayerStateEvent {
+    return (
+      typeof obj === "object" &&
+      obj !== null &&
+      "event" in obj &&
+      (obj as { event: unknown }).event === "onStateChange" &&
+      "info" in obj &&
+      typeof (obj as { info: unknown }).info === "number"
+    );
+  }
+
+  document.querySelectorAll<HTMLIFrameElement>("iframe[data-youtube-embed]").forEach((iframe) => {
+    const videoUrl = iframe.dataset.videoSrc ?? "";
+    const videoTitle = iframe.dataset.videoTitle ?? "";
+
+    trackEvent(GA_EVENTS.VIDEO_IMPRESSION, {
+      platform: VIDEO_PLATFORMS.YOUTUBE,
+      video_url: videoUrl,
+      video_title: videoTitle,
+    });
+  });
+
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://www.youtube.com" && event.origin !== "https://youtube.com") {
+      return;
+    }
+
+    let data: unknown;
+    try {
+      data = typeof event.data === "string" ? (JSON.parse(event.data) as unknown) : event.data;
+    } catch {
+      return;
+    }
+
+    if (!isYouTubePlayerStateEvent(data)) {
+      return;
+    }
+
+    const source = event.source;
+    const iframe = Array.from(
+      document.querySelectorAll<HTMLIFrameElement>("iframe[data-youtube-embed]"),
+    ).find((el) => el.contentWindow === source);
+
+    const videoUrl = iframe?.dataset.videoSrc ?? "";
+    const videoTitle = iframe?.dataset.videoTitle ?? "";
+
+    switch (data.info) {
+      case 0:
+        trackEvent(GA_EVENTS.VIDEO_COMPLETE, {
+          platform: VIDEO_PLATFORMS.YOUTUBE,
+          video_url: videoUrl,
+          video_title: videoTitle,
+        });
+        break;
+      case 1:
+        trackEvent(GA_EVENTS.VIDEO_PLAY, {
+          platform: VIDEO_PLATFORMS.YOUTUBE,
+          video_url: videoUrl,
+          video_title: videoTitle,
+        });
+        break;
+      case 2:
+        trackEvent(GA_EVENTS.VIDEO_PAUSE, {
+          platform: VIDEO_PLATFORMS.YOUTUBE,
+          video_url: videoUrl,
+          video_title: videoTitle,
+        });
+        break;
+    }
+  });
+</script>

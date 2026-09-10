@@ -9,12 +9,14 @@ on:
       - '**.js'
       - '**.ts'
       - '**.tsx'
+      - '**.astro'
+      - '**.css'
       - '**.json'
       - '**.mjs'
       - 'package.json'
       - 'package-lock.json'
       - 'Dockerfile'
-      - 'next.config.ts'
+      - 'astro.config.mjs'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 

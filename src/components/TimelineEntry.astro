@@ -1,0 +1,95 @@
+---
+export interface TimelineEntryData {
+  date: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  entry?: TimelineEntryData;
+  title?: string;
+  description?: string;
+  useDynamicDate?: boolean;
+  isLast?: boolean;
+  class?: string;
+}
+
+const {
+  entry,
+  title,
+  description,
+  useDynamicDate = false,
+  isLast = false,
+  class: className = "",
+} = Astro.props;
+
+const displayTitle = entry?.title ?? title ?? "";
+const displayDescription = entry?.description ?? description ?? "";
+const displayDate = entry?.date ?? "";
+---
+
+<div class:list={["timeline-entry", { "timeline-entry-last": isLast }, className]}>
+  <div class="timeline-entry-date-col">
+    <time class="timeline-entry-date" data-dynamic-date={useDynamicDate ? "" : undefined}
+      >{displayDate}</time
+    >
+  </div>
+  <div class="timeline-entry-content-col">
+    <h3 class="timeline-entry-title">{displayTitle}</h3>
+    <p class="timeline-entry-description">{displayDescription}</p>
+  </div>
+</div>
+
+<style>
+  .timeline-entry {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-entry-last {
+    margin-bottom: 0;
+  }
+
+  .timeline-entry-date-col {
+    width: 25%;
+    padding-right: 1rem;
+  }
+
+  .timeline-entry-content-col {
+    width: 75%;
+  }
+
+  .timeline-entry-date {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--foreground);
+    opacity: 0.75;
+  }
+
+  .timeline-entry-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .timeline-entry-description {
+    margin: 0;
+    font-size: 0.875rem;
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  function formatToday(): string {
+    const now = new Date();
+    return `${String(now.getFullYear())}年${String(now.getMonth() + 1)}月${String(now.getDate())}日`;
+  }
+
+  document.querySelectorAll<HTMLTimeElement>("time[data-dynamic-date]").forEach((el) => {
+    el.textContent = formatToday();
+    setInterval(() => {
+      el.textContent = formatToday();
+    }, 1000 * 60 * 60);
+  });
+</script>

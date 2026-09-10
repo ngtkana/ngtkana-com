@@ -1,5 +1,11 @@
-export default config = {
-  plugins: ["prettier-plugin-tailwindcss"],
+export default {
+  plugins: ["prettier-plugin-astro"],
+  overrides: [
+    {
+      files: "*.astro",
+      options: { parser: "astro" },
+    },
+  ],
   semi: true,
   singleQuote: true,
   trailingComma: "all",

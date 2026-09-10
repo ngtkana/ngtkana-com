@@ -1,0 +1,58 @@
+---
+import { Icon as IconifyIcon } from "astro-icon/components";
+
+export type IconName =
+  | "home"
+  | "profile"
+  | "youtube"
+  | "twitter"
+  | "external-link"
+  | "twitch"
+  | "niconico"
+  | "blog"
+  | "atcoder"
+  | "github"
+  | "discord";
+
+type IconSize = "xs" | "sm" | "md" | "lg" | "xl";
+
+interface Props {
+  name: IconName;
+  size?: IconSize;
+  class?: string;
+  ariaHidden?: boolean;
+}
+
+const { name, size = "md", class: className = "", ariaHidden = true } = Astro.props;
+
+/** Maps our stable icon names to Iconify's `set:icon` identifiers */
+const iconifyName: Record<IconName, string> = {
+  home: "fa6-solid:house",
+  profile: "fa6-solid:user",
+  youtube: "fa6-brands:youtube",
+  twitter: "fa6-brands:twitter",
+  "external-link": "feather:external-link",
+  twitch: "fa6-brands:twitch",
+  niconico: "simple-icons:niconico",
+  blog: "fa6-solid:blog",
+  atcoder: "fa6-solid:code",
+  github: "fa6-brands:github",
+  discord: "fa6-brands:discord",
+};
+
+const pixelSize: Record<IconSize, number> = {
+  xs: 16,
+  sm: 20,
+  md: 24,
+  lg: 32,
+  xl: 40,
+};
+---
+
+<IconifyIcon
+  name={iconifyName[name]}
+  width={pixelSize[size]}
+  height={pixelSize[size]}
+  class={className}
+  aria-hidden={ariaHidden ? "true" : undefined}
+/>

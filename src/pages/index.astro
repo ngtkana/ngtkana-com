@@ -1,0 +1,327 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Hero from "@/components/Hero.astro";
+import Section from "@/components/Section.astro";
+import Container from "@/components/Container.astro";
+import PageNavigation from "@/components/PageNavigation.astro";
+import MobileNav from "@/components/MobileNav.astro";
+import SocialLinkCard, { type SocialLinkData } from "@/components/SocialLinkCard.astro";
+import ProfileItem from "@/components/ProfileItem.astro";
+import TimelineEntry, { type TimelineEntryData } from "@/components/TimelineEntry.astro";
+import YouTubeEmbed from "@/components/YouTubeEmbed.astro";
+import { siteConfig } from "@/lib/seo";
+
+const socialLinks: SocialLinkData[] = [
+  {
+    name: "YouTube",
+    username: "@ngtkana",
+    url: "https://www.youtube.com/@ngtkana",
+    iconName: "youtube",
+    iconColor: "#ef4444",
+    hoverColor: "#dc2626",
+    description: "ボカロ曲を中心に、歌ってみた動画を投稿しております。まずは聴いていきましょう！",
+    ariaLabel: "YouTube チャンネル @ngtkana",
+  },
+  {
+    name: "X (Twitter)",
+    username: "@ngtkana",
+    url: "https://x.com/ngtkana",
+    iconName: "twitter",
+    iconColor: "#3b82f6",
+    hoverColor: "#2563eb",
+    description: "新作のダジャレを投稿しております。",
+    ariaLabel: "X (Twitter) アカウント @ngtkana",
+  },
+  {
+    name: "ながたかなのお部屋",
+    username: "Discord",
+    url: "https://discord.gg/wsMFhNCVEr",
+    iconName: "discord",
+    iconColor: "#6366f1",
+    description:
+      "未公開なお歌進捗や、私の近況などです。ひとりごとはさびしいですから、ぜひ遊びに来てください。",
+    ariaLabel: "ながたかな ファンコミュニティ Discord サーバー",
+  },
+  {
+    name: "Twitch",
+    username: "ngtkana",
+    url: "https://www.twitch.tv/ngtkana",
+    iconName: "twitch",
+    iconColor: "#a855f7",
+    hoverColor: "#9333ea",
+    description: "不定期でゲームや競プロ、漫談が行われているともっぱらの噂です。",
+    ariaLabel: "Twitch チャンネル ngtkana",
+  },
+  {
+    name: "ニコニコ動画",
+    username: "user/97990641",
+    url: "https://www.nicovideo.jp/user/97990641",
+    iconName: "niconico",
+    iconColor: "#14b8a6",
+    hoverColor: "#0d9488",
+    description: "なんとこちらにも歌ってみた動画が投稿されております。お得ですね。",
+    ariaLabel: "ニコニコ動画 ユーザー",
+  },
+  {
+    name: "はてなブログ",
+    username: "ngtkana",
+    url: "https://ngtkana.hatenablog.com/",
+    iconName: "blog",
+    iconColor: "#22c55e",
+    hoverColor: "#16a34a",
+    description:
+      "纏まった文章を気軽に投稿しています。実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。",
+    ariaLabel: "はてなブログ",
+  },
+  {
+    name: "AtCoder",
+    username: "ngtkana",
+    url: "https://atcoder.jp/users/ngtkana",
+    iconName: "atcoder",
+    iconColor: "#eab308",
+    hoverColor: "#ca8a04",
+    description: "昔はワシも競プロをしておったのじゃ。",
+    ariaLabel: "AtCoder プロフィール",
+  },
+  {
+    name: "GitHub",
+    username: "ngtkana",
+    url: "https://github.com/ngtkana",
+    iconName: "github",
+    iconColor: "var(--foreground)",
+    hoverColor: "#374151",
+    description: "ac-adapter-rs という Rust 競プロライブラリがウリです。",
+    ariaLabel: "GitHub プロフィール",
+  },
+  {
+    name: "kyoprusteseans",
+    username: "Discord",
+    url: "https://discord.com/invite/RmRCzPnFPc",
+    iconName: "discord",
+    iconColor: "#6366f1",
+    hoverColor: "#4f46e5",
+    description: "競プロにおける Rust に興味がある人のための Discord サーバーです。",
+    ariaLabel: "Discord サーバー",
+  },
+];
+
+const timelineEntries: TimelineEntryData[] = [
+  {
+    date: "2024年8月1日",
+    title: "カービィ使いになりました",
+    description: "スマブラSPはこの子と一緒に戦っていきます。",
+  },
+  {
+    date: "2023年9月28日",
+    title: "3Dデビューしました",
+    description: "実は初配信はツイキャス。",
+  },
+  {
+    date: "2023年7月27日",
+    title: "Twitch でゲーム配信を初めました",
+    description: "当初は様々なゲームをしておりました。",
+  },
+  {
+    date: "2021年12月4日",
+    title: "YouTubeチャンネル開設",
+    description: "ボカロ曲を中心に、歌ってみた動画の投稿を開始しました。",
+  },
+];
+---
+
+<Layout description="ながたかなの公式ウェブサイトへようこそ。歌い手として活動しています。">
+  <div class="page-nav-wrapper">
+    <div class="page-nav-desktop">
+      <PageNavigation />
+    </div>
+    <div class="page-nav-mobile">
+      <MobileNav />
+    </div>
+  </div>
+
+  <Hero
+    title={siteConfig.name}
+    subtitle="歌い手 | Vocalist"
+    description={siteConfig.description}
+    imageSrc="/images/profile"
+    imageAlt="ながたかな"
+  />
+
+  <Container size="lg" class="main-content">
+    <Section id="about" title="About">
+      <div class="prose-block">
+        <p>
+          2021 年 12 月 YouTube にて活動を開始。 ボカロ曲を中心に歌ってみた動画の投稿を続けております。
+          みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
+          よかったら遊びにきてくださいね！
+        </p>
+      </div>
+    </Section>
+
+    <Section id="profile" title="Profile" animationDelay="animate-delay-50">
+      <div class="prose-block">
+        <dl class="profile-list">
+          <ProfileItem label="身長">ながいです。</ProfileItem>
+          <ProfileItem label="体重">浮力に負けます。</ProfileItem>
+          <ProfileItem label="年齢"
+            >私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく 150
+            億年以上です。</ProfileItem
+          >
+          <ProfileItem label="お誕生日">4/11 です。プレゼントお待ちしております。</ProfileItem>
+          <ProfileItem label="得意なこと">お歌と数学です。</ProfileItem>
+          <ProfileItem label="星座">ピザ</ProfileItem>
+        </dl>
+      </div>
+    </Section>
+
+    <Section id="connect" title="Social Links" animationDelay="animate-delay-200">
+      <div class="social-grid">
+        {
+          socialLinks.map((link, index) => (
+            <SocialLinkCard link={link} class={`opacity-0 animate-fade-in animate-delay-${String((index % 5) + 1)}00`} />
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
+      <div class="video-frame">
+        <YouTubeEmbed
+          class="video-iframe"
+          src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
+          title="YouTube プレイリスト"
+        />
+      </div>
+    </Section>
+
+    <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-75">
+      <div class="prose-block">
+        <dl class="profile-list">
+          <ProfileItem label="Nintendo Switch">SW-7763-1448-3304</ProfileItem>
+          <ProfileItem label="Steam">1176233303</ProfileItem>
+          <ProfileItem label="Discord">536811801569132544</ProfileItem>
+        </dl>
+      </div>
+    </Section>
+
+    <Section id="history" title="History" animationDelay="animate-delay-300">
+      <div class="timeline-block">
+        <TimelineEntry
+          title="今日"
+          description="みなさまが私と出会えた記念すべき日である可能性が高いわけですね。"
+          useDynamicDate
+          class="opacity-0 animate-slide-in animate-delay-100"
+        />
+        {
+          timelineEntries.map((entry, index) => (
+            <TimelineEntry
+              entry={entry}
+              isLast={index === timelineEntries.length - 1}
+              class={`opacity-0 animate-slide-in animate-delay-${String((index % 5) + 1)}00`}
+            />
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="contact" title="Contact" animationDelay="animate-delay-400">
+      <div class="prose-block">
+        <p>お誘いは、X の DM までぜひです。</p>
+        <p>私がフォローしていない方からの DM、気づきづらくて申し訳ないです。</p>
+        <p>歌い手さんへ。コラボしましょう！ 作曲者さんへ。私の声いりませんか？</p>
+      </div>
+    </Section>
+  </Container>
+</Layout>
+
+<style>
+  .page-nav-wrapper {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 50;
+  }
+
+  .page-nav-mobile {
+    display: block;
+  }
+
+  .page-nav-desktop {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .page-nav-mobile {
+      display: none;
+    }
+    .page-nav-desktop {
+      display: block;
+    }
+  }
+
+  .main-content {
+    padding-block: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .main-content {
+      padding-block: 4rem;
+    }
+  }
+
+  .prose-block {
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+
+  .prose-block p {
+    margin: 0 0 1rem;
+  }
+
+  .profile-list {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .social-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .social-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .social-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  .video-frame :global(.video-iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .timeline-block {
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+</style>

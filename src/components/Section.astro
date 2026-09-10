@@ -1,0 +1,38 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  class?: string;
+  animationDelay?: string;
+}
+
+const { id, title, class: className = "", animationDelay = "" } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={["section", "opacity-0", "animate-slide-up", animationDelay, className]}
+  aria-labelledby={`${id}-heading`}
+>
+  <h2 id={`${id}-heading`} class="section-heading">{title}</h2>
+  <slot />
+</section>
+
+<style>
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section-heading {
+    margin: 0 0 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: 1.875rem;
+    }
+  }
+</style>

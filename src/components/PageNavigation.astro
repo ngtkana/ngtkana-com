@@ -1,0 +1,114 @@
+---
+const sections = [
+  { id: "about", label: "About" },
+  { id: "profile", label: "Profile" },
+  { id: "friend-codes", label: "Friend Codes" },
+  { id: "videos", label: "Videos" },
+  { id: "connect", label: "Connect" },
+  { id: "history", label: "History" },
+  { id: "contact", label: "Contact" },
+];
+---
+
+<nav class="page-nav" aria-label="ページ内ナビゲーション">
+  <ul class="page-nav-list">
+    {
+      sections.map(({ id, label }) => (
+        <li>
+          <a href={`#${id}`} class="nav-link page-nav-link" data-section-link={id}>
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .page-nav {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 9999px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border: 1px solid #f3f4f6;
+    transition:
+      box-shadow 0.3s ease,
+      background 0.3s ease;
+  }
+
+  .page-nav:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .page-nav {
+      background: rgba(17, 24, 39, 0.9);
+      border-color: #1f2937;
+    }
+  }
+
+  .page-nav-list {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .page-nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #1f2937;
+    transition: all 0.3s ease;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .page-nav-link {
+      color: #e5e7eb;
+    }
+  }
+
+  .page-nav-link.is-active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-section-link]");
+
+  const setActive = (id: string) => {
+    links.forEach((link) => {
+      const isActive = link.dataset.sectionLink === id;
+      link.classList.toggle("is-active", isActive);
+      link.classList.toggle("active-nav-link", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    },
+    { threshold: 0.3 },
+  );
+
+  links.forEach((link) => {
+    const id = link.dataset.sectionLink;
+    const section = id ? document.getElementById(id) : null;
+    if (section) {
+      observer.observe(section);
+    }
+  });
+</script>
