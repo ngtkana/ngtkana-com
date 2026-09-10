@@ -21,6 +21,10 @@ Node.js 22系・npm 11以上を使う（`package.json` の `engines` で強制�
 
 依存関係を追加・削除したら `npm ci` が通ることを確認してからcommitする（`package.json` と `package-lock.json` の不整合をローカルで検知するため）。
 
+## pre-commitフック
+
+Huskyで `npm run lint` / `npm test` をcommit前に自動実行する（`.husky/pre-commit`）。`npm install` 時に自動でセットアップされる（`prepare` スクリプト）ので、追加の手順は不要。
+
 ## PRの運用
 
 レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。マージは通常のマージコミット（squash・rebaseは使わない）。
