@@ -2,17 +2,18 @@
 import Layout from "@/layouts/Layout.astro";
 import Hero from "@/components/Hero.astro";
 import Section from "@/components/Section.astro";
-import Container from "@/components/Container.astro";
-import PageNavigation from "@/components/PageNavigation.astro";
+import Sidebar from "@/components/Sidebar.astro";
 import MobileNav from "@/components/MobileNav.astro";
 import SocialLinkCard, { type SocialLinkData } from "@/components/SocialLinkCard.astro";
+import SocialLinkChip, { type SocialLinkChipData } from "@/components/SocialLinkChip.astro";
 import ProfileItem from "@/components/ProfileItem.astro";
 import FriendCodeItem from "@/components/FriendCodeItem.astro";
 import TimelineEntry, { type TimelineEntryData } from "@/components/TimelineEntry.astro";
 import YouTubeEmbed from "@/components/YouTubeEmbed.astro";
 import { siteConfig } from "@/lib/seo";
 
-const socialLinks: SocialLinkData[] = [
+/** Primary channels: shown as full detail cards */
+const primarySocialLinks: SocialLinkData[] = [
   {
     name: "YouTube",
     username: "@ngtkana",
@@ -31,14 +32,16 @@ const socialLinks: SocialLinkData[] = [
     description: "新作のダジャレを投稿しております。",
     ariaLabel: "X (Twitter) アカウント @ngtkana",
   },
+];
+
+/** Community channels: shown as a compact chip row */
+const communitySocialLinks: SocialLinkChipData[] = [
   {
     name: "ながたかなのお部屋",
     username: "Discord",
     url: "https://discord.gg/wsMFhNCVEr",
     iconName: "discord",
     accentColor: "var(--social-discord)",
-    description:
-      "未公開なお歌進捗や、私の近況などです。ひとりごとはさびしいですから、ぜひ遊びに来てください。",
     ariaLabel: "ながたかな ファンコミュニティ Discord サーバー",
   },
   {
@@ -47,7 +50,6 @@ const socialLinks: SocialLinkData[] = [
     url: "https://www.twitch.tv/ngtkana",
     iconName: "twitch",
     accentColor: "var(--social-twitch)",
-    description: "不定期でゲームや競プロ、漫談が行われているともっぱらの噂です。",
     ariaLabel: "Twitch チャンネル ngtkana",
   },
   {
@@ -56,7 +58,6 @@ const socialLinks: SocialLinkData[] = [
     url: "https://www.nicovideo.jp/user/97990641",
     iconName: "niconico",
     accentColor: "var(--social-niconico)",
-    description: "なんとこちらにも歌ってみた動画が投稿されております。お得ですね。",
     ariaLabel: "ニコニコ動画 ユーザー",
   },
   {
@@ -65,17 +66,18 @@ const socialLinks: SocialLinkData[] = [
     url: "https://ngtkana.hatenablog.com/",
     iconName: "blog",
     accentColor: "var(--social-hatena)",
-    description:
-      "纏まった文章を気軽に投稿しています。実質ゴミ箱。しかし私くらい高貴な人物になるとゴミ箱さえ宝箱なのです。",
     ariaLabel: "はてなブログ",
   },
+];
+
+/** Competitive-programming-adjacent links: a tangential interest, kept small and separate */
+const competitiveSocialLinks: SocialLinkChipData[] = [
   {
     name: "AtCoder",
     username: "ngtkana",
     url: "https://atcoder.jp/users/ngtkana",
     iconName: "atcoder",
     accentColor: "var(--social-atcoder)",
-    description: "昔はワシも競プロをしておったのじゃ。",
     ariaLabel: "AtCoder プロフィール",
   },
   {
@@ -84,7 +86,6 @@ const socialLinks: SocialLinkData[] = [
     url: "https://github.com/ngtkana",
     iconName: "github",
     accentColor: "var(--color-text-secondary)",
-    description: "ac-adapter-rs という Rust 競プロライブラリがウリです。",
     ariaLabel: "GitHub プロフィール",
   },
   {
@@ -93,8 +94,7 @@ const socialLinks: SocialLinkData[] = [
     url: "https://discord.com/invite/RmRCzPnFPc",
     iconName: "discord",
     accentColor: "var(--social-discord)",
-    description: "競プロにおける Rust に興味がある人のための Discord サーバーです。",
-    ariaLabel: "Discord サーバー",
+    ariaLabel: "競技プログラミング Rust Discord サーバー",
   },
 ];
 
@@ -123,18 +123,21 @@ const timelineEntries: TimelineEntryData[] = [
 ---
 
 <Layout description="ながたかなの公式ウェブサイトへようこそ。歌い手として活動しています。">
-  <div class="page-nav-wrapper">
-    <div class="page-nav-desktop">
-      <PageNavigation />
-    </div>
-    <div class="page-nav-mobile">
-      <MobileNav />
-    </div>
+  <div id="mobile-nav-wrapper" class="mobile-nav-wrapper">
+    <MobileNav />
   </div>
 
-  <Hero title={siteConfig.name} subtitle="歌い手 | Vocalist" description={siteConfig.description} />
+  <div class="page-shell">
+    <Sidebar
+      title={siteConfig.name}
+      subtitle="歌い手 | Vocalist"
+      description={siteConfig.description}
+      primaryLinks={primarySocialLinks}
+    />
 
-  <Container size="lg" class="main-content">
+    <main class="main-column">
+    <Hero />
+
     <Section id="about" title="About">
       <div class="prose-block">
         <p>
@@ -145,7 +148,41 @@ const timelineEntries: TimelineEntryData[] = [
       </div>
     </Section>
 
-    <Section id="profile" title="Profile" animationDelay="animate-delay-50">
+    <Section id="connect" title="Social Links" animationDelay="animate-delay-50">
+      <div class="social-primary-grid">
+        {
+          primarySocialLinks.map((link, index) => (
+            <SocialLinkCard
+              link={link}
+              class={`opacity-0 animate-fade-in animate-delay-${String((index + 1) * 100)}`}
+            />
+          ))
+        }
+      </div>
+
+      <div class="social-chip-row">
+        {communitySocialLinks.map((link) => <SocialLinkChip link={link} />)}
+      </div>
+
+      <div class="social-competitive">
+        <p class="social-competitive-label">競技プログラミングがお好きな方へ</p>
+        <div class="social-chip-row">
+          {competitiveSocialLinks.map((link) => <SocialLinkChip link={link} />)}
+        </div>
+      </div>
+    </Section>
+
+    <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
+      <div class="video-frame">
+        <YouTubeEmbed
+          class="video-iframe"
+          src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
+          title="YouTube プレイリスト"
+        />
+      </div>
+    </Section>
+
+    <Section id="profile" title="Profile" animationDelay="animate-delay-150">
       <div class="prose-block">
         <dl class="profile-list">
           <ProfileItem label="身長">ながいです。</ProfileItem>
@@ -161,27 +198,7 @@ const timelineEntries: TimelineEntryData[] = [
       </div>
     </Section>
 
-    <Section id="connect" title="Social Links" animationDelay="animate-delay-200">
-      <div class="social-grid">
-        {
-          socialLinks.map((link, index) => (
-            <SocialLinkCard link={link} class={`opacity-0 animate-fade-in animate-delay-${String((index % 5) + 1)}00`} />
-          ))
-        }
-      </div>
-    </Section>
-
-    <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
-      <div class="video-frame">
-        <YouTubeEmbed
-          class="video-iframe"
-          src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
-          title="YouTube プレイリスト"
-        />
-      </div>
-    </Section>
-
-    <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-75">
+    <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-200">
       <div class="prose-block">
         <dl class="profile-list">
           <FriendCodeItem label="Nintendo Switch">SW-7763-1448-3304</FriendCodeItem>
@@ -218,41 +235,71 @@ const timelineEntries: TimelineEntryData[] = [
         <p>歌い手さんへ。コラボしましょう！ 作曲者さんへ。私の声いりませんか？</p>
       </div>
     </Section>
-  </Container>
+    </main>
+  </div>
 </Layout>
 
 <style>
-  .page-nav-wrapper {
+  /* Mobile/tablet quick-jump nav. The desktop sidebar has its own nav list
+     instead, so this is hidden at that breakpoint entirely. */
+  .mobile-nav-wrapper {
     position: fixed;
     top: 1rem;
     right: 1rem;
     z-index: 50;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    pointer-events: none;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
   }
 
-  .page-nav-mobile {
-    display: block;
+  /* Reveal only once scrolled past the identity panel, since it sits at
+     the very top of the page and a fixed button there would otherwise
+     overlap its heading text. */
+  .mobile-nav-wrapper.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
-  .page-nav-desktop {
-    display: none;
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav-wrapper {
+      transition: none;
+    }
   }
 
-  @media (min-width: 768px) {
-    .page-nav-mobile {
+  @media (min-width: 1024px) {
+    .mobile-nav-wrapper {
       display: none;
     }
-    .page-nav-desktop {
-      display: block;
+  }
+
+  .page-shell {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .page-shell {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+      padding-inline: 2rem;
+      align-items: start;
     }
   }
 
-  .main-content {
-    padding-block: 3rem;
+  .main-column {
+    display: block;
+    padding-block: 1.5rem 3rem;
   }
 
-  @media (min-width: 768px) {
-    .main-content {
-      padding-block: 4rem;
+  @media (min-width: 1024px) {
+    .main-column {
+      padding-block: 2rem 4rem;
     }
   }
 
@@ -272,22 +319,37 @@ const timelineEntries: TimelineEntryData[] = [
     gap: 0.5rem;
   }
 
-  .social-grid {
+  .social-primary-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
-  @media (min-width: 768px) {
-    .social-grid {
+  @media (min-width: 640px) {
+    .social-primary-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  @media (min-width: 1024px) {
-    .social-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .social-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .social-competitive {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .social-competitive-label {
+    margin: 0 0 0.75rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
   }
 
   .video-frame {
@@ -312,3 +374,23 @@ const timelineEntries: TimelineEntryData[] = [
     margin-inline: auto;
   }
 </style>
+
+<script>
+  // The identity panel (name/tagline/description) sits at the very top of
+  // the page on mobile/tablet, so a fixed nav button there would overlap
+  // its heading text. Reveal the button only once scrolled past it.
+  const navWrapper = document.getElementById("mobile-nav-wrapper");
+  const identityPanel = document.getElementById("identity-panel");
+
+  if (navWrapper && identityPanel) {
+    const setVisible = (visible: boolean) => {
+      navWrapper.classList.toggle("is-visible", visible);
+      navWrapper.inert = !visible;
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(!entry.isIntersecting);
+    });
+    observer.observe(identityPanel);
+  }
+</script>

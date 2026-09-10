@@ -1,0 +1,249 @@
+---
+import Icon from "@/components/Icon.astro";
+import { navSections } from "@/lib/navigation";
+import { sanitizeUrl } from "@/lib/urlUtils";
+import type { SocialLinkData } from "@/components/SocialLinkCard.astro";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  primaryLinks: SocialLinkData[];
+}
+
+const { title, subtitle, description, primaryLinks } = Astro.props;
+---
+
+<aside id="identity-panel" class="sidebar">
+  <div class="sidebar-identity">
+    <h1 class="sidebar-name">{title}</h1>
+    <p class="sidebar-tagline">{subtitle}</p>
+    <p class="sidebar-description">{description}</p>
+
+    <div class="sidebar-primary-links">
+      {
+        primaryLinks.map((link) => {
+          const safeUrl = sanitizeUrl(link.url);
+          return (
+            safeUrl && (
+              <a
+                href={safeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sidebar-primary-link"
+                aria-label={link.ariaLabel}
+                style={`--accent-color:${link.accentColor}`}
+              >
+                <Icon name={link.iconName} size="sm" />
+                {link.name}
+              </a>
+            )
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <nav class="sidebar-nav" aria-label="ページ内ナビゲーション">
+    <ul class="sidebar-nav-list">
+      {
+        navSections.map(({ id, label, icon }) => (
+          <li>
+            <a href={`#${id}`} class="nav-link sidebar-nav-link" data-section-link={id}>
+              <Icon name={icon} size="sm" class="sidebar-nav-icon" />
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar {
+      position: sticky;
+      top: 2rem;
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+  }
+
+  .sidebar-name {
+    margin: 0 0 0.25rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .sidebar-tagline {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sidebar-description {
+    margin: 0 0 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .sidebar-primary-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .sidebar-primary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    transition: border-color 0.2s ease;
+  }
+
+  .sidebar-primary-link:hover {
+    border-color: var(--accent-color);
+  }
+
+  .sidebar-nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .sidebar-nav-link:hover {
+    background: var(--color-bg-hover);
+  }
+
+  .sidebar-nav-icon {
+    flex-shrink: 0;
+    color: var(--color-text-tertiary);
+  }
+
+  .sidebar-nav-link.is-active {
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .sidebar-nav-link.is-active .sidebar-nav-icon {
+    color: var(--color-accent);
+  }
+
+  /* This component doubles as the mobile "About" intro block and the
+     desktop sticky sidebar; only the nav list's presentation changes
+     (MobileNav's hamburger covers section-jumping below 1024px instead). */
+  .sidebar-nav {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .sidebar-nav {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"));
+
+  const orderedSections = links
+    .map((link) => (link.dataset.sectionLink ? document.getElementById(link.dataset.sectionLink) : null))
+    .filter((section): section is HTMLElement => section !== null);
+
+  const setActive = (id: string) => {
+    links.forEach((link) => {
+      const isActive = link.dataset.sectionLink === id;
+      link.classList.toggle("is-active", isActive);
+      link.classList.toggle("active-nav-link", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  // Default to the first section: on initial load the Hero pushes "About"
+  // below the detection band below, so nothing intersects it yet.
+  if (orderedSections[0]) {
+    setActive(orderedSections[0].id);
+  }
+
+  // Track every section currently inside a thin band near the top of the
+  // viewport, then activate whichever one is first in document order.
+  // (A plain "any intersecting section wins" approach is order-of-callback
+  // dependent and can pick the wrong section when several are on screen
+  // at once, e.g. right after page load.) If nothing is in the band (e.g.
+  // between sections, or above the first one), keep the previous section
+  // active rather than clearing it.
+  const intersecting = new Set<string>();
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          intersecting.add(entry.target.id);
+        } else {
+          intersecting.delete(entry.target.id);
+        }
+      });
+
+      const active = orderedSections.find((section) => intersecting.has(section.id));
+      if (active) {
+        setActive(active.id);
+      }
+    },
+    { rootMargin: "-10% 0px -70% 0px", threshold: 0 },
+  );
+
+  orderedSections.forEach((section) => {
+    observer.observe(section);
+  });
+
+  // The last section's top can never reach the detection band once the
+  // page is scrolled as far down as it goes, so it would never activate
+  // on its own — force it active once we hit the bottom of the page.
+  const lastSection = orderedSections.at(-1);
+  if (lastSection) {
+    document.addEventListener(
+      "scroll",
+      () => {
+        const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+        if (atBottom) {
+          setActive(lastSection.id);
+        }
+      },
+      { passive: true },
+    );
+  }
+</script>
