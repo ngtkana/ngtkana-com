@@ -7,9 +7,8 @@ export interface SocialLinkData {
   username: string;
   url: string;
   iconName: IconName;
-  iconColor: string;
-  /** Name-on-hover accent color; omit to keep the default heading color */
-  hoverColor?: string;
+  /** Used for both the icon and the name-on-hover color */
+  accentColor: string;
   description: string;
   ariaLabel: string;
 }
@@ -39,7 +38,7 @@ if (!safeUrl) {
       data-name={link.name}
       data-username={link.username}
       data-url={safeUrl}
-      style={`--icon-color:${link.iconColor};--hover-color:${link.hoverColor ?? "inherit"}`}
+      style={`--accent-color:${link.accentColor}`}
     >
       <div class="social-link-head">
         <div class="social-link-icon">
@@ -59,16 +58,17 @@ if (!safeUrl) {
   .social-link-card {
     display: block;
     padding: 1rem;
-    background: var(--background);
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     transition:
       box-shadow 0.3s ease,
-      transform 0.3s ease;
+      border-color 0.3s ease;
   }
 
   .social-link-card:hover {
+    border-color: var(--color-accent-strong);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
@@ -80,7 +80,7 @@ if (!safeUrl) {
 
   .social-link-icon {
     margin-right: 0.75rem;
-    color: var(--icon-color);
+    color: var(--accent-color);
     font-size: 1.875rem;
     line-height: 1;
   }
@@ -93,18 +93,18 @@ if (!safeUrl) {
   }
 
   .social-link-card:hover .social-link-name {
-    color: var(--hover-color);
+    color: var(--accent-color);
   }
 
   .social-link-username {
     margin: 0;
-    opacity: 0.8;
+    color: var(--color-text-secondary);
   }
 
   .social-link-description {
     margin: 0;
     font-size: 1rem;
-    opacity: 0.85;
+    color: var(--color-text-secondary);
   }
 </style>
 

@@ -1,0 +1,34 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className = "" } = Astro.props;
+---
+
+<div class:list={["friend-code-item", className]}>
+  <dt class="friend-code-label">{label}</dt>
+  <dd class="friend-code-value">
+    <span class="chip"><slot /></span>
+  </dd>
+</div>
+
+<style>
+  .friend-code-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .friend-code-label {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    min-width: 9rem;
+  }
+
+  .friend-code-value {
+    margin: 0;
+  }
+</style>

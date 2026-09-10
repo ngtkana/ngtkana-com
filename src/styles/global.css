@@ -1,54 +1,79 @@
-@import "@fontsource/geist-sans/400.css";
-@import "@fontsource/geist-sans/500.css";
-@import "@fontsource/geist-sans/600.css";
-@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/zen-maru-gothic/400.css";
+@import "@fontsource/zen-maru-gothic/500.css";
+@import "@fontsource/zen-maru-gothic/700.css";
+@import "@fontsource/zen-maru-gothic/900.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
 
 /**
- * Color scheme and theme variables
+ * Color tokens
  *
- * Light mode (default) and dark mode color schemes
+ * Layered oklch scale (bg/border/text/accent tiers), shared across light
+ * and dark mode. --color-accent-strong is the raw brand hue: reserved for
+ * badge fills, borders and hover backgrounds, never for text, since it
+ * fails WCAG contrast against both page backgrounds on its own.
+ * --color-accent is a darkened/lightened variant tuned to clear 4.5:1
+ * against bg-primary/bg-secondary in each mode; use it for links, focus
+ * rings and any text-bearing accent.
  */
-
 :root {
-  /* Base colors */
-  --background: #fffaf5;
-  --foreground: #4a3f35;
+  --color-bg-primary: oklch(0.99 0.008 55);
+  --color-bg-secondary: oklch(0.965 0.014 55);
+  --color-bg-hover: oklch(0.94 0.022 55);
 
-  /* Brand colors */
-  --primary: #ffaa55;
-  --secondary: #ffd6aa;
-  --accent: #ff8a3c;
+  --color-border: oklch(0.885 0.032 55);
+  --color-border-light: oklch(0.94 0.02 55);
 
-  /* UI colors */
-  --muted: #fff0e6;
-  --border: #ffe6d1;
+  --color-text-primary: oklch(0.34 0.03 55);
+  --color-text-secondary: oklch(0.46 0.03 55);
+  --color-text-tertiary: oklch(0.52 0.03 55);
 
-  /* Status colors */
-  --success: #4ade80;
-  --warning: #facc15;
-  --error: #f87171;
-  --info: #60a5fa;
+  --color-accent: oklch(0.5 0.15 55);
+  --color-accent-soft: oklch(0.93 0.05 55);
+  --color-accent-strong: oklch(0.78 0.15 55);
+  --color-on-accent-strong: oklch(0.28 0.04 55);
 
-  --font-sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+  /* Social/brand accents: tuned per-platform so the icon + hover text both
+     clear 4.5:1 against bg-primary/bg-secondary. See PR description for
+     the contrast-check script used to derive these. */
+  --social-youtube: oklch(0.56 0.2 25.3);
+  --social-twitter: oklch(0.55 0.2 259.8);
+  --social-twitch: oklch(0.56 0.2 303.9);
+  --social-niconico: oklch(0.5 0.141 182.5);
+  --social-hatena: oklch(0.5 0.2 149.6);
+  --social-atcoder: oklch(0.54 0.186 86);
+  --social-discord: oklch(0.55 0.2 277.1);
+
+  --font-sans: "Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", "Yu Gothic", "Segoe UI", Arial, Helvetica, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1a1410;
-    --foreground: #fff0e6;
+    --color-bg-primary: oklch(0.2 0.014 55);
+    --color-bg-secondary: oklch(0.245 0.02 55);
+    --color-bg-hover: oklch(0.29 0.026 55);
 
-    --primary: #ffaa55;
-    --secondary: #cc8844;
-    --accent: #ff8a3c;
+    --color-border: oklch(0.34 0.032 55);
+    --color-border-light: oklch(0.28 0.022 55);
 
-    --muted: #2d241e;
-    --border: #3d2e24;
+    --color-text-primary: oklch(0.95 0.018 55);
+    --color-text-secondary: oklch(0.85 0.025 55);
+    --color-text-tertiary: oklch(0.76 0.03 55);
 
-    --success: #22c55e;
-    --warning: #eab308;
-    --error: #ef4444;
-    --info: #3b82f6;
+    --color-accent: oklch(0.82 0.14 55);
+    --color-accent-soft: oklch(0.3 0.045 55);
+    --color-accent-strong: oklch(0.78 0.15 55);
+    --color-on-accent-strong: oklch(0.22 0.03 55);
+
+    --social-youtube: oklch(0.65 0.2 25.3);
+    --social-twitter: oklch(0.63 0.2 259.8);
+    --social-twitch: oklch(0.65 0.2 303.9);
+    --social-niconico: oklch(0.6 0.141 182.5);
+    --social-hatena: oklch(0.6 0.2 149.6);
+    --social-atcoder: oklch(0.63 0.186 86);
+    --social-discord: oklch(0.64 0.2 277.1);
   }
 }
 
@@ -61,10 +86,35 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Round, sweet-toned scrollbar to match the accent palette (Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-soft) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-soft);
+  border-radius: 999px;
+  border: 2px solid var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-strong);
+}
+
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -74,6 +124,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-text-primary);
 }
 
 /**
@@ -113,7 +168,7 @@ a {
   height: 3px;
   bottom: -4px;
   left: 0;
-  background-color: var(--accent);
+  background-color: var(--color-accent);
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -125,6 +180,25 @@ a {
 
 .active-nav-link::after {
   width: 100%;
+}
+
+/**
+ * Chip / pill badge
+ *
+ * Accent-soft fill + text-safe accent color, for short identifier-like
+ * values (friend codes, tags). The raw accent-strong stays reserved for
+ * non-text decoration, per the color tier rule above.
+ */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 /**
@@ -231,9 +305,8 @@ a {
 
 /* Focus styles for keyboard navigation */
 :focus-visible {
-  outline: 3px solid var(--primary);
+  outline: 3px solid var(--color-accent);
   outline-offset: 3px;
-  box-shadow: 0 0 0 3px rgba(255, 170, 85, 0.3);
   transition: outline-offset 0.2s ease;
 }
 
@@ -242,8 +315,8 @@ a {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--primary);
-  color: white;
+  background: var(--color-accent-strong);
+  color: var(--color-on-accent-strong);
   padding: 8px;
   z-index: 100;
   transition: top 0.2s ease;
@@ -256,7 +329,7 @@ a {
 /* High contrast mode improvements */
 @media (forced-colors: active) {
   :root {
-    --primary: SelectedItem;
+    --color-accent: SelectedItem;
   }
 
   .nav-link::after {
