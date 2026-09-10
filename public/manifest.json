@@ -4,8 +4,8 @@
     "description": "広がるお歌の世界を、私の声で繋いでいきたいです。",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#fffaf5",
-    "theme_color": "#ffaa55",
+    "background_color": "#fffaf7",
+    "theme_color": "#ff9b50",
     "icons": [
         {
             "src": "/favicon/android-chrome-192x192.png",

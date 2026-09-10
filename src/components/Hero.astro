@@ -50,13 +50,7 @@ const { title, subtitle, description, imageSrc, imageAlt } = Astro.props;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: linear-gradient(to bottom right, #fffaf5, #ffd6aa);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .hero {
-      background: linear-gradient(to bottom right, #1a1410, #3d2e24);
-    }
+    background: linear-gradient(to bottom right, var(--color-bg-primary), var(--color-accent-soft));
   }
 
   .hero-blob {
@@ -66,14 +60,8 @@ const { title, subtitle, description, imageSrc, imageAlt } = Astro.props;
     width: 300px;
     height: 300px;
     border-radius: 9999px;
-    background: rgba(255, 170, 85, 0.3);
+    background: color-mix(in oklch, var(--color-accent-strong) 30%, transparent);
     z-index: 1;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .hero-blob {
-      background: rgba(255, 138, 60, 0.2);
-    }
   }
 
   .hero-image {

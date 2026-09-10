@@ -22,8 +22,8 @@ const isProd = import.meta.env.PROD;
     <meta name="author" content={siteConfig.name} />
     <link rel="canonical" href={canonicalUrl.toString()} />
 
-    <meta name="theme-color" content="#ffaa55" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1a1410" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ff9b50" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1b1410" media="(prefers-color-scheme: dark)" />
 
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
@@ -116,12 +116,13 @@ const isProd = import.meta.env.PROD;
 <style>
   .site-footer {
     padding: 3rem 0;
-    background: var(--muted);
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-light);
   }
 
   .site-footer-text {
     margin: 0;
     text-align: center;
-    opacity: 0.75;
+    color: var(--color-text-secondary);
   }
 </style>
