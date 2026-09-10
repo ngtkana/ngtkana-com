@@ -4,6 +4,10 @@ import { Icon as IconifyIcon } from "astro-icon/components";
 export type IconName =
   | "home"
   | "profile"
+  | "info"
+  | "mail"
+  | "hash"
+  | "clock"
   | "youtube"
   | "twitter"
   | "external-link"
@@ -29,6 +33,10 @@ const { name, size = "md", class: className = "", ariaHidden = true } = Astro.pr
 const iconifyName: Record<IconName, string> = {
   home: "fa6-solid:house",
   profile: "fa6-solid:user",
+  info: "fa6-solid:circle-info",
+  mail: "fa6-solid:envelope",
+  hash: "fa6-solid:hashtag",
+  clock: "fa6-solid:clock-rotate-left",
   youtube: "fa6-brands:youtube",
   twitter: "fa6-brands:twitter",
   "external-link": "feather:external-link",
