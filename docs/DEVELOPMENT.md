@@ -23,7 +23,7 @@ Node.js 22系・npm 11以上を使う（`package.json` の `engines` で強制�
 
 ## PRの運用
 
-レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。マージは通常のマージコミット（squash・rebaseは使わない）。
+レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。PRを出すと `claude-review` ワークフロー（[.github/workflows/claude-review.yml](../.github/workflows/claude-review.yml)）がClaude Codeによる自動レビューコメントを付ける。マージは通常のマージコミット（squash・rebaseは使わない）。
 
 ## テスト方針
 

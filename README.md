@@ -22,6 +22,7 @@ Node.js 22 系を前提とする（CI・Dockerfile と揃える）。
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — なぜこの技術構成なのか
 - [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) — 配色・タイポグラフィ・a11yの規約
 - [docs/CODE_TOUR.md](docs/CODE_TOUR.md) — `src/` の歩き方、よくある変更箇所
+- [docs/verification/](docs/verification/README.md) — 設計の前提にした実測・挙動の検証記録（問題があったときに立ち返るための記録。日付ごとに追記し、既存の記録は書き換えない）
 
 AIコーディングエージェント向けの運用ルールは [CLAUDE.md](CLAUDE.md) にある（人間はここを読む必要はない）。
 
