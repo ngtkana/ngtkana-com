@@ -136,105 +136,106 @@ const timelineEntries: TimelineEntryData[] = [
     />
 
     <main class="main-column">
-    <Hero />
+      <Hero />
 
-    <Section id="about" title="About">
-      <div class="prose-block">
-        <p>
-          2021 年 12 月 YouTube にて活動を開始。 ボカロ曲を中心に歌ってみた動画の投稿を続けております。
-          みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
-          よかったら遊びにきてくださいね！
-        </p>
-      </div>
-    </Section>
+      <Section id="about" title="About">
+        <div class="prose-block">
+          <p>
+            2021 年 12 月 YouTube にて活動を開始。
+            ボカロ曲を中心に歌ってみた動画の投稿を続けております。
+            みなさまの心に届くような歌声を目指して、これからも活動を続けていきたいです。
+            よかったら遊びにきてくださいね！
+          </p>
+        </div>
+      </Section>
 
-    <Section id="connect" title="Social Links" animationDelay="animate-delay-50">
-      <div class="social-primary-grid">
-        {
-          primarySocialLinks.map((link, index) => (
+      <Section id="connect" title="Social Links" animationDelay="animate-delay-50">
+        <div class="social-primary-grid">
+          {primarySocialLinks.map((link, index) => (
             <SocialLinkCard
               link={link}
               class={`opacity-0 animate-fade-in animate-delay-${String((index + 1) * 100)}`}
             />
-          ))
-        }
-      </div>
-
-      <div class="social-chip-row">
-        {communitySocialLinks.map((link) => <SocialLinkChip link={link} />)}
-      </div>
-
-      <div class="social-competitive">
-        <p class="social-competitive-label">競技プログラミングがお好きな方へ</p>
-        <div class="social-chip-row">
-          {competitiveSocialLinks.map((link) => <SocialLinkChip link={link} />)}
+          ))}
         </div>
-      </div>
-    </Section>
 
-    <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
-      <div class="video-frame">
-        <YouTubeEmbed
-          class="video-iframe"
-          src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
-          title="YouTube プレイリスト"
-        />
-      </div>
-    </Section>
+        <div class="social-chip-row">
+          {communitySocialLinks.map((link) => (
+            <SocialLinkChip link={link} />
+          ))}
+        </div>
 
-    <Section id="profile" title="Profile" animationDelay="animate-delay-150">
-      <div class="prose-block">
-        <dl class="profile-list">
-          <ProfileItem label="身長">ながいです。</ProfileItem>
-          <ProfileItem label="体重">浮力に負けます。</ProfileItem>
-          <ProfileItem label="年齢"
-            >私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく 150
-            億年以上です。</ProfileItem
-          >
-          <ProfileItem label="お誕生日">4/11 です。プレゼントお待ちしております。</ProfileItem>
-          <ProfileItem label="得意なこと">お歌と数学です。</ProfileItem>
-          <ProfileItem label="星座">ピザ</ProfileItem>
-        </dl>
-      </div>
-    </Section>
+        <div class="social-competitive">
+          <p class="social-competitive-label">競技プログラミングがお好きな方へ</p>
+          <div class="social-chip-row">
+            {competitiveSocialLinks.map((link) => (
+              <SocialLinkChip link={link} />
+            ))}
+          </div>
+        </div>
+      </Section>
 
-    <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-200">
-      <div class="prose-block">
-        <dl class="profile-list">
-          <FriendCodeItem label="Nintendo Switch">SW-7763-1448-3304</FriendCodeItem>
-          <FriendCodeItem label="Steam">1176233303</FriendCodeItem>
-          <FriendCodeItem label="Discord">536811801569132544</FriendCodeItem>
-        </dl>
-      </div>
-    </Section>
+      <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
+        <div class="video-frame">
+          <YouTubeEmbed
+            class="video-iframe"
+            src="https://www.youtube.com/embed/videoseries?si=7C_sU_ZCgZmRAY8p&list=PLthQZA1nE6DLzxQZfPr4LHaUFHOe3zt71"
+            title="YouTube プレイリスト"
+          />
+        </div>
+      </Section>
 
-    <Section id="history" title="History" animationDelay="animate-delay-300">
-      <div class="timeline-block">
-        <TimelineEntry
-          title="今日"
-          description="みなさまが私と出会えた記念すべき日である可能性が高いわけですね。"
-          useDynamicDate
-          class="opacity-0 animate-slide-in animate-delay-100"
-        />
-        {
-          timelineEntries.map((entry, index) => (
+      <Section id="profile" title="Profile" animationDelay="animate-delay-150">
+        <div class="prose-block">
+          <dl class="profile-list">
+            <ProfileItem label="身長">ながいです。</ProfileItem>
+            <ProfileItem label="体重">浮力に負けます。</ProfileItem>
+            <ProfileItem label="年齢">
+              私のいない宇宙って、それ存在しないも同然なのですよね。従って、おそらく 150
+              億年以上です。
+            </ProfileItem>
+            <ProfileItem label="お誕生日">4/11 です。プレゼントお待ちしております。</ProfileItem>
+            <ProfileItem label="得意なこと">お歌と数学です。</ProfileItem>
+            <ProfileItem label="星座">ピザ</ProfileItem>
+          </dl>
+        </div>
+      </Section>
+
+      <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-200">
+        <div class="prose-block">
+          <dl class="profile-list">
+            <FriendCodeItem label="Nintendo Switch">SW-7763-1448-3304</FriendCodeItem>
+            <FriendCodeItem label="Steam">1176233303</FriendCodeItem>
+            <FriendCodeItem label="Discord">536811801569132544</FriendCodeItem>
+          </dl>
+        </div>
+      </Section>
+
+      <Section id="history" title="History" animationDelay="animate-delay-300">
+        <div class="timeline-block">
+          <TimelineEntry
+            title="今日"
+            description="みなさまが私と出会えた記念すべき日である可能性が高いわけですね。"
+            useDynamicDate
+            class="opacity-0 animate-slide-in animate-delay-100"
+          />
+          {timelineEntries.map((entry, index) => (
             <TimelineEntry
               entry={entry}
               isLast={index === timelineEntries.length - 1}
               class={`opacity-0 animate-slide-in animate-delay-${String((index % 5) + 1)}00`}
             />
-          ))
-        }
-      </div>
-    </Section>
+          ))}
+        </div>
+      </Section>
 
-    <Section id="contact" title="Contact" animationDelay="animate-delay-400">
-      <div class="prose-block">
-        <p>お誘いは、X の DM までぜひです。</p>
-        <p>私がフォローしていない方からの DM、気づきづらくて申し訳ないです。</p>
-        <p>歌い手さんへ。コラボしましょう！ 作曲者さんへ。私の声いりませんか？</p>
-      </div>
-    </Section>
+      <Section id="contact" title="Contact" animationDelay="animate-delay-400">
+        <div class="prose-block">
+          <p>お誘いは、X の DM までぜひです。</p>
+          <p>私がフォローしていない方からの DM、気づきづらくて申し訳ないです。</p>
+          <p>歌い手さんへ。コラボしましょう！ 作曲者さんへ。私の声いりませんか？</p>
+        </div>
+      </Section>
     </main>
   </div>
 </Layout>

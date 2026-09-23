@@ -49,38 +49,37 @@ const isProd = import.meta.env.PROD;
     <meta name="twitter:title" content={meta.fullTitle} />
     <meta name="twitter:description" content={meta.description} />
 
-    {
-      isProd && GA_MEASUREMENT_ID && (
-        <>
-          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-          <script
-            is:inline
-            define:vars={{ GA_MEASUREMENT_ID }}
-          >
-            window.dataLayer = window.dataLayer || [];
-            function gtag(...args) {
-              dataLayer.push(args);
-            }
-            gtag("js", new Date());
-            gtag("config", GA_MEASUREMENT_ID);
-          </script>
-        </>
-      )
-    }
-
-    {
-      isProd && ADSENSE_PUBLISHER_ID && (
+    {isProd && GA_MEASUREMENT_ID && (
+      <>
         <script
           is:inline
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
-          crossorigin="anonymous"
-        />
-      )
-    }
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        ></script>
+        <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(...args) {
+            dataLayer.push(args);
+          }
+          gtag("js", new Date());
+          gtag("config", GA_MEASUREMENT_ID);
+        </script>
+      </>
+    )}
+
+    {isProd && ADSENSE_PUBLISHER_ID && (
+      <script
+        is:inline
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUBLISHER_ID}`}
+        crossorigin="anonymous"
+      ></script>
+    )}
   </head>
   <body>
-    <a href="#main-content" class="skip-link">コンテンツにスキップ</a>
+    <a href="#main-content" class="skip-link">
+      コンテンツにスキップ
+    </a>
     <main id="main-content">
       <slot />
     </main>

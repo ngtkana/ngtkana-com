@@ -30,9 +30,9 @@ const displayDate = entry?.date ?? "";
 
 <div class:list={["timeline-entry", { "timeline-entry-last": isLast }, className]}>
   <div class="timeline-entry-date-col">
-    <time class="timeline-entry-date" data-dynamic-date={useDynamicDate ? "" : undefined}
-      >{displayDate}</time
-    >
+    <time class="timeline-entry-date" data-dynamic-date={useDynamicDate ? "" : undefined}>
+      {displayDate}
+    </time>
   </div>
   <div class="timeline-entry-content-col">
     <h3 class="timeline-entry-title">{displayTitle}</h3>
@@ -108,8 +108,11 @@ const displayDate = entry?.date ?? "";
 
   document.querySelectorAll<HTMLTimeElement>("time[data-dynamic-date]").forEach((el) => {
     el.textContent = formatToday();
-    setInterval(() => {
-      el.textContent = formatToday();
-    }, 1000 * 60 * 60);
+    setInterval(
+      () => {
+        el.textContent = formatToday();
+      },
+      1000 * 60 * 60,
+    );
   });
 </script>

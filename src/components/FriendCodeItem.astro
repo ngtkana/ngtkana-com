@@ -10,7 +10,9 @@ const { label, class: className = "" } = Astro.props;
 <div class:list={["friend-code-item", className]}>
   <dt class="friend-code-label">{label}</dt>
   <dd class="friend-code-value">
-    <span class="chip"><slot /></span>
+    <span class="chip">
+      <slot />
+    </span>
   </dd>
 </div>
 

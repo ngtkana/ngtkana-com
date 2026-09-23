@@ -4,16 +4,16 @@
 
 ## カラートークンの階層と使い分け
 
-| トークン | 用途 |
-|---|---|
-| `--color-bg-primary` / `-secondary` / `-hover` | 背景 |
-| `--color-border` / `-light` | 罫線・区切り |
-| `--color-text-primary` / `-secondary` / `-tertiary` | 本文の文字色（濃い順） |
-| `--color-accent` | **文字用**のアクセント色。リンク・フォーカスリング・強調テキストに使う |
-| `--color-accent-strong` | 生のブランドカラー。**文字には使わない**。バッジの塗り・枠線・hover背景など「文字を乗せない」装飾専用 |
-| `--color-accent-soft` | チップ・バッジの薄い背景 |
-| `--color-on-accent-strong` | `accent-strong` を背景にしたときの文字色 |
-| `--social-*`（youtube, twitter, twitch, niconico, hatena, atcoder, discord） | SNSリンクのブランド色。アイコン色とhover時の文字色を兼ねる |
+| トークン                                                                     | 用途                                                                                                  |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `--color-bg-primary` / `-secondary` / `-hover`                               | 背景                                                                                                  |
+| `--color-border` / `-light`                                                  | 罫線・区切り                                                                                          |
+| `--color-text-primary` / `-secondary` / `-tertiary`                          | 本文の文字色（濃い順）                                                                                |
+| `--color-accent`                                                             | **文字用**のアクセント色。リンク・フォーカスリング・強調テキストに使う                                |
+| `--color-accent-strong`                                                      | 生のブランドカラー。**文字には使わない**。バッジの塗り・枠線・hover背景など「文字を乗せない」装飾専用 |
+| `--color-accent-soft`                                                        | チップ・バッジの薄い背景                                                                              |
+| `--color-on-accent-strong`                                                   | `accent-strong` を背景にしたときの文字色                                                              |
+| `--social-*`（youtube, twitter, twitch, niconico, hatena, atcoder, discord） | SNSリンクのブランド色。アイコン色とhover時の文字色を兼ねる                                            |
 
 **なぜ `accent` と `accent-strong` を分けているか**: ブランドカラーの原色（`accent-strong`）は明度が高く、背景色に対して文字色として使うとコントラスト比が4.5:1を切る。`accent` はそれを補正した派生色で、実際に計算して4.5:1以上を確保している。新しい配色を追加するときも同じ考え方で、**原色をそのまま文字色に使わない**。
 

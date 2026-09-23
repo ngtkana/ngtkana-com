@@ -28,16 +28,14 @@ import { navSections } from "@/lib/navigation";
   >
     <nav>
       <ul class="mobile-menu-list">
-        {
-          navSections.map(({ id, label, icon }) => (
-            <li role="none">
-              <a href={`#${id}`} class="mobile-menu-link" role="menuitem">
-                <Icon name={icon} class="mobile-menu-icon" />
-                {label}
-              </a>
-            </li>
-          ))
-        }
+        {navSections.map(({ id, label, icon }) => (
+          <li role="none">
+            <a href={`#${id}`} class="mobile-menu-link" role="menuitem">
+              <Icon name={icon} class="mobile-menu-icon" />
+              {label}
+            </a>
+          </li>
+        ))}
       </ul>
     </nav>
   </div>
@@ -73,7 +71,9 @@ import { navSections } from "@/lib/navigation";
     width: 1.5rem;
     height: 2px;
     background: var(--color-text-primary);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.3s ease;
   }
 
   .mobile-nav.is-open .mobile-nav-bar:nth-child(1) {
