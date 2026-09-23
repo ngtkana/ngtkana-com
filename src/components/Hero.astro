@@ -1,51 +1,35 @@
 ---
 import { Image } from "astro:assets";
 import heroImage from "@/assets/hero.jpg";
+
+// The `sizes` value below re-states the `.page-shell` grid in src/pages/index.astro
+// (max-width 1280px, padding-inline 2rem, 260px sidebar, 3rem gap) — that file is the
+// source of truth. Nothing links the two, so changing the grid there without changing
+// this makes the browser pick a wrong-sized candidate for the LCP image, silently.
 ---
 
-<div class="hero">
-  <Image
-    class="hero-image"
-    src={heroImage}
-    alt="インターネットお歌歌い手ながたかなのバナーイラスト「ゆっくりしていってね」"
-    widths={[480, 750, 1500]}
-    sizes="(min-width: 1024px) 900px, 100vw"
-    format="webp"
-    priority
-  />
-</div>
+<Image
+  class="hero"
+  src={heroImage}
+  alt="両手でハートマークを作ってほほえむ、ながたかなのイラスト"
+  widths={[480, 768, 1080, 1600, 1920]}
+  sizes="(min-width: 1024px) calc(min(100vw, 1280px) - 4rem - 260px - 3rem), calc(100vw - 3rem)"
+  format="webp"
+  priority
+/>
 
 <style>
+  /* The illustration is the whole point of the hero, so it's shown uncropped at its
+     native aspect ratio rather than cropped into a fixed-height band. The rounded
+     corners and shadow match the video frame further down the page; the bottom margin
+     keeps the shadow from spilling onto the "About" heading, which would otherwise
+     start at the image's exact bottom edge. */
   .hero {
+    display: block;
     width: 100%;
-    height: 11rem;
-    overflow: hidden;
-  }
-
-  @media (min-width: 640px) {
-    .hero {
-      height: 13.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .hero {
-      height: 16rem;
-    }
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Favor the character + name on the narrower crops; there's enough
-       height at wider crops that centering keeps everything in frame. */
-    object-position: 80% center;
-  }
-
-  @media (min-width: 1024px) {
-    .hero-image {
-      object-position: center;
-    }
+    height: auto;
+    margin-bottom: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 </style>
