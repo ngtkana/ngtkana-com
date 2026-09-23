@@ -1,21 +1,21 @@
 {
-    "name": "ながたかな",
-    "short_name": "ながたかな",
-    "description": "広がるお歌の世界を、私の声で繋いでいきたいです。",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#fffaf7",
-    "theme_color": "#ff9b50",
-    "icons": [
-        {
-            "src": "/favicon/android-chrome-192x192.png",
-            "sizes": "128x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/favicon/android-chrome-512x512.png",
-            "sizes": "341x512",
-            "type": "image/png"
-        }
-    ]
+  "name": "ながたかな",
+  "short_name": "ながたかな",
+  "description": "広がるお歌の世界を、私の声で繋いでいきたいです。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fffaf7",
+  "theme_color": "#ff9b50",
+  "icons": [
+    {
+      "src": "/favicon/android-chrome-192x192.png",
+      "sizes": "128x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/android-chrome-512x512.png",
+      "sizes": "341x512",
+      "type": "image/png"
+    }
+  ]
 }

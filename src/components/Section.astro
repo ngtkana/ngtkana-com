@@ -14,7 +14,9 @@ const { id, title, class: className = "", animationDelay = "" } = Astro.props;
   class:list={["section", "opacity-0", "animate-slide-up", animationDelay, className]}
   aria-labelledby={`${id}-heading`}
 >
-  <h2 id={`${id}-heading`} class="section-heading">{title}</h2>
+  <h2 id={`${id}-heading`} class="section-heading">
+    {title}
+  </h2>
   <slot />
 </section>
 

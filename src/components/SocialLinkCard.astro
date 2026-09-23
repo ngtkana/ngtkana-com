@@ -26,33 +26,31 @@ if (!safeUrl) {
 }
 ---
 
-{
-  safeUrl && (
-    <a
-      href={safeUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class:list={["social-link-card", className]}
-      aria-label={link.ariaLabel}
-      data-social-link
-      data-name={link.name}
-      data-username={link.username}
-      data-url={safeUrl}
-      style={`--accent-color:${link.accentColor}`}
-    >
-      <div class="social-link-head">
-        <div class="social-link-icon">
-          <Icon name={link.iconName} size="lg" />
-        </div>
-        <div>
-          <h3 class="social-link-name">{link.name}</h3>
-          <p class="social-link-username">{link.username}</p>
-        </div>
+{safeUrl && (
+  <a
+    href={safeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={["social-link-card", className]}
+    aria-label={link.ariaLabel}
+    data-social-link
+    data-name={link.name}
+    data-username={link.username}
+    data-url={safeUrl}
+    style={`--accent-color:${link.accentColor}`}
+  >
+    <div class="social-link-head">
+      <div class="social-link-icon">
+        <Icon name={link.iconName} size="lg" />
       </div>
-      <p class="social-link-description">{link.description}</p>
-    </a>
-  )
-}
+      <div>
+        <h3 class="social-link-name">{link.name}</h3>
+        <p class="social-link-username">{link.username}</p>
+      </div>
+    </div>
+    <p class="social-link-description">{link.description}</p>
+  </a>
+)}
 
 <style>
   .social-link-card {

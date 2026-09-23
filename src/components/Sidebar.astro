@@ -21,41 +21,37 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     <p class="sidebar-description">{description}</p>
 
     <div class="sidebar-primary-links">
-      {
-        primaryLinks.map((link) => {
-          const safeUrl = sanitizeUrl(link.url);
-          return (
-            safeUrl && (
-              <a
-                href={safeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="sidebar-primary-link"
-                aria-label={link.ariaLabel}
-                style={`--accent-color:${link.accentColor}`}
-              >
-                <Icon name={link.iconName} size="sm" />
-                {link.name}
-              </a>
-            )
-          );
-        })
-      }
+      {primaryLinks.map((link) => {
+        const safeUrl = sanitizeUrl(link.url);
+        return (
+          safeUrl && (
+            <a
+              href={safeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sidebar-primary-link"
+              aria-label={link.ariaLabel}
+              style={`--accent-color:${link.accentColor}`}
+            >
+              <Icon name={link.iconName} size="sm" />
+              {link.name}
+            </a>
+          )
+        );
+      })}
     </div>
   </div>
 
   <nav class="sidebar-nav" aria-label="ページ内ナビゲーション">
     <ul class="sidebar-nav-list">
-      {
-        navSections.map(({ id, label, icon }) => (
-          <li>
-            <a href={`#${id}`} class="nav-link sidebar-nav-link" data-section-link={id}>
-              <Icon name={icon} size="sm" class="sidebar-nav-icon" />
-              {label}
-            </a>
-          </li>
-        ))
-      }
+      {navSections.map(({ id, label, icon }) => (
+        <li>
+          <a href={`#${id}`} class="nav-link sidebar-nav-link" data-section-link={id}>
+            <Icon name={icon} size="sm" class="sidebar-nav-icon" />
+            {label}
+          </a>
+        </li>
+      ))}
     </ul>
   </nav>
 </aside>
@@ -177,7 +173,9 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-section-link]"));
 
   const orderedSections = links
-    .map((link) => (link.dataset.sectionLink ? document.getElementById(link.dataset.sectionLink) : null))
+    .map((link) =>
+      link.dataset.sectionLink ? document.getElementById(link.dataset.sectionLink) : null,
+    )
     .filter((section): section is HTMLElement => section !== null);
 
   const setActive = (id: string) => {
@@ -238,7 +236,8 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     document.addEventListener(
       "scroll",
       () => {
-        const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+        const atBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
         if (atBottom) {
           setActive(lastSection.id);
         }

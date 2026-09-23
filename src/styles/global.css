@@ -44,7 +44,8 @@
   --social-atcoder: oklch(0.54 0.186 86);
   --social-discord: oklch(0.55 0.2 277.1);
 
-  --font-sans: "Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+  --font-sans:
+    "Zen Maru Gothic", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
     "Hiragino Sans", "Yu Gothic", "Segoe UI", Arial, Helvetica, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }

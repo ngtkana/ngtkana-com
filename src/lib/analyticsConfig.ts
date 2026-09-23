@@ -7,8 +7,7 @@
  *
  * Stored in .env as PUBLIC_GA_MEASUREMENT_ID
  */
-export const GA_MEASUREMENT_ID: string =
-  import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? "G-WHPBCWQ4HE";
+export const GA_MEASUREMENT_ID: string = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? "G-WHPBCWQ4HE";
 
 /**
  * Google AdSense Publisher ID

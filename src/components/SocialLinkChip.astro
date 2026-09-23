@@ -24,27 +24,25 @@ if (!safeUrl) {
 }
 ---
 
-{
-  safeUrl && (
-    <a
-      href={safeUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      class:list={["social-link-chip", className]}
-      aria-label={link.ariaLabel}
-      data-social-link
-      data-name={link.name}
-      data-username={link.username}
-      data-url={safeUrl}
-      style={`--accent-color:${link.accentColor}`}
-    >
-      <span class="social-link-chip-icon">
-        <Icon name={link.iconName} size="sm" />
-      </span>
-      <span class="social-link-chip-name">{link.name}</span>
-    </a>
-  )
-}
+{safeUrl && (
+  <a
+    href={safeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={["social-link-chip", className]}
+    aria-label={link.ariaLabel}
+    data-social-link
+    data-name={link.name}
+    data-username={link.username}
+    data-url={safeUrl}
+    style={`--accent-color:${link.accentColor}`}
+  >
+    <span class="social-link-chip-icon">
+      <Icon name={link.iconName} size="sm" />
+    </span>
+    <span class="social-link-chip-name">{link.name}</span>
+  </a>
+)}
 
 <style>
   .social-link-chip {
