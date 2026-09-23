@@ -28,7 +28,7 @@ Prettier の対象外にしたいものは `.gitignore` に書けばよい（Pre
 
 ## PRの運用
 
-レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。マージは通常のマージコミット（squash・rebaseは使わない）。
+レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。PRを出すと `claude-review` ワークフロー（[.github/workflows/claude-review.yml](../.github/workflows/claude-review.yml)）がClaude Codeによる自動レビューコメントを付ける。マージは通常のマージコミット（squash・rebaseは使わない）。
 
 ## テスト方針
 
