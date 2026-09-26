@@ -26,6 +26,16 @@ Prettier の対象外にしたいものは `.gitignore` に書けばよい（Pre
 
 依存関係を追加・削除したら `npm ci` が通ることを確認してからcommitする（`package.json` と `package-lock.json` の不整合をローカルで検知するため）。
 
+## pre-commitフック
+
+commit前に `npm run lint && npm test` が自動で走り、落ちたらcommitが中止される（[.husky/pre-commit](../.husky/pre-commit)）。Huskyが `npm install` の `prepare` スクリプトで仕掛けるので、セットアップの追加手順は無い。
+
+CIに任せず手元で止めているのは、`main` へのマージが即デプロイだから。壊れたものをpushしてからCIで気づくより、commitの時点で弾いたほうが早い。
+
+一時的に迂回したいときは `HUSKY=0 git commit ...` か `git commit --no-verify`。ただし迂回した分はCIで落ちる。
+
+`npm ci` は `.git` が無い環境（Dockerのdepsステージなど）でも通る。Huskyはその場合 `.git can't be found` と表示して正常終了する。
+
 ## PRの運用
 
 レビュアーが常駐しない個人開発なので、マージ前に自分で差分とスクリーンショットを確認する。PRを出すと `claude-review` ワークフロー（[.github/workflows/claude-review.yml](../.github/workflows/claude-review.yml)）がClaude Codeによる自動レビューコメントを付ける。マージは通常のマージコミット（squash・rebaseは使わない）。
