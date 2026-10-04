@@ -1,17 +1,14 @@
 ---
 import Icon from "@/components/Icon.astro";
 import { navSections } from "@/lib/navigation";
-import { sanitizeUrl } from "@/lib/urlUtils";
-import type { SocialLinkData } from "@/components/SocialLinkCard.astro";
 
 interface Props {
   title: string;
   subtitle: string;
   description: string;
-  primaryLinks: SocialLinkData[];
 }
 
-const { title, subtitle, description, primaryLinks } = Astro.props;
+const { title, subtitle, description } = Astro.props;
 ---
 
 <aside id="identity-panel" class="sidebar">
@@ -19,27 +16,6 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     <h1 class="sidebar-name">{title}</h1>
     <p class="sidebar-tagline">{subtitle}</p>
     <p class="sidebar-description">{description}</p>
-
-    <div class="sidebar-primary-links">
-      {primaryLinks.map((link) => {
-        const safeUrl = sanitizeUrl(link.url);
-        return (
-          safeUrl && (
-            <a
-              href={safeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="sidebar-primary-link"
-              aria-label={link.ariaLabel}
-              style={`--accent-color:${link.accentColor}`}
-            >
-              <Icon name={link.iconName} size="sm" />
-              {link.name}
-            </a>
-          )
-        );
-      })}
-    </div>
   </div>
 
   <nav class="sidebar-nav" aria-label="ページ内ナビゲーション">
@@ -85,31 +61,8 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
   }
 
   .sidebar-description {
-    margin: 0 0 1rem;
+    margin: 0;
     color: var(--color-text-secondary);
-  }
-
-  .sidebar-primary-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .sidebar-primary-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid var(--color-border);
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--accent-color);
-    transition: border-color 0.2s ease;
-  }
-
-  .sidebar-primary-link:hover {
-    border-color: var(--accent-color);
   }
 
   .sidebar-nav-list {
@@ -125,6 +78,7 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    min-height: 2.75rem;
     padding: 0.4rem 0.5rem;
     border-radius: 0.5rem;
     color: var(--color-text-secondary);
@@ -152,7 +106,7 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     color: var(--color-accent);
   }
 
-  /* This component doubles as the mobile "About" intro block and the
+  /* This component doubles as the mobile "ごあいさつ" intro block and the
      desktop sticky sidebar; only the nav list's presentation changes
      (MobileNav's hamburger covers section-jumping below 1024px instead). */
   .sidebar-nav {
@@ -188,7 +142,7 @@ const { title, subtitle, description, primaryLinks } = Astro.props;
     });
   };
 
-  // Default to the first section: on initial load the Hero pushes "About"
+  // Default to the first section: on initial load the Hero pushes "ごあいさつ"
   // below the detection band below, so nothing intersects it yet.
   if (orderedSections[0]) {
     setActive(orderedSections[0].id);

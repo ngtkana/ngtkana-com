@@ -134,6 +134,14 @@ a {
   text-decoration: none;
 }
 
+/* Links inside running text must be recognizable without relying on color alone
+   (DADS): underline them. Chips/cards/nav are visually distinct as controls. */
+:where(p, dd) a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 ::selection {
   background: var(--color-accent-soft);
   color: var(--color-text-primary);

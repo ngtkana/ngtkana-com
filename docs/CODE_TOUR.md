@@ -21,10 +21,10 @@
 
 | やりたいこと                       | 編集箇所                                                                                                                                                                                         |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 活動履歴(History)を追加            | `timelineEntries` 配列                                                                                                                                                                           |
+| 活動履歴（あゆみ）を追加           | `timelineEntries` 配列                                                                                                                                                                           |
 | SNSリンクを追加・変更              | `primarySocialLinks` / `communitySocialLinks` / `competitiveSocialLinks`（優先度に応じてどの配列に入れるかは [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) 参照）                                         |
-| フレンドコードを追加・変更         | Friend Codes セクション内の `<FriendCodeItem>`                                                                                                                                                   |
-| プロフィール(dl)の項目を追加・変更 | Profile セクション内の `<ProfileItem>`                                                                                                                                                           |
+| フレンドコードを追加・変更         | フレンドコードのセクション内の `<FriendCodeItem>`                                                                                                                                                |
+| プロフィール(dl)の項目を追加・変更 | プロフィールのセクション内の `<ProfileItem>`                                                                                                                                                     |
 | サイトの説明文・OGP情報を変更      | `src/lib/seo.ts` の `siteConfig`                                                                                                                                                                 |
 | 新しいアイコンを使う               | `src/components/Icon.astro` の `iconifyName` に追加（利用可能なセットは `fa6-solid` / `fa6-brands` / `simple-icons` / `feather`。他のセットを使うなら `@iconify-json/*` を追加インストールする） |
 | ナビのセクションを追加             | `src/lib/navigation.ts` に追加 **かつ** `index.astro` に同じ `id` の `<Section>` を追加                                                                                                          |
