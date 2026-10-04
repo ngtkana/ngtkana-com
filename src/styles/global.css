@@ -117,9 +117,16 @@ body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
-  line-height: 1.5;
+  /* DADS: Japanese body copy at 16px reads best around 1.7 */
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.4;
 }
 
 a {
