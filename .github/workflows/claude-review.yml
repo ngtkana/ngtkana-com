@@ -32,6 +32,8 @@ jobs:
           anthropic_organization_id: 797c3154-972f-4033-b7a7-b1df5629e3d4
           anthropic_service_account_id: svac_0186LW9Ad8LRr72yMD26mNC5
           anthropic_workspace_id: wrkspc_01CQgj6LwnfWxQcWs9dbRJUQ
+          # 失敗したときにエラー本文をログに出す（無いと is_error:true としか出ず原因を追えない）。utavideoと揃える
+          show_full_output: true
           track_progress: true
           prompt: |
             REPO: ${{ github.repository }}
