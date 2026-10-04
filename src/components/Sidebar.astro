@@ -106,7 +106,7 @@ const { title, subtitle, description } = Astro.props;
     color: var(--color-accent);
   }
 
-  /* This component doubles as the mobile "About" intro block and the
+  /* This component doubles as the mobile "ごあいさつ" intro block and the
      desktop sticky sidebar; only the nav list's presentation changes
      (MobileNav's hamburger covers section-jumping below 1024px instead). */
   .sidebar-nav {
@@ -142,7 +142,7 @@ const { title, subtitle, description } = Astro.props;
     });
   };
 
-  // Default to the first section: on initial load the Hero pushes "About"
+  // Default to the first section: on initial load the Hero pushes "ごあいさつ"
   // below the detection band below, so nothing intersects it yet.
   if (orderedSections[0]) {
     setActive(orderedSections[0].id);
