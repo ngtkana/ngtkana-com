@@ -2,8 +2,9 @@
 import { Image } from "astro:assets";
 import heroImage from "@/assets/hero.jpg";
 
-// The `sizes` value below re-states the `.page-shell` grid in src/pages/index.astro
-// (max-width 1280px, padding-inline 2rem, 260px sidebar, 3rem gap) — that file is the
+// The `sizes` value below re-states the `.page-shell` grid and the `.main-column`
+// max-width (48rem) in src/pages/index.astro (max-width 1280px, padding-inline 2rem,
+// 260px sidebar, 3rem gap; padding-inline 1.5rem below 1024px) — that file is the
 // source of truth. Nothing links the two, so changing the grid there without changing
 // this makes the browser pick a wrong-sized candidate for the LCP image, silently.
 ---
@@ -13,7 +14,7 @@ import heroImage from "@/assets/hero.jpg";
   src={heroImage}
   alt="両手でハートマークを作ってほほえむ、ながたかなのイラスト"
   widths={[480, 768, 1080, 1600, 1920]}
-  sizes="(min-width: 1024px) calc(min(100vw, 1280px) - 4rem - 260px - 3rem), calc(100vw - 3rem)"
+  sizes="(min-width: 1024px) min(calc(min(100vw, 1280px) - 4rem - 260px - 3rem), 48rem), min(calc(100vw - 3rem), 48rem)"
   format="webp"
   priority
 />

@@ -111,7 +111,7 @@ const timelineEntries: TimelineEntryData[] = [
   },
   {
     date: "2023年7月27日",
-    title: "Twitch でゲーム配信を初めました",
+    title: "Twitch でゲーム配信を始めました",
     description: "当初は様々なゲームをしておりました。",
   },
   {
@@ -212,7 +212,7 @@ const timelineEntries: TimelineEntryData[] = [
       </Section>
 
       <Section id="history" title="History" animationDelay="animate-delay-300">
-        <div class="timeline-block">
+        <div>
           <TimelineEntry
             title="今日"
             description="みなさまが私と出会えた記念すべき日である可能性が高いわけですね。"
@@ -293,8 +293,14 @@ const timelineEntries: TimelineEntryData[] = [
     }
   }
 
+  /* One shared measure for every section, so hero, cards and prose all
+     start at the same left edge instead of each block picking its own
+     max-width. 48rem keeps 16px Japanese body copy near ~45 chars/line. */
   .main-column {
     display: block;
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
     padding-block: 1.5rem 3rem;
   }
 
@@ -302,11 +308,6 @@ const timelineEntries: TimelineEntryData[] = [
     .main-column {
       padding-block: 2rem 4rem;
     }
-  }
-
-  .prose-block {
-    max-width: 48rem;
-    margin-inline: auto;
   }
 
   .prose-block p {
@@ -349,7 +350,7 @@ const timelineEntries: TimelineEntryData[] = [
   .social-competitive-label {
     margin: 0 0 0.75rem;
     text-align: center;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--color-text-tertiary);
   }
 
@@ -368,11 +369,6 @@ const timelineEntries: TimelineEntryData[] = [
     width: 100%;
     height: 100%;
     border: 0;
-  }
-
-  .timeline-block {
-    max-width: 42rem;
-    margin-inline: auto;
   }
 </style>
 
