@@ -132,13 +132,12 @@ const timelineEntries: TimelineEntryData[] = [
       title={siteConfig.name}
       subtitle="歌い手 | Vocalist"
       description={siteConfig.description}
-      primaryLinks={primarySocialLinks}
     />
 
     <main class="main-column">
       <Hero />
 
-      <Section id="about" title="About">
+      <Section id="about" title="ごあいさつ">
         <div class="prose-block">
           <p>
             2021 年 12 月 YouTube にて活動を開始。
@@ -149,7 +148,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="connect" title="Social Links" animationDelay="animate-delay-50">
+      <Section id="connect" title="リンク" animationDelay="animate-delay-50">
         <div class="social-primary-grid">
           {primarySocialLinks.map((link, index) => (
             <SocialLinkCard
@@ -175,7 +174,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="videos" title="Latest Videos" animationDelay="animate-delay-100">
+      <Section id="videos" title="動画" animationDelay="animate-delay-100">
         <div class="video-frame">
           <YouTubeEmbed
             class="video-iframe"
@@ -185,7 +184,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="profile" title="Profile" animationDelay="animate-delay-150">
+      <Section id="profile" title="プロフィール" animationDelay="animate-delay-150">
         <div class="prose-block">
           <dl class="profile-list">
             <ProfileItem label="身長">ながいです。</ProfileItem>
@@ -201,7 +200,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="friend-codes" title="Friend Codes" animationDelay="animate-delay-200">
+      <Section id="friend-codes" title="フレンドコード" animationDelay="animate-delay-200">
         <div class="prose-block">
           <dl class="profile-list">
             <FriendCodeItem label="Nintendo Switch">SW-7763-1448-3304</FriendCodeItem>
@@ -211,7 +210,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="history" title="History" animationDelay="animate-delay-300">
+      <Section id="history" title="あゆみ" animationDelay="animate-delay-300">
         <div>
           <TimelineEntry
             title="今日"
@@ -229,7 +228,7 @@ const timelineEntries: TimelineEntryData[] = [
         </div>
       </Section>
 
-      <Section id="contact" title="Contact" animationDelay="animate-delay-400">
+      <Section id="contact" title="お問い合わせ" animationDelay="animate-delay-400">
         <div class="prose-block">
           <p>お誘いは、X の DM までぜひです。</p>
           <p>私がフォローしていない方からの DM、気づきづらくて申し訳ないです。</p>
